@@ -1,10 +1,12 @@
-package src.main.java.domain;
+package domain;
+
+import java.util.List;
 
 public class Sector {
 
     String nombre;
     String actividad;
-    list<Miembro> miembros;
+    List<Miembro> miembros;
 
 
 }

@@ -1,4 +1,8 @@
-package src.main.java.domain;
+package domain;
 
-public abstract class Tipo {
+enum Tipo {
+    Gubernamental,
+    ONG,
+    Empresa,
+    Institucion
 }
