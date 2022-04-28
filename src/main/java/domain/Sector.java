@@ -6,7 +6,13 @@ public class Sector {
 
     String nombre;
     String actividad;
-    List<Miembro> miembros;
+    List<Miembro> miembrosList;
+
+    public void agregarMiembro(Miembro miembro){
+
+        this.miembrosList.add(miembro);
+
+    }
 
 
 }

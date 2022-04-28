@@ -1,6 +1,5 @@
 package domain;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,17 +12,25 @@ public class Miembro {
     List<Organizacion> organizacionList = new ArrayList<>();
 
 
-    public <Sectores> obtenerSectores(List<Organizacion> organizacionlist){
-        organizacionList = organizacionlist;
+    public List<Sector> obtenerSectores(List<Organizacion> organizacionlist){
 
-        List<Sectores> sectoresList = new ArrayList<>();
+        List<Sector> sectoresList = new ArrayList<>();
+        //De cada organizacion revisamos los sectores
+        for (Organizacion organizacion : organizacionlist) {
+            //En cada sectores nos fijamos si tiene al miembro
+            for (Sector sector : organizacion.sectorlist){
+                //Si lo tiene, agregamos el sector a la lista
+                if (sector.miembrosList.contains(this)){
 
-        for (int i=0; i<organizacionlist.size();i++) {
+                    sectoresList.add(sector);
 
-            sectoresList.addAll(organizacionlist.sectores);
-            
+                }
+
+            }
+
         }
 
+        return sectoresList;
 
     }
 }
