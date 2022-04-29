@@ -8,9 +8,16 @@ public class Organizacion {
     Tipo tipo;
     ClasificacionOrg clasificacion;
     String ubicacion;
-    List<Sector> sectorlist = new ArrayList<>();
+    List<Sector> sectorlist;
 
-    public List<Miembro> obtenerMiembros(List<Sector> sectorlist){
+    public Organizacion(String razonSocial, Tipo tipo, String ubicacion) {
+        this.razonSocial = razonSocial;
+        this.tipo = tipo;
+        this.ubicacion = ubicacion;
+        this.sectorlist = new ArrayList<>();
+    }
+
+    public List<Miembro> obtenerMiembros(){
         List<Miembro> miembrosList = new ArrayList<>();
         //De cada sector de la organizacion guardamos sus miembros
         for (Sector sector : sectorlist){
@@ -34,5 +41,53 @@ public class Organizacion {
 
     //Y en algun momento va a llamar al metodo del sector que agrega el miembro
 
+    //Podría tambien agregarse en la lista de organizaciones del miembro
+
+    }
+
+    public void agregarSector(Sector sector){
+        this.sectorlist.add(sector);
+    }
+
+
+
+    public String getRazonSocial() {
+        return razonSocial;
+    }
+
+    public void setRazonSocial(String razonSocial) {
+        this.razonSocial = razonSocial;
+    }
+
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
+    }
+
+    public ClasificacionOrg getClasificacion() {
+        return clasificacion;
+    }
+
+    public void setClasificacion(ClasificacionOrg clasificacion) {
+        this.clasificacion = clasificacion;
+    }
+
+    public String getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+
+    public List<Sector> getSectorlist() {
+        return sectorlist;
+    }
+
+    public void setSectorlist(List<Sector> sectorlist) {
+        this.sectorlist = sectorlist;
     }
 }

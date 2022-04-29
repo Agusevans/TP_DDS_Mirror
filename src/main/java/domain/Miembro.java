@@ -9,10 +9,17 @@ public class Miembro {
     String apellido;
     String tipoDocumento;
     int nroDocumento;
-    List<Organizacion> organizacionList = new ArrayList<>();
+    List<Organizacion> organizacionlist;
 
+    public Miembro(String nombre, String apellido, String tipoDocumento, int nroDocumento) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.tipoDocumento = tipoDocumento;
+        this.nroDocumento = nroDocumento;
+        this.organizacionlist = new ArrayList<>();
+    }
 
-    public List<Sector> obtenerSectores(List<Organizacion> organizacionlist){
+    public List<Sector> obtenerSectores(){
 
         List<Sector> sectoresList = new ArrayList<>();
         //De cada organizacion revisamos los sectores
@@ -31,6 +38,50 @@ public class Miembro {
         }
 
         return sectoresList;
+    }
 
+    public void agregarOrganizacion(Organizacion organizacion){
+            this.organizacionlist.add(organizacion);
+    }
+
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getTipoDocumento() {
+        return tipoDocumento;
+    }
+
+    public void setTipoDocumento(String tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
+    }
+
+    public int getNroDocumento() {
+        return nroDocumento;
+    }
+
+    public void setNroDocumento(int nroDocumento) {
+        this.nroDocumento = nroDocumento;
+    }
+
+    public List<Organizacion> getOrganizacionList() {
+        return organizacionlist;
+    }
+
+    public void setOrganizacionList(List<Organizacion> organizacionList) {
+        this.organizacionlist = organizacionList;
     }
 }
