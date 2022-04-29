@@ -37,11 +37,21 @@ public class Organizacion {
     }
 
     public static void aceptarMiembros(){
+
+        Miembro miembro;
+        Sector sector ;
+
     //Va a hacer la aprobacion de la postulacion cargada en el archivo de postulaciones
+    // asumo que el archivo el la combinacion "Miembro-Sector"
+
 
     //Y en algun momento va a llamar al metodo del sector que agrega el miembro
+        sector.miembrosList.add(miembro.nroDocumento);
+        //Podría tambien agregarse en la lista de organizaciones del miembro
+        miembro.organizacionlist.add(this.getRazonSocial());
 
-    //Podría tambien agregarse en la lista de organizaciones del miembro
+
+
 
     }
 
