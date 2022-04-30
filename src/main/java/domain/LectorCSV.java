@@ -1,11 +1,11 @@
 package domain;
+
+import ar.edu.frba.utn.dds.mihuella.fachada.Medible;
+import com.opencsv.CSVReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Collection;
-
-import ar.edu.frba.utn.dds.mihuella.fachada.Medible;
-import com.opencsv.CSVReader;
 
 public class LectorCSV implements LectorArchivos {
 	private String nombre;
