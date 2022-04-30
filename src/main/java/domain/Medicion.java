@@ -1,6 +1,8 @@
 package domain;
 
-public class Medicion {
+import ar.edu.frba.utn.dds.mihuella.fachada.Medible;
+
+public class Medicion implements Medible {
 
     String actividad;
     String tipoConsumo;
@@ -20,6 +22,20 @@ public class Medicion {
         this.alcance = alcance;
     }
 
+    @Override
+    public String getUnidad() {
+        return unidad;
+    }
+
+    @Override
+    public Float getValor() {
+        return consumo.getValor();
+    }
+
+    @Override
+    public String getCategoria() { //TODO: definir que es categoria
+        return null;
+    }
 
     public String getActividad() {
         return actividad;
@@ -35,10 +51,6 @@ public class Medicion {
 
     public void setTipoConsumo(String tipoConsumo) {
         this.tipoConsumo = tipoConsumo;
-    }
-
-    public String getUnidad() {
-        return unidad;
     }
 
     public void setUnidad(String unidad) {

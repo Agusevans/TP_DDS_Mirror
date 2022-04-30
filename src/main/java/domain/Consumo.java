@@ -1,19 +1,19 @@
 package domain;
 
 public class Consumo {
-    int valor;
+    Float valor;
     TipoPeriodicidad periodicidad;
 
-    public Consumo(int valor, TipoPeriodicidad periodicidad) {
+    public Consumo(Float valor, TipoPeriodicidad periodicidad) {
         this.valor = valor;
         this.periodicidad = periodicidad;
     }
 
-    public int getValor() {
+    public Float getValor() {
         return valor;
     }
 
-    public void setValor(int valor) {
+    public void setValor(Float valor) {
         this.valor = valor;
     }
 

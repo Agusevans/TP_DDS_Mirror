@@ -1,14 +1,21 @@
 package domain;
-import java.util.ArrayList;
-import java.util.List;
+import ar.edu.frba.utn.dds.mihuella.fachada.FachadaOrg;
+import ar.edu.frba.utn.dds.mihuella.fachada.Medible;
 
-public class Organizacion {
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+
+public class Organizacion implements FachadaOrg {
 
     String razonSocial;
     TipoOrg tipo;
     ClasificacionOrg clasificacion;
     String ubicacion;
     List<Sector> sectorlist;
+
+    public Organizacion(){};
 
     public Organizacion(String razonSocial, TipoOrg tipo, String ubicacion) {
         this.razonSocial = razonSocial;
@@ -31,9 +38,6 @@ public class Organizacion {
     }
 
     public static void cargarMedicion(List<Medicion> mediciones){
-
-
-
     }
 
     public void aceptarMiembros(){
@@ -57,6 +61,23 @@ public class Organizacion {
         this.sectorlist.add(sector);
     }
 
+    @Override
+    public void cargarParametros(Map<String, Float> parametrosSistema) {
+
+    }
+
+    @Override
+    public Float obtenerHU(Collection<Medible> mediciones) {
+        Float total = 0f;
+        int factorEmision = 0; //TODO revisar por donde entra el factor de emision
+        //El factor de emision probablemente entre por params
+
+        for (Medible medicion:mediciones) {
+            total += medicion.getValor() * factorEmision;
+        }
+
+        return total;
+    }
 
 
     public String getRazonSocial() {
@@ -98,4 +119,6 @@ public class Organizacion {
     public void setSectorlist(List<Sector> sectorlist) {
         this.sectorlist = sectorlist;
     }
+
+
 }
