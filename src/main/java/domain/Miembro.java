@@ -11,6 +11,8 @@ public class Miembro {
     int nroDocumento;
     List<Organizacion> organizacionlist;
 
+    public Miembro(){};
+
     public Miembro(String nombre, String apellido, String tipoDocumento, int nroDocumento) {
         this.nombre = nombre;
         this.apellido = apellido;

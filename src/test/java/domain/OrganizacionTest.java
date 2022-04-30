@@ -1,7 +1,6 @@
 package domain;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,12 +28,12 @@ class OrganizacionTest {
         callcenter = new Sector("Callcenter", "Llamadas");
         callcenter.agregarMiembro(pablo);
 
-        orgEmpresa = new Organizacion("pepito s.a.", Tipo.Empresa, "av. tal 123");
+        orgEmpresa = new Organizacion("pepito s.a.", TipoOrg.Empresa, "av. tal 123");
         ClasificacionOrg clasificacionOrgEmp = new ClasificacionOrg("Empresa Primaria");
         orgEmpresa.setClasificacion(clasificacionOrgEmp);
         orgEmpresa.agregarSector(dev);
 
-        orgONG = new Organizacion("ONG", Tipo.ONG, "av. tal 345");
+        orgONG = new Organizacion("ONG", TipoOrg.ONG, "av. tal 345");
         ClasificacionOrg clasificacionOrgONG = new ClasificacionOrg("ONG");
         orgONG.setClasificacion(clasificacionOrgONG);
         orgONG.agregarSector(callcenter);

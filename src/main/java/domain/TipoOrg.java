@@ -1,6 +1,6 @@
 package domain;
 
-enum Tipo {
+enum TipoOrg {
     Gubernamental,
     ONG,
     Empresa,

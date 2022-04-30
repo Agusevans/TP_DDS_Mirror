@@ -1,4 +1,4 @@
-package lectorArchivos;
+package domain;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -27,21 +27,21 @@ public class LectorCSV {
 			e.printStackTrace();
 		}
 	}
-	private Medicion convertirLinea(String linea) {
+	private Medicion convertirLinea(String[] linea) {
 		Medicion medicion = new Medicion();
 		//cargo la medicion
 		medicion.actividad = linea[0];
 		medicion.tipoConsumo = linea[1];
 		medicion.unidad = linea[2];
 		medicion.consumo.valor = Integer.valueOf(linea[3]);
-		medicion.consumo.periodicidad = linea[4];
+		medicion.consumo.periodicidad = TipoPeriodicidad.valueOf(linea[4]);
 		medicion.periodoDeImputacion = linea[5];
-		medicion.alcance = linea[6];
+		medicion.alcance = TipoAlcance.valueOf(linea[6]);
 		return medicion;
 	}
 	private void cargarMediciones() {
 		String[] linea = LeerLinea();
-		while(!linea.equals(null)) {
+		while(linea != null) {
 			mediciones.add(convertirLinea(linea));
 			linea = LeerLinea();
 		}
@@ -49,7 +49,10 @@ public class LectorCSV {
 	public float leerMedicionTotal() {
 		float total = 0;
 		cargarMediciones();
-		mediciones.forEach((medicion)=> total+=medicion.consumo.valor);
+		for (Medicion medicion:mediciones) {
+			total+=medicion.getConsumo().getValor();
+		}
+
 		return total;
 	}	
 }

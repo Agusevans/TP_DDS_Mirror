@@ -5,12 +5,12 @@ import java.util.List;
 public class Organizacion {
 
     String razonSocial;
-    Tipo tipo;
+    TipoOrg tipo;
     ClasificacionOrg clasificacion;
     String ubicacion;
     List<Sector> sectorlist;
 
-    public Organizacion(String razonSocial, Tipo tipo, String ubicacion) {
+    public Organizacion(String razonSocial, TipoOrg tipo, String ubicacion) {
         this.razonSocial = razonSocial;
         this.tipo = tipo;
         this.ubicacion = ubicacion;
@@ -36,22 +36,20 @@ public class Organizacion {
 
     }
 
-    public static void aceptarMiembros(){
+    public void aceptarMiembros(){
 
-        Miembro miembro;
-        Sector sector ;
+        Miembro miembro = new Miembro();
+        Sector sector = new Sector();
 
     //Va a hacer la aprobacion de la postulacion cargada en el archivo de postulaciones
     // asumo que el archivo el la combinacion "Miembro-Sector"
+    //El archivo tranquilamente puede ser un csv
 
 
     //Y en algun momento va a llamar al metodo del sector que agrega el miembro
-        sector.miembrosList.add(miembro.nroDocumento);
+        sector.miembrosList.add(miembro);
         //Podría tambien agregarse en la lista de organizaciones del miembro
-        miembro.organizacionlist.add(this.getRazonSocial());
-
-
-
+        miembro.organizacionlist.add(this);
 
     }
 
@@ -69,11 +67,11 @@ public class Organizacion {
         this.razonSocial = razonSocial;
     }
 
-    public Tipo getTipo() {
+    public TipoOrg getTipoOrg() {
         return tipo;
     }
 
-    public void setTipo(Tipo tipo) {
+    public void setTipoOrg(TipoOrg tipo) {
         this.tipo = tipo;
     }
 

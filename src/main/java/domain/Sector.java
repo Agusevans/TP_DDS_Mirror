@@ -9,6 +9,8 @@ public class Sector {
     String actividad;
     List<Miembro> miembrosList;
 
+    public Sector(){};
+
     public Sector(String nombre, String actividad) {
         this.nombre = nombre;
         this.actividad = actividad;
