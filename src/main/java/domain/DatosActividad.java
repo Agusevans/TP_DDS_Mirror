@@ -2,29 +2,31 @@ package domain;
 
 import ar.edu.frba.utn.dds.mihuella.fachada.Medible;
 
-public class Medicion implements Medible {
+public class DatosActividad implements Medible {
 
     String actividad;
     String tipoConsumo;
-    String unidad;
     Consumo consumo;
     String periodoDeImputacion;
     TipoAlcance alcance;
 
-    public Medicion(){};
+    public DatosActividad(){};
 
-    public Medicion(String actividad, String tipoConsumo, String unidad, Consumo consumo, String periodoDeImputacion, TipoAlcance alcance) {
+    public DatosActividad(String actividad, String tipoConsumo, Consumo consumo, String periodoDeImputacion, TipoAlcance alcance) {
         this.actividad = actividad;
         this.tipoConsumo = tipoConsumo;
-        this.unidad = unidad;
         this.consumo = consumo;
         this.periodoDeImputacion = periodoDeImputacion;
         this.alcance = alcance;
     }
 
+
     @Override
     public String getUnidad() {
-        return unidad;
+
+        this.tipoConsumo.getunidad();
+
+        return null;
     }
 
     @Override
@@ -51,10 +53,6 @@ public class Medicion implements Medible {
 
     public void setTipoConsumo(String tipoConsumo) {
         this.tipoConsumo = tipoConsumo;
-    }
-
-    public void setUnidad(String unidad) {
-        this.unidad = unidad;
     }
 
     public Consumo getConsumo() {

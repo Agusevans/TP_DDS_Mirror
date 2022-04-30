@@ -10,6 +10,7 @@ public class Miembro {
     String tipoDocumento;
     int nroDocumento;
     List<Organizacion> organizacionlist;
+    List<DatosActividad> datosActividadList;
 
     public Miembro(){};
 
@@ -46,6 +47,13 @@ public class Miembro {
             this.organizacionlist.add(organizacion);
     }
 
+    public void cargarMedicion(List<DatosActividad> mediciones, String organizacion) {
+
+        Organizacion org = new Organizacion(); //Cuando haya persistencia, el parametro "organizacion" sera la ID de la organizacion
+
+        org.cargarMedicion(mediciones);
+
+    }
 
     public String getNombre() {
         return nombre;

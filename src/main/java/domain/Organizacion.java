@@ -1,4 +1,5 @@
 package domain;
+
 import ar.edu.frba.utn.dds.mihuella.fachada.FachadaOrg;
 import ar.edu.frba.utn.dds.mihuella.fachada.Medible;
 
@@ -14,6 +15,7 @@ public class Organizacion implements FachadaOrg {
     ClasificacionOrg clasificacion;
     String ubicacion;
     List<Sector> sectorlist;
+    List<DatosActividad> datosActividadList;
 
     public Organizacion(){};
 
@@ -37,23 +39,39 @@ public class Organizacion implements FachadaOrg {
 
     }
 
-    public static void cargarMedicion(List<Medicion> mediciones){
+    public void cargarMedicion(List<DatosActividad> mediciones){
+
+        this.datosActividadList.addAll(mediciones);
+
     }
 
-    public void aceptarMiembros(){
+    public void aceptarMiembros() {
+
+        LectorCSV lector = new LectorCSV("Arch", ',');
+
+        String[] linea = lector.LeerLinea();
+
+        while(linea != null) {
 
         Miembro miembro = new Miembro();
+        miembro.setNombre(linea[0]);
+        miembro.setApellido(linea[1]);
+        miembro.setTipoDocumento(linea[2]);
+        miembro.setNroDocumento(Integer.parseInt(linea[3]));
+
         Sector sector = new Sector();
+        sector.setNombre(linea[4]);
+        sector.setActividad(linea[5]);
 
     //Va a hacer la aprobacion de la postulacion cargada en el archivo de postulaciones
     // asumo que el archivo el la combinacion "Miembro-Sector"
     //El archivo tranquilamente puede ser un csv
-
-
     //Y en algun momento va a llamar al metodo del sector que agrega el miembro
         sector.miembrosList.add(miembro);
         //Podría tambien agregarse en la lista de organizaciones del miembro
         miembro.organizacionlist.add(this);
+
+        }
 
     }
 
@@ -78,7 +96,6 @@ public class Organizacion implements FachadaOrg {
 
         return total;
     }
-
 
     public String getRazonSocial() {
         return razonSocial;
@@ -117,7 +134,7 @@ public class Organizacion implements FachadaOrg {
     }
 
     public void setSectorlist(List<Sector> sectorlist) {
-        this.sectorlist = sectorlist;
+        this.sectorlist.addAll(sectorlist);
     }
 
 

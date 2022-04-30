@@ -4,7 +4,6 @@ import ar.edu.frba.utn.dds.mihuella.fachada.FachadaOrg;
 import ar.edu.frba.utn.dds.mihuella.fachada.Medible;
 import domain.LectorArchivos;
 import domain.LectorCSV;
-import domain.Medicion;
 import domain.Organizacion;
 import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
