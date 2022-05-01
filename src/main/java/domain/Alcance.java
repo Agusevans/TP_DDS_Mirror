@@ -1,6 +1,6 @@
 package domain;
 
-public enum TipoAlcance {
+public enum Alcance {
     Directa,
     Indirecta,
     NoControladas,

@@ -43,11 +43,12 @@ public class LectorCSV implements LectorArchivos {
 		DatosActividad datosActividad = new DatosActividad();
 		//cargo la datosActividad
 		datosActividad.actividad = linea[0];
-		datosActividad.tipoConsumo = linea[1];
-		datosActividad.consumo.valor = Float.valueOf(linea[2]);
-		datosActividad.consumo.periodicidad = TipoPeriodicidad.valueOf(linea[3]);
-		datosActividad.periodoDeImputacion = linea[4];
-		datosActividad.alcance = TipoAlcance.valueOf(linea[5]);
+		datosActividad.tipoConsumo.tipo = linea[1];
+		datosActividad.tipoConsumo.unidad = Unidad.valueOf(linea[2]);
+		datosActividad.consumo.valor = Float.valueOf(linea[3]);
+		datosActividad.consumo.periodicidad = Periodicidad.valueOf(linea[4]);
+		datosActividad.periodoDeImputacion = linea[5];
+		datosActividad.alcance = Alcance.valueOf(linea[6]);
 		return datosActividad;
 	}
 

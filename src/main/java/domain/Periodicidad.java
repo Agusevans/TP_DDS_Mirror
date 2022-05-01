@@ -1,6 +1,6 @@
 package domain;
 
-public enum TipoPeriodicidad {
+public enum Periodicidad {
     Anual,
     Mensual
 }

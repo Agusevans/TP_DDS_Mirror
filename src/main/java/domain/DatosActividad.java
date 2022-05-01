@@ -5,14 +5,14 @@ import ar.edu.frba.utn.dds.mihuella.fachada.Medible;
 public class DatosActividad implements Medible {
 
     String actividad;
-    String tipoConsumo;
+    TipoConsumo tipoConsumo;
     Consumo consumo;
     String periodoDeImputacion;
-    TipoAlcance alcance;
+    Alcance alcance;
 
     public DatosActividad(){};
 
-    public DatosActividad(String actividad, String tipoConsumo, Consumo consumo, String periodoDeImputacion, TipoAlcance alcance) {
+    public DatosActividad(String actividad, TipoConsumo tipoConsumo, Consumo consumo, String periodoDeImputacion, Alcance alcance) {
         this.actividad = actividad;
         this.tipoConsumo = tipoConsumo;
         this.consumo = consumo;
@@ -23,10 +23,7 @@ public class DatosActividad implements Medible {
 
     @Override
     public String getUnidad() {
-
-        this.tipoConsumo.getunidad();
-
-        return null;
+        return String.valueOf(tipoConsumo.getUnidad());
     }
 
     @Override
@@ -39,43 +36,5 @@ public class DatosActividad implements Medible {
         return null;
     }
 
-    public String getActividad() {
-        return actividad;
-    }
 
-    public void setActividad(String actividad) {
-        this.actividad = actividad;
-    }
-
-    public String getTipoConsumo() {
-        return tipoConsumo;
-    }
-
-    public void setTipoConsumo(String tipoConsumo) {
-        this.tipoConsumo = tipoConsumo;
-    }
-
-    public Consumo getConsumo() {
-        return consumo;
-    }
-
-    public void setConsumo(Consumo consumo) {
-        this.consumo = consumo;
-    }
-
-    public String getPeriodoDeImputacion() {
-        return periodoDeImputacion;
-    }
-
-    public void setPeriodoDeImputacion(String periodoDeImputacion) {
-        this.periodoDeImputacion = periodoDeImputacion;
-    }
-
-    public TipoAlcance getAlcance() {
-        return alcance;
-    }
-
-    public void setAlcance(TipoAlcance alcance) {
-        this.alcance = alcance;
-    }
 }

@@ -105,11 +105,11 @@ public class Organizacion implements FachadaOrg {
         this.razonSocial = razonSocial;
     }
 
-    public TipoOrg getTipoOrg() {
+    public TipoOrg getTipo() {
         return tipo;
     }
 
-    public void setTipoOrg(TipoOrg tipo) {
+    public void setTipo(TipoOrg tipo) {
         this.tipo = tipo;
     }
 
@@ -134,8 +134,14 @@ public class Organizacion implements FachadaOrg {
     }
 
     public void setSectorlist(List<Sector> sectorlist) {
-        this.sectorlist.addAll(sectorlist);
+        this.sectorlist = sectorlist;
     }
 
+    public List<DatosActividad> getDatosActividadList() {
+        return datosActividadList;
+    }
 
+    public void setDatosActividadList(List<DatosActividad> datosActividadList) {
+        this.datosActividadList = datosActividadList;
+    }
 }

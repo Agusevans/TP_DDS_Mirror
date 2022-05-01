@@ -87,11 +87,19 @@ public class Miembro {
         this.nroDocumento = nroDocumento;
     }
 
-    public List<Organizacion> getOrganizacionList() {
+    public List<Organizacion> getOrganizacionlist() {
         return organizacionlist;
     }
 
-    public void setOrganizacionList(List<Organizacion> organizacionList) {
-        this.organizacionlist = organizacionList;
+    public void setOrganizacionlist(List<Organizacion> organizacionlist) {
+        this.organizacionlist = organizacionlist;
+    }
+
+    public List<DatosActividad> getDatosActividadList() {
+        return datosActividadList;
+    }
+
+    public void setDatosActividadList(List<DatosActividad> datosActividadList) {
+        this.datosActividadList = datosActividadList;
     }
 }
