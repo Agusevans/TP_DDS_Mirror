@@ -3,6 +3,7 @@ package domain;
 import ar.edu.frba.utn.dds.mihuella.fachada.FachadaOrg;
 import ar.edu.frba.utn.dds.mihuella.fachada.Medible;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -45,32 +46,33 @@ public class Organizacion implements FachadaOrg {
 
     }
 
-    public void aceptarMiembros() {
+    public void aceptarMiembros(String archivo) {
 
-        LectorCSV lector = new LectorCSV("Arch", ',');
+        LectorCSV lector = new LectorCSV(archivo, ',');
 
         String[] linea = lector.LeerLinea();
 
         while(linea != null) {
 
-        Miembro miembro = new Miembro();
-        miembro.setNombre(linea[0]);
-        miembro.setApellido(linea[1]);
-        miembro.setTipoDocumento(linea[2]);
-        miembro.setNroDocumento(Integer.parseInt(linea[3]));
+            Miembro miembro = new Miembro();
+            miembro.setNombre(linea[0]);
+            miembro.setApellido(linea[1]);
+            miembro.setTipoDocumento(linea[2]);
+            miembro.setNroDocumento(Integer.parseInt(linea[3]));
 
-        Sector sector = new Sector();
-        sector.setNombre(linea[4]);
-        sector.setActividad(linea[5]);
+            Sector sector = new Sector();
+            sector.setNombre(linea[4]);
+            sector.setActividad(linea[5]);
 
-    //Va a hacer la aprobacion de la postulacion cargada en el archivo de postulaciones
-    // asumo que el archivo el la combinacion "Miembro-Sector"
-    //El archivo tranquilamente puede ser un csv
-    //Y en algun momento va a llamar al metodo del sector que agrega el miembro
-        sector.miembrosList.add(miembro);
-        //Podría tambien agregarse en la lista de organizaciones del miembro
-        miembro.organizacionlist.add(this);
+        //Va a hacer la aprobacion de la postulacion cargada en el archivo de postulaciones
+        // asumo que el archivo el la combinacion "Miembro-Sector"
+        //El archivo tranquilamente puede ser un csv
+        //Y en algun momento va a llamar al metodo del sector que agrega el miembro
+            sector.miembrosList.add(miembro);
+            //Podría tambien agregarse en la lista de organizaciones del miembro
+            miembro.organizacionlist.add(this);
 
+            linea = lector.LeerLinea();
         }
 
     }
@@ -87,7 +89,7 @@ public class Organizacion implements FachadaOrg {
     @Override
     public Float obtenerHU(Collection<Medible> mediciones) {
         Float total = 0f;
-        int factorEmision = 0; //TODO revisar por donde entra el factor de emision
+        int factorEmision = 2; //TODO revisar por donde entra el factor de emision
         //El factor de emision probablemente entre por params
 
         for (Medible medicion:mediciones) {

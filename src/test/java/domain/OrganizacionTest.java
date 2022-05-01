@@ -9,10 +9,14 @@ import java.util.List;
 
 class OrganizacionTest {
 
+    //Tests de la parte "organizativa/organigrama (miembro-sector-org)" de una Organizacion
+
     Organizacion orgEmpresa;
     Organizacion orgONG;
+    Organizacion orgSinMiembros;
     Sector dev;
     Sector callcenter;
+    Sector sectorSinMiembros;
     Miembro pablo;
     Miembro jose;
 
@@ -38,11 +42,16 @@ class OrganizacionTest {
         orgONG.setClasificacion(clasificacionOrgONG);
         orgONG.agregarSector(callcenter);
 
+        orgSinMiembros = new Organizacion("org sin miembros", TipoOrg.Empresa, "calle 1");
+        sectorSinMiembros = new Sector("Sector vacio", "por asignar miembros");
+        orgSinMiembros.agregarSector(sectorSinMiembros);
+
         pablo.agregarOrganizacion(orgEmpresa);
         pablo.agregarOrganizacion(orgONG);
         jose.agregarOrganizacion(orgEmpresa);
     }
 
+    //Testeo de funcion obtenerMiembros()
     @Test
     void obtenerMiembrosDeUnaOrganizacion() {
         List<Miembro> miembros = new ArrayList<>();
@@ -51,12 +60,37 @@ class OrganizacionTest {
         Assert.assertEquals(miembros, orgEmpresa.obtenerMiembros());
     }
 
+    //Testeo de funcion obtenerSectores()
     @Test
     void obtenerSectoresDeMiembro(){
         List<Sector> sectores = new ArrayList<>();
         sectores.add(dev);
         sectores.add(callcenter);
         Assert.assertEquals(sectores, pablo.obtenerSectores());
+    }
+
+    //Testeo de funcion aceptarMiembro(archivo)
+    @Test
+    void miembroAceptadoReflejadoEnSector(){
+        //1ro: crear el archivo de postulaciones
+        String archivo = "";
+
+        //Se asume que el miembro en el archivo entra al sectorSinMiembros en la orgSinMiembros
+        orgSinMiembros.aceptarMiembros(archivo);
+
+        Assert.assertFalse(sectorSinMiembros.miembrosList.isEmpty());
+    }
+
+    //Testeo de funcion aceptarMiembro(archivo)
+    @Test
+    void miembroAceptadoGuardaSuOrg(){
+        //1ro: crear el archivo de postulaciones
+        String archivo = "";
+
+        //Se asume que el miembro jose entra al sectorSinMiembros en la orgSinMiembros
+        orgSinMiembros.aceptarMiembros(archivo);
+
+        Assert.assertTrue(jose.organizacionlist.contains(orgSinMiembros));
     }
 
 }

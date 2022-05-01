@@ -4,6 +4,8 @@ public class Consumo {
     Float valor;
     Periodicidad periodicidad;
 
+    public Consumo(){};
+
     public Consumo(Float valor, Periodicidad periodicidad) {
         this.valor = valor;
         this.periodicidad = periodicidad;

@@ -5,6 +5,12 @@ public class TipoConsumo {
     String tipo;
     Unidad unidad;
 
+    public TipoConsumo(){};
+    public TipoConsumo(String tipo, Unidad unidad) {
+        this.tipo = tipo;
+        this.unidad = unidad;
+    }
+
     public String getTipo() {
         return tipo;
     }

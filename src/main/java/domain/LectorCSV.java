@@ -19,6 +19,7 @@ public class LectorCSV implements LectorArchivos {
 
 	public Collection<Medible> mediciones = new ArrayList<>();
 
+	//Segun entendimiento, el archivo al crearse el objeto LectorCSV, queda abierto durante to-do el contexto
 	public LectorCSV(String nombreArchivo, char separadorArchivo) {
 		nombre = nombreArchivo;
 		separador = separadorArchivo; 
@@ -30,7 +31,6 @@ public class LectorCSV implements LectorArchivos {
 		}
 	}
 
-	//TODO: leerLinea no deberia recibir el archivo que entró en leerMediciones (o simplemente recibir arch)?
 	public String[] LeerLinea() {
 		try {
 		return reader.readNext();
@@ -52,7 +52,6 @@ public class LectorCSV implements LectorArchivos {
 		return datosActividad;
 	}
 
-	//TODO: leerMediciones no deberia recibir un archivo?
 	@Override
 	public Collection<Medible> leerMediciones() {
 
