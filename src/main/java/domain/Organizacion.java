@@ -3,7 +3,6 @@ package domain;
 import ar.edu.frba.utn.dds.mihuella.fachada.FachadaOrg;
 import ar.edu.frba.utn.dds.mihuella.fachada.Medible;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -18,7 +17,10 @@ public class Organizacion implements FachadaOrg {
     List<Sector> sectorlist;
     List<DatosActividad> datosActividadList;
 
-    public Organizacion(){};
+    public Organizacion() {
+    }
+
+    ;
 
     public Organizacion(String razonSocial, TipoOrg tipo, String ubicacion) {
         this.razonSocial = razonSocial;
@@ -27,10 +29,10 @@ public class Organizacion implements FachadaOrg {
         this.sectorlist = new ArrayList<>();
     }
 
-    public List<Miembro> obtenerMiembros(){
+    public List<Miembro> obtenerMiembros() {
         List<Miembro> miembrosList = new ArrayList<>();
         //De cada sector de la organizacion guardamos sus miembros
-        for (Sector sector : sectorlist){
+        for (Sector sector : sectorlist) {
             //Si lo tiene, agregamos el sector a la lista
             miembrosList.addAll(sector.miembrosList);
 
@@ -40,9 +42,16 @@ public class Organizacion implements FachadaOrg {
 
     }
 
-    public void cargarMedicion(List<DatosActividad> mediciones){
+    public void cargarMedicion(List<DatosActividad> mediciones) {
 
         this.datosActividadList.addAll(mediciones);
+
+    }
+
+    public void aceptarMiembros(Miembro miembro, Sector sector){
+
+        sector.miembrosList.add(miembro);
+        miembro.organizacionlist.add(this);
 
     }
 
