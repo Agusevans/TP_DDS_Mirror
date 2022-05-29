@@ -3,8 +3,8 @@ package domain;
 public class TipoConsumo {
 
     String tipo;
-    Unidad unidad;
-    Float valor;
+    static Unidad unidad;
+    static Float valor;
     Periodicidad periodicidad;
 
     public TipoConsumo(){};
@@ -23,7 +23,7 @@ public class TipoConsumo {
         this.tipo = tipo;
     }
 
-    public Unidad getUnidad() {
+    public static Unidad getUnidad() {
         return unidad;
     }
 
@@ -31,7 +31,7 @@ public class TipoConsumo {
         this.unidad = unidad;
     }
 
-    public Float getValor() {
+    public static Float getValor() {
         return valor;
     }
 

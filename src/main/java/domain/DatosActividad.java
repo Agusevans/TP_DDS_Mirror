@@ -27,12 +27,12 @@ public class DatosActividad implements Medible {
 
     @Override
     public String getUnidad() {
-        return String.valueOf(tipoConsumo.getUnidad());
+        return String.valueOf(TipoConsumo.getUnidad());
     }
 
     @Override
     public Float getValor() {
-        return consumo.getValor();
+        return TipoConsumo.getValor();
     }
 
     @Override
