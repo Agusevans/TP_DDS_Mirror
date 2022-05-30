@@ -41,13 +41,13 @@ public class LectorCSV implements LectorArchivos {
 	}
 	public DatosActividad convertirLinea(String[] linea) {
 		DatosActividad datosActividad = new DatosActividad();
-		TipoConsumo consumo= new TipoConsumo();
+		TipoConsumo consumo = new TipoConsumo();
 		//cargo la datosActividad
 		datosActividad.actividad = linea[0];
-		consumo.tipo = linea[1];
-		consumo.unidad = Unidad.valueOf(linea[2]);
-		consumo.valor = Float.valueOf(linea[3]);
-		consumo.periodicidad = Periodicidad.valueOf(linea[4]);
+		consumo.setTipo(String.valueOf(linea[1]));
+		consumo.setUnidad(Unidad.valueOf(linea[2]));
+		consumo.setValor(Float.valueOf(linea[3]));
+		consumo.setPeriodicidad(Periodicidad.valueOf(linea[4]));
 		datosActividad.tiposConsumo.add(consumo);
 		datosActividad.periodoDeImputacion = linea[5];
 		datosActividad.alcance = Alcance.valueOf(linea[6]);

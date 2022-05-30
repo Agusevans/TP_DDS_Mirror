@@ -1,6 +1,6 @@
 package domain;
 
 public class TransporteContratado extends MedioTransporte {
-    TipoContratado tipo;
+    Organizacion.TipoContratado tipo;
 
 }
