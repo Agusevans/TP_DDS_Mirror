@@ -11,7 +11,7 @@ public class Miembro {
     int nroDocumento;
     List<Organizacion> organizacionlist;
     List<DatosActividad> datosActividadList;
-    Trayecto trayecto;
+    ArrayList<Trayecto> trayectos;
     public Miembro(){};
 
     public Miembro(String nombre, String apellido, String tipoDocumento, int nroDocumento) {
@@ -20,7 +20,7 @@ public class Miembro {
         this.tipoDocumento = tipoDocumento;
         this.nroDocumento = nroDocumento;
         this.organizacionlist = new ArrayList<>();
-        this.trayecto = new Trayecto();
+        this.trayectos = new ArrayList<Trayecto>();
     }
 
     public List<Sector> obtenerSectores(){
@@ -53,21 +53,35 @@ public class Miembro {
         Organizacion org = new Organizacion(); //Cuando haya persistencia, el parametro "organizacion" sera la ID de la organizacion
         org.cargarMedicion(mediciones);
     }
-    public void agregarTramo(Tramo newTramo){
-        trayecto.tramos.add(newTramo);
+    public void agregarTramo(Trayecto trayecto){
+        trayectos.add(trayecto);
     }
-    public ArrayList<float> calcularHUPorTramo( float factorEmision){
+    public ArrayList<float> calcularHUPorTramo(Trayecto trayecto, float factorEmision){
         ArrayList<float> huellaPorTramo = new ArrayList<float>();
         trayecto.tramos.forEach(tramo ->{
             huellaPorTramo.add(tramo.calcularTramo()*factorEmision);
         });
         return huellaPorTramo;
     }
+    public ArrayList<float> calcularHUPorTrayecto(float factorEmision){
+        ArrayList<float> totalPorTrayecto = new ArrayList<float>();
+        ArrayList<float> totalPorTramo = new ArrayList<float>();
+        float total= 0;
+        for (int i = 0; i < trayectos.size() ; i++) {
+            totalPorTramo = calcularHUPorTramo(trayectos.get(i),factorEmision );
+            for (int j = 0; j < totalPorTramo.size(); j++) {
+                total +=totalPorTramo.get(j);
+            }
+            totalPorTrayecto.add(total);
+            total = 0;
+        }
+        return totalPorTrayecto;
+    }
     public void calcularHU(float factorEmision){
         float total = 0;
-        List<float> huellaPorTramo = calcularHUPorTramo(factorEmision);
-        for(int i = 0; i < huellaPorTramo.size();i++){
-            total += huellaPorTramo.get(i);
+        List<float> huellaPorTrayecto = calcularHUPorTrayecto(factorEmision);
+        for(int i = 0; i < huellaPorTrayecto.size();i++){
+            total += huellaPorTrayecto.get(i);
         }
         System.out.println("Huella Carbono total:"+ String.valueOf(total));
     }
