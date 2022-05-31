@@ -21,8 +21,9 @@ public class Sector {
         this.miembrosList.add(miembro);
     }
 
+    public boolean esMiembro(Miembro miembro){ return miembrosList.contains(miembro); }
 
-
+    //Getters y Setters//
     public String getNombre() {
         return nombre;
     }

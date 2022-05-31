@@ -17,10 +17,7 @@ public class Organizacion implements FachadaOrg {
     List<Sector> sectorlist;
     List<DatosActividad> datosActividadList;
 
-    public Organizacion() {
-    }
-
-    ;
+    public Organizacion(){};
 
     public Organizacion(String razonSocial, TipoOrg tipo, String ubicacion) {
         this.razonSocial = razonSocial;
@@ -31,28 +28,20 @@ public class Organizacion implements FachadaOrg {
 
     public List<Miembro> obtenerMiembros() {
         List<Miembro> miembrosList = new ArrayList<>();
-        //De cada sector de la organizacion guardamos sus miembros
         for (Sector sector : sectorlist) {
-            //Si lo tiene, agregamos el sector a la lista
             miembrosList.addAll(sector.miembrosList);
-
         }
 
         return miembrosList;
-
     }
 
     public void cargarMedicion(List<DatosActividad> mediciones) {
-
         this.datosActividadList.addAll(mediciones);
-
     }
 
-    public void aceptarMiembros(Miembro miembro, Sector sector){
-
-        sector.miembrosList.add(miembro);
-        miembro.organizacionlist.add(this);
-
+    public void aceptarMiembro(Miembro miembro, Sector sector){
+        sector.agregarMiembro(miembro);
+        miembro.agregarOrganizacion(this);
     }
 
     public void aceptarMiembros(String archivo) {
@@ -77,13 +66,10 @@ public class Organizacion implements FachadaOrg {
         // asumo que el archivo el la combinacion "Miembro-Sector"
         //El archivo tranquilamente puede ser un csv
         //Y en algun momento va a llamar al metodo del sector que agrega el miembro
-            sector.miembrosList.add(miembro);
-            //Podría tambien agregarse en la lista de organizaciones del miembro
-            miembro.organizacionlist.add(this);
+            this.aceptarMiembro(miembro, sector);
 
             linea = lector.LeerLinea();
         }
-
     }
 
     public void agregarSector(Sector sector){
@@ -92,7 +78,7 @@ public class Organizacion implements FachadaOrg {
 
     @Override
     public void cargarParametros(Map<String, Float> parametrosSistema) {
-
+        //TODO
     }
 
     @Override
@@ -144,7 +130,7 @@ public class Organizacion implements FachadaOrg {
     public void setDatosActividadList(List<DatosActividad> datosActividadList) {
         this.datosActividadList = datosActividadList;
     }
-    public enum TipoContratado {
+    public enum TipoContratado { //Y esto de donde salio??
         taxi,
         remis
     }
