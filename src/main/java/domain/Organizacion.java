@@ -93,6 +93,17 @@ public class Organizacion implements FachadaOrg {
         return total;
     }
 
+    public float obtenerHUMiembros(int factorEmision) {
+        float huMiembros = 0f;
+
+        for (Sector sector : sectorlist){
+            for (Miembro miebro : sector.getMiembrosList()){
+                // huMiembros += miembro.calcularHU(factorEmision, this);
+            }
+        }
+        return huMiembros;
+    }
+
     //Getters & setters
     public String getRazonSocial() {
         return razonSocial;
