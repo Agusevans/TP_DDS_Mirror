@@ -11,7 +11,7 @@ public class Miembro {
     int nroDocumento;
     List<Organizacion> organizacionlist;
     List<DatosActividad> datosActividadList;
-
+    Trayecto trayecto;
     public Miembro(){};
 
     public Miembro(String nombre, String apellido, String tipoDocumento, int nroDocumento) {
@@ -20,6 +20,7 @@ public class Miembro {
         this.tipoDocumento = tipoDocumento;
         this.nroDocumento = nroDocumento;
         this.organizacionlist = new ArrayList<>();
+        this.trayecto = new Trayecto();
     }
 
     public List<Sector> obtenerSectores(){
@@ -50,55 +51,58 @@ public class Miembro {
     public void cargarMedicion(List<DatosActividad> mediciones, String organizacion) {
 
         Organizacion org = new Organizacion(); //Cuando haya persistencia, el parametro "organizacion" sera la ID de la organizacion
-
         org.cargarMedicion(mediciones);
-
     }
-
+    public void agregarTramo(Tramo newTramo){
+        trayecto.tramos.add(newTramo);
+    }
+    public ArrayList<float> calcularHUPorTramo( float factorEmision){
+        ArrayList<float> huellaPorTramo = new ArrayList<float>();
+        trayecto.tramos.forEach(tramo ->{
+            huellaPorTramo.add(tramo.calcularTramo()*factorEmision);
+        });
+        return huellaPorTramo;
+    }
+    public void calcularHU(float factorEmision){
+        float total = 0;
+        List<float> huellaPorTramo = calcularHUPorTramo(factorEmision);
+        for(int i = 0; i < huellaPorTramo.size();i++){
+            total += huellaPorTramo.get(i);
+        }
+        System.out.println("Huella Carbono total:"+ String.valueOf(total));
+    }
+    //getters & setters
     public String getNombre() {
         return nombre;
     }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-    public String getApellido() {
-        return apellido;
-    }
-
+    public String getApellido() { return apellido; }
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
-
     public String getTipoDocumento() {
         return tipoDocumento;
     }
-
     public void setTipoDocumento(String tipoDocumento) {
         this.tipoDocumento = tipoDocumento;
     }
-
     public int getNroDocumento() {
         return nroDocumento;
     }
-
     public void setNroDocumento(int nroDocumento) {
         this.nroDocumento = nroDocumento;
     }
-
     public List<Organizacion> getOrganizacionlist() {
         return organizacionlist;
     }
-
     public void setOrganizacionlist(List<Organizacion> organizacionlist) {
         this.organizacionlist = organizacionlist;
     }
-
     public List<DatosActividad> getDatosActividadList() {
         return datosActividadList;
     }
-
     public void setDatosActividadList(List<DatosActividad> datosActividadList) {
         this.datosActividadList = datosActividadList;
     }

@@ -104,58 +104,46 @@ public class Organizacion implements FachadaOrg {
         for (Medible medicion:mediciones) {
             total += medicion.getValor() * factorEmision;
         }
-
         return total;
     }
 
+    //Getters & setters
     public String getRazonSocial() {
         return razonSocial;
     }
-
     public void setRazonSocial(String razonSocial) {
         this.razonSocial = razonSocial;
     }
-
     public TipoOrg getTipo() {
         return tipo;
     }
-
     public void setTipo(TipoOrg tipo) {
         this.tipo = tipo;
     }
-
     public ClasificacionOrg getClasificacion() {
         return clasificacion;
     }
-
     public void setClasificacion(ClasificacionOrg clasificacion) {
         this.clasificacion = clasificacion;
     }
-
     public String getUbicacion() {
         return ubicacion;
     }
-
     public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
     }
-
     public List<Sector> getSectorlist() {
         return sectorlist;
     }
-
     public void setSectorlist(List<Sector> sectorlist) {
         this.sectorlist = sectorlist;
     }
-
     public List<DatosActividad> getDatosActividadList() {
         return datosActividadList;
     }
-
     public void setDatosActividadList(List<DatosActividad> datosActividadList) {
         this.datosActividadList = datosActividadList;
     }
-
     public enum TipoContratado {
         taxi,
         remis
