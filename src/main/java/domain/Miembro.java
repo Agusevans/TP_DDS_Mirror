@@ -74,14 +74,28 @@ public class Miembro {
         return totalPorTrayecto;
     }
 
-    public void calcularHU(float factorEmision){
+    public float calcularHU(float factorEmision){
         float total = 0;
         List<Float> huellaPorTrayecto = calcularHUPorTrayecto(factorEmision);
         for(int i = 0; i < huellaPorTrayecto.size();i++){
             total += huellaPorTrayecto.get(i);
         }
-        System.out.println("Huella Carbono total:"+ String.valueOf(total));
+
+        return total;
+
     }
+
+    public void mostrarHUMiembro(float factorEmision){
+
+        float huTotal = 0;
+
+        huTotal = this.calcularHU(factorEmision);
+
+        System.out.println("Huella Carbono total:"+ String.valueOf(huTotal));
+
+    }
+
+
 
     //getters & setters
     public String getNombre() {

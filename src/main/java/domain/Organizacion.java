@@ -104,6 +104,24 @@ public class Organizacion implements FachadaOrg {
         return huMiembros;
     }
 
+    /* Se debe permitir la visualización de un indicador de HC / Cant. de miembros por cada uno de los sectores/áreas de las Organizaciones. */
+
+    public void mostrarHCSectorMiembros(){
+
+        int factorEmision = 1;
+        float huMiembros = 0;
+
+        for (Sector sector : sectorlist){
+            for (Miembro miembro : sector.getMiembrosList()){
+                huMiembros += miembro.calcularHU(factorEmision);
+            }
+
+            System.out.println("El Sector " + sector.nombre + " tiene " + sector.cantidadMiembros() + "de miembros y su HC total es " + huMiembros);
+
+        }
+
+    }
+
     //Getters & setters
     public String getRazonSocial() {
         return razonSocial;
