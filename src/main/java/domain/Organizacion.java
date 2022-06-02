@@ -13,13 +13,13 @@ public class Organizacion implements FachadaOrg {
     String razonSocial;
     TipoOrg tipo;
     ClasificacionOrg clasificacion;
-    String ubicacion;
+    Punto ubicacion;
     List<Sector> sectorlist;
     List<DatosActividad> datosActividadList;
 
     public Organizacion(){};
 
-    public Organizacion(String razonSocial, TipoOrg tipo, String ubicacion) {
+    public Organizacion(String razonSocial, TipoOrg tipo,Punto ubicacion) {
         this.razonSocial = razonSocial;
         this.tipo = tipo;
         this.ubicacion = ubicacion;
@@ -141,11 +141,11 @@ public class Organizacion implements FachadaOrg {
     public void setClasificacion(ClasificacionOrg clasificacion) {
         this.clasificacion = clasificacion;
     }
-    public String getUbicacion() {
+    public Punto getUbicacion() {
         return ubicacion;
     }
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
+    public void setUbicacion(Float latitud, Float longitud) {
+        this.ubicacion =new Punto(latitud,longitud);
     }
     public List<Sector> getSectorlist() {
         return sectorlist;

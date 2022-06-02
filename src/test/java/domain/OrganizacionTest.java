@@ -32,17 +32,17 @@ class OrganizacionTest {
         callcenter = new Sector("Callcenter", "Llamadas");
         callcenter.agregarMiembro(pablo);
 
-        orgEmpresa = new Organizacion("pepito s.a.", TipoOrg.Empresa, "av. tal 123");
+        orgEmpresa = new Organizacion("pepito s.a.", TipoOrg.Empresa, new Punto(1.0f,2.0f));
         ClasificacionOrg clasificacionOrgEmp = new ClasificacionOrg("Empresa Primaria");
         orgEmpresa.setClasificacion(clasificacionOrgEmp);
         orgEmpresa.agregarSector(dev);
 
-        orgONG = new Organizacion("ONG", TipoOrg.ONG, "av. tal 345");
+        orgONG = new Organizacion("ONG", TipoOrg.ONG, new Punto(2f,5f));
         ClasificacionOrg clasificacionOrgONG = new ClasificacionOrg("ONG");
         orgONG.setClasificacion(clasificacionOrgONG);
         orgONG.agregarSector(callcenter);
 
-        orgSinMiembros = new Organizacion("org sin miembros", TipoOrg.Empresa, "calle 1");
+        orgSinMiembros = new Organizacion("org sin miembros", TipoOrg.Empresa, new Punto(4f,-5f));
         sectorSinMiembros = new Sector("Sector vacio", "por asignar miembros");
         orgSinMiembros.agregarSector(sectorSinMiembros);
 
