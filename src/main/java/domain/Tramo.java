@@ -5,8 +5,8 @@ import java.util.List;
 public class Tramo {
 
     MedioTransporte medioTransporte;
-    Punto puntoInicio;
-    Punto puntoFin;
+    public Punto puntoInicio;
+    public Punto puntoFin;
     List<Miembro> compartidoPor;
 
     public float calcularTramo(){

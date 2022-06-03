@@ -50,11 +50,14 @@ public class Miembro {
     public void agregarTrayecto(Trayecto trayecto){
         trayectos.add(trayecto);
     }
-
+/*Calculo de HU general*/
+    public Float calcularHUDelTramo(Tramo tramo, float factorEmision){
+        return tramo.calcularTramo()*factorEmision;
+    }
     public ArrayList<Float> calcularHUPorTramo(Trayecto trayecto, float factorEmision){
         ArrayList<Float> huellaPorTramo = new ArrayList<Float>();
         trayecto.tramos.forEach(tramo ->{
-            huellaPorTramo.add(tramo.calcularTramo()*factorEmision);
+            huellaPorTramo.add(calcularHUDelTramo(tramo,factorEmision));
         });
         return huellaPorTramo;
     }
@@ -80,21 +83,24 @@ public class Miembro {
         for(int i = 0; i < huellaPorTrayecto.size();i++){
             total += huellaPorTrayecto.get(i);
         }
-
         return total;
-
     }
-
     public void mostrarHUMiembro(float factorEmision){
-
         float huTotal = 0;
-
         huTotal = this.calcularHU(factorEmision);
-
         System.out.println("Huella Carbono total:"+ String.valueOf(huTotal));
-
     }
-
+    /*Calculo de HU en relacion a la ORG*/
+    Tramo detectarTramo(Trayecto trayecto, Organizacion organizacion){
+        Tramo tramo = null;
+        for(int i = 0; i<trayecto.tramos.size(); i++){
+            if(trayecto.tramos.get(i).puntoFin.latitud == organizacion.ubicacion.latitud){
+                if (trayecto.tramos.get(i).puntoFin.longitud == organizacion.ubicacion.longitud)
+                    tramo = trayecto.tramos.get(i);
+            }
+        }
+        return tramo;
+    }
 
 
     //getters & setters
