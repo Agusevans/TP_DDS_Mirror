@@ -1,4 +1,6 @@
-package domain;
+package domain.Organizacion;
+
+import domain.Organizacion.Miembro;
 
 import java.util.ArrayList;
 import java.util.List;

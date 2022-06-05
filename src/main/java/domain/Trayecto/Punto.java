@@ -1,4 +1,4 @@
-package domain;
+package domain.Trayecto;
 
 public class Punto {
     Float latitud;

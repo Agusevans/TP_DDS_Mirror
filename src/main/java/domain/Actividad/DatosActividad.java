@@ -1,4 +1,4 @@
-package domain;
+package domain.Actividad;
 
 import ar.edu.frba.utn.dds.mihuella.fachada.Medible;
 
@@ -40,5 +40,35 @@ public class DatosActividad implements Medible {
         return null;
     }
 
+    public String getActividad() {
+        return actividad;
+    }
 
+    public void setActividad(String actividad) {
+        this.actividad = actividad;
+    }
+
+    public List<TipoConsumo> getTiposConsumo() {
+        return tiposConsumo;
+    }
+
+    public void setTiposConsumo(List<TipoConsumo> tiposConsumo) {
+        this.tiposConsumo = tiposConsumo;
+    }
+
+    public String getPeriodoDeImputacion() {
+        return periodoDeImputacion;
+    }
+
+    public void setPeriodoDeImputacion(String periodoDeImputacion) {
+        this.periodoDeImputacion = periodoDeImputacion;
+    }
+
+    public Alcance getAlcance() {
+        return alcance;
+    }
+
+    public void setAlcance(Alcance alcance) {
+        this.alcance = alcance;
+    }
 }

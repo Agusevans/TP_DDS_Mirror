@@ -1,7 +1,12 @@
-package domain;
+package domain.Organizacion;
 
 import ar.edu.frba.utn.dds.mihuella.fachada.FachadaOrg;
 import ar.edu.frba.utn.dds.mihuella.fachada.Medible;
+import domain.*;
+import domain.Actividad.DatosActividad;
+import domain.Trayecto.Punto;
+import domain.Trayecto.Tramo;
+import domain.Trayecto.Trayecto;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -88,6 +93,17 @@ public class Organizacion implements FachadaOrg {
 
         for (Medible medicion:mediciones) {
             total += medicion.getValor() * factorEmision;
+        }
+        return total;
+    }
+
+    public Float obtenerHU(List<DatosActividad> datosActividadList) {
+        Float total = 0f;
+        int factorEmision = 2; //TODO revisar por donde entra el factor de emision
+        //El factor de emision probablemente entre por params
+
+        for (DatosActividad datoActividad:datosActividadList) {
+            total += datoActividad.getValor() * factorEmision;
         }
         return total;
     }
