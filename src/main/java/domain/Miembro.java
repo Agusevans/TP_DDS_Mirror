@@ -79,7 +79,6 @@ public class Miembro {
         return totalPorTrayecto;
     }
 
-
     public float calcularHU(float factorEmision){
         float total = 0;
         List<Float> huellaPorTrayecto = calcularHUPorTrayecto(factorEmision);
