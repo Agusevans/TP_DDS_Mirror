@@ -116,6 +116,7 @@ public class Organizacion implements FachadaOrg {
             tramo = miembro.detectarTramo(trayecto,this);
             if(tramo != null) {
                 HUMiembro = miembro.calcularHUDelTramo(tramo, factorEmision);
+
             }
         }
         return HUMiembro*100/HUOrganizacion;
@@ -125,8 +126,8 @@ public class Organizacion implements FachadaOrg {
         float huMiembros = 0f;
 
         for (Sector sector : sectorlist){
-            for (Miembro miebro : sector.getMiembrosList()){
-                // huMiembros += miembro.calcularHU(factorEmision, this);
+            for (Miembro miembro : sector.getMiembrosList()){
+                huMiembros += miembro.calcularHU(factorEmision);
             }
         }
         return huMiembros;

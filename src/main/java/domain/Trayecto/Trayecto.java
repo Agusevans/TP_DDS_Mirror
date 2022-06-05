@@ -16,24 +16,23 @@ public class Trayecto {
 
         return total;
     }
-    public float calcularRecorridoPorSeccion(){
-        float total = 0f;
-
-        for (int i = 0; i <= tramos.size() ; i++) {
-            float j = this.tramos.get(i).calcularTramo();
-            total += j;
-            System.out.println("Recorrido seccion " + i + ": " + j);
+    public Float calcularRecorridoPorSeccion(){
+        Float total = 0f;
+        Float parcial = 0f;
+        for (Tramo tramo: tramos) {
+            parcial = tramo.calcularTramo();
+            total += parcial;
+            System.out.println("Recorrido seccion " + tramos.indexOf(tramo) + ": " + parcial);
         }
         System.out.println("Recorrido Total: " + total);
-
         return total;
     }
 
     public List<Tramo> getTramos() {
         return tramos;
     }
-
     public void setTramos(List<Tramo> tramos) {
         this.tramos = tramos;
     }
+
 }

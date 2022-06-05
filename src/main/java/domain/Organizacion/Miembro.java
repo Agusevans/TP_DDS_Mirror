@@ -54,41 +54,11 @@ public class Miembro {
         org.cargarMedicion(mediciones);
     }
 
-    public void agregarTrayecto(Trayecto trayecto){
-        trayectos.add(trayecto);
-    }
-/*Calculo de HU general*/
-    public Float calcularHUDelTramo(Tramo tramo, Float factorEmision){
-        return (tramo.calcularTramo()/(tramo.getCompartidoPor().size()+1))*factorEmision;
-    }
-    public ArrayList<Float> calcularHUPorTramo(Trayecto trayecto, Float factorEmision){
-        ArrayList<Float> huellaPorTramo = new ArrayList<Float>();
-        trayecto.getTramos().forEach(tramo ->{
-            huellaPorTramo.add(calcularHUDelTramo(tramo,factorEmision));
-        });
-        return huellaPorTramo;
-    }
 
-    public ArrayList<Float> calcularHUPorTrayecto(Float factorEmision){
-        ArrayList<Float> totalPorTrayecto = new ArrayList<Float>();
-        ArrayList<Float> totalPorTramo = new ArrayList<Float>();
-        float total= 0;
-        for (int i = 0; i < trayectos.size() ; i++) {
-            totalPorTramo = calcularHUPorTramo(trayectos.get(i),factorEmision );
-            for (int j = 0; j < totalPorTramo.size(); j++) {
-                total +=totalPorTramo.get(j);
-            }
-            totalPorTrayecto.add(total);
-            total = 0;
-        }
-        return totalPorTrayecto;
-    }
-
-    public float calcularHU(float factorEmision){
+    public Float calcularHU(float factorEmision){
         float total = 0;
-        List<Float> huellaPorTrayecto = calcularHUPorTrayecto(factorEmision);
-        for(int i = 0; i < huellaPorTrayecto.size();i++){
-            total += huellaPorTrayecto.get(i);
+        for(Trayecto trayecto:trayectos){
+            total +=trayecto.calcularRecorrido()*factorEmision;
         }
         return total;
     }
@@ -99,14 +69,14 @@ public class Miembro {
     }
     /*Calculo de HU en relacion a la ORG*/
     Tramo detectarTramo(Trayecto trayecto, Organizacion organizacion){
-        Tramo tramo = null;
-        for(int i = 0; i< trayecto.getTramos().size(); i++){
-            if(trayecto.getTramos().get(i).getPuntoFin().getLatitud() == organizacion.ubicacion.getLatitud()){
-                if (trayecto.getTramos().get(i).getPuntoFin().getLongitud() == organizacion.ubicacion.getLongitud())
-                    tramo = trayecto.getTramos().get(i);
+        Tramo tramoEncontrado = null;
+        for(Tramo tramo: trayecto.getTramos()){
+            if(tramo.getPuntoFin().getLatitud() == organizacion.ubicacion.getLatitud()){
+                if (tramo.getPuntoFin().getLongitud() == organizacion.ubicacion.getLongitud())
+                    tramoEncontrado = tramo;
             }
         }
-        return tramo;
+        return tramoEncontrado;
     }
 
 
