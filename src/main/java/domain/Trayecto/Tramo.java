@@ -15,7 +15,7 @@ public class Tramo {
         float totalDistancia = 0f;
 
         totalDistancia = (float) Math.sqrt(Math.abs(Math.pow(puntoFin.longitud - puntoInicio.longitud, 2) - Math.pow(puntoFin.latitud - puntoInicio.latitud, 2)));
-        totalDistancia /= compartidoPor.size();
+        totalDistancia /= (compartidoPor.size()+1);
         return totalDistancia;
     }
 
