@@ -1,4 +1,9 @@
-package domain;
+package domain.Organizacion;
+
+import domain.Actividad.DatosActividad;
+import domain.Trayecto.Punto;
+import domain.Trayecto.Tramo;
+import domain.Trayecto.Trayecto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,11 +59,11 @@ public class Miembro {
     }
 /*Calculo de HU general*/
     public Float calcularHUDelTramo(Tramo tramo, Float factorEmision){
-        return (tramo.calcularTramo()/(tramo.compartidoPor.size()+1))*factorEmision;
+        return (tramo.calcularTramo()/(tramo.getCompartidoPor().size()+1))*factorEmision;
     }
     public ArrayList<Float> calcularHUPorTramo(Trayecto trayecto, Float factorEmision){
         ArrayList<Float> huellaPorTramo = new ArrayList<Float>();
-        trayecto.tramos.forEach(tramo ->{
+        trayecto.getTramos().forEach(tramo ->{
             huellaPorTramo.add(calcularHUDelTramo(tramo,factorEmision));
         });
         return huellaPorTramo;
@@ -96,10 +101,10 @@ public class Miembro {
     /*Calculo de HU en relacion a la ORG*/
     Tramo detectarTramo(Trayecto trayecto, Organizacion organizacion){
         Tramo tramo = null;
-        for(int i = 0; i<trayecto.tramos.size(); i++){
-            if(trayecto.tramos.get(i).puntoFin.latitud == organizacion.ubicacion.latitud){
-                if (trayecto.tramos.get(i).puntoFin.longitud == organizacion.ubicacion.longitud)
-                    tramo = trayecto.tramos.get(i);
+        for(int i = 0; i< trayecto.getTramos().size(); i++){
+            if(trayecto.getTramos().get(i).getPuntoFin().getLatitud() == organizacion.ubicacion.getLatitud()){
+                if (trayecto.getTramos().get(i).getPuntoFin().getLongitud() == organizacion.ubicacion.getLongitud())
+                    tramo = trayecto.getTramos().get(i);
             }
         }
         return tramo;

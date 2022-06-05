@@ -1,5 +1,7 @@
 package domain;
 
+import domain.Organizacion.*;
+import domain.Trayecto.Punto;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -77,7 +79,7 @@ class OrganizacionTest {
         //Se asume que el miembro en el archivo entra al sectorSinMiembros en la orgSinMiembros
         orgSinMiembros.aceptarMiembros(archivo);
 
-        Assert.assertFalse(sectorSinMiembros.miembrosList.isEmpty());
+        Assert.assertFalse(sectorSinMiembros.getMiembrosList().isEmpty());
     }
 
     //Testeo de funcion aceptarMiembro(archivo)
@@ -89,7 +91,7 @@ class OrganizacionTest {
         //Se asume que el miembro jose entra al sectorSinMiembros en la orgSinMiembros
         orgSinMiembros.aceptarMiembros(archivo);
 
-        Assert.assertTrue(jose.organizacionlist.contains(orgSinMiembros));
+        Assert.assertTrue(jose.getOrganizacionlist().contains(orgSinMiembros));
     }
 
 }

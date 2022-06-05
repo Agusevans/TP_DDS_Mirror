@@ -1,4 +1,4 @@
-package domain;
+package domain.Actividad;
 
 public class FactorEmision {
 

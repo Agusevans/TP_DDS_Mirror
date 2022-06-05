@@ -1,4 +1,4 @@
-package domain;
+package domain.Trayecto;
 
 import java.util.List;
 
@@ -29,4 +29,11 @@ public class Trayecto {
         return total;
     }
 
+    public List<Tramo> getTramos() {
+        return tramos;
+    }
+
+    public void setTramos(List<Tramo> tramos) {
+        this.tramos = tramos;
+    }
 }

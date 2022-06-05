@@ -2,6 +2,9 @@ package domain;
 
 import ar.edu.frba.utn.dds.mihuella.fachada.Medible;
 import com.opencsv.CSVReader;
+import domain.Actividad.*;
+import domain.Organizacion.Miembro;
+import domain.Organizacion.Sector;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -43,14 +46,14 @@ public class LectorCSV implements LectorArchivos {
 		DatosActividad datosActividad = new DatosActividad();
 		TipoConsumo consumo = new TipoConsumo();
 		//cargo la datosActividad
-		datosActividad.actividad = linea[0];
+		datosActividad.setActividad(linea[0]);
 		consumo.setTipo(String.valueOf(linea[1]));
 		consumo.setUnidad(Unidad.valueOf(linea[2]));
 		consumo.setValor(Float.valueOf(linea[3]));
 		consumo.setPeriodicidad(Periodicidad.valueOf(linea[4]));
-		datosActividad.tiposConsumo.add(consumo);
-		datosActividad.periodoDeImputacion = linea[5];
-		datosActividad.alcance = Alcance.valueOf(linea[6]);
+		datosActividad.getTiposConsumo().add(consumo);
+		datosActividad.setPeriodoDeImputacion(linea[5]);
+		datosActividad.setAlcance(Alcance.valueOf(linea[6]));
 		return datosActividad;
 	}
 

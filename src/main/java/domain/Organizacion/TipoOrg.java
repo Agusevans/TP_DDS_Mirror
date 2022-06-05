@@ -1,6 +1,6 @@
-package domain;
+package domain.Organizacion;
 
-enum TipoOrg {
+public enum TipoOrg {
     Gubernamental,
     ONG,
     Empresa,
