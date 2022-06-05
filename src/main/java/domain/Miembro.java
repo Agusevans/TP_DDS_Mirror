@@ -54,7 +54,7 @@ public class Miembro {
     }
 /*Calculo de HU general*/
     public Float calcularHUDelTramo(Tramo tramo, Float factorEmision){
-        return tramo.calcularTramo()*factorEmision;
+        return (tramo.calcularTramo()/(tramo.compartidoPor.size()+1))*factorEmision;
     }
     public ArrayList<Float> calcularHUPorTramo(Trayecto trayecto, Float factorEmision){
         ArrayList<Float> huellaPorTramo = new ArrayList<Float>();

@@ -171,8 +171,4 @@ public class Organizacion implements FachadaOrg {
     public void setDatosActividadList(List<DatosActividad> datosActividadList) {
         this.datosActividadList = datosActividadList;
     }
-    public enum TipoContratado { //Y esto de donde salio??
-        taxi,
-        remis
-    }
 }
