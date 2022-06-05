@@ -54,6 +54,7 @@ class MedicionTest {
     @Test
     void cargaParametrosCorrectamente(){}
 
+    @Test
     void calculoHuellaCarbono(){
 
         Float total = orgEmpresa.obtenerHU(mediciones);
