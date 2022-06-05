@@ -115,7 +115,7 @@ public class Organizacion implements FachadaOrg {
         for(Trayecto trayecto:miembro.trayectos){
             tramo = miembro.detectarTramo(trayecto,this);
             if(tramo != null) {
-                HUMiembro = miembro.calcularHUDelTramo(tramo, factorEmision);
+                HUMiembro = tramo.calcularTramo()*factorEmision;
 
             }
         }

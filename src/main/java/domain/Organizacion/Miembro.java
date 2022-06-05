@@ -49,11 +49,13 @@ public class Miembro {
             this.organizacionlist.add(organizacion);
     }
 
+    public void agregarTrayecto(Trayecto trayecto){
+        trayectos.add(trayecto);
+    }
     public void cargarMedicion(List<DatosActividad> mediciones, String organizacion) {
         Organizacion org = new Organizacion(); //Cuando haya persistencia, el parametro "organizacion" sera la ID de la organizacion
         org.cargarMedicion(mediciones);
     }
-
 
     public Float calcularHU(float factorEmision){
         float total = 0;
@@ -78,8 +80,6 @@ public class Miembro {
         }
         return tramoEncontrado;
     }
-
-
     //getters & setters
     public String getNombre() {
         return nombre;
