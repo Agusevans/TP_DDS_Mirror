@@ -22,9 +22,8 @@ class OrganizacionTest {
 
     @BeforeEach
     public void init() {
-        pablo = new Miembro("Pablo", "Gomez", "DNI", 12345678);
-        jose = new Miembro("Jose", "Paz", "DNI", 87654321);
-
+        pablo = new Miembro("Pablo", "Gomez", "DNI", 12345678,new Punto(1f,2f));
+        jose = new Miembro("Jose", "Paz", "DNI", 87654321,new Punto(2f, 4f));
         dev = new Sector("Dev", "Desarrollo apps");
         dev.agregarMiembro(pablo);
         dev.agregarMiembro(jose);

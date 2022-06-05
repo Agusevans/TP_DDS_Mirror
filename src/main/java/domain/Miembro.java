@@ -9,19 +9,21 @@ public class Miembro {
     String apellido;
     String tipoDocumento;
     int nroDocumento;
+    Punto domicilio;
     List<Organizacion> organizacionlist;
     List<DatosActividad> datosActividadList;
     ArrayList<Trayecto> trayectos;
 
     public Miembro(){};
 
-    public Miembro(String nombre, String apellido, String tipoDocumento, int nroDocumento) {
+    public Miembro(String nombre, String apellido, String tipoDocumento, int nroDocumento, Punto domicilio) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.tipoDocumento = tipoDocumento;
         this.nroDocumento = nroDocumento;
         this.organizacionlist = new ArrayList<>();
         this.trayectos = new ArrayList<Trayecto>();
+        this.domicilio = domicilio;
     }
 
     public List<Sector> obtenerSectores(){
@@ -51,10 +53,10 @@ public class Miembro {
         trayectos.add(trayecto);
     }
 /*Calculo de HU general*/
-    public Float calcularHUDelTramo(Tramo tramo, float factorEmision){
+    public Float calcularHUDelTramo(Tramo tramo, Float factorEmision){
         return tramo.calcularTramo()*factorEmision;
     }
-    public ArrayList<Float> calcularHUPorTramo(Trayecto trayecto, float factorEmision){
+    public ArrayList<Float> calcularHUPorTramo(Trayecto trayecto, Float factorEmision){
         ArrayList<Float> huellaPorTramo = new ArrayList<Float>();
         trayecto.tramos.forEach(tramo ->{
             huellaPorTramo.add(calcularHUDelTramo(tramo,factorEmision));
@@ -62,7 +64,7 @@ public class Miembro {
         return huellaPorTramo;
     }
 
-    public ArrayList<Float> calcularHUPorTrayecto(float factorEmision){
+    public ArrayList<Float> calcularHUPorTrayecto(Float factorEmision){
         ArrayList<Float> totalPorTrayecto = new ArrayList<Float>();
         ArrayList<Float> totalPorTramo = new ArrayList<Float>();
         float total= 0;
@@ -76,6 +78,7 @@ public class Miembro {
         }
         return totalPorTrayecto;
     }
+
 
     public float calcularHU(float factorEmision){
         float total = 0;

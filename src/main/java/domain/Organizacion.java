@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 public class Organizacion implements FachadaOrg {
-
     String razonSocial;
     TipoOrg tipo;
     ClasificacionOrg clasificacion;
@@ -93,7 +92,20 @@ public class Organizacion implements FachadaOrg {
         return total;
     }
 
-    public float obtenerHUMiembros(int factorEmision) {
+    public Float obtenerHUPorcentualDeMiembro(Miembro miembro, Float factorEmision){
+        Float HUMiembro = 0f;
+        Float HUOrganizacion = obtenerHU(datosActividadList);//No toma el datosActividad como Medible;
+        Tramo tramo;
+        for(Trayecto trayecto:miembro.trayectos){
+            tramo = miembro.detectarTramo(trayecto,this);
+            if(tramo != null) {
+                HUMiembro = miembro.calcularHUDelTramo(tramo, factorEmision);
+            }
+        }
+        return HUMiembro*100/HUOrganizacion;
+    }
+
+    public float obtenerHUMiembros(float factorEmision) {
         float huMiembros = 0f;
 
         for (Sector sector : sectorlist){
