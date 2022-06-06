@@ -6,7 +6,7 @@ import org.json.simple.parser.*;
 public class LectorJSON {
 
         public static void main(String[] args) throws Exception {
-            // parsing file "JSONExample.json"
+                // parsing file "JSONExample.json"
 /*            Object ob = new JSONParser().parse(new FileReader("JSONFile.json"));
 
             // typecasting ob to JSONObject
@@ -19,4 +19,4 @@ public class LectorJSON {
             System.out.println("Last name is: " +lastName);
         }
     }*/
-}
+        }}

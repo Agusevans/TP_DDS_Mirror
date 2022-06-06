@@ -28,6 +28,7 @@ public class Organizacion implements FachadaOrg {
         this.tipo = tipo;
         this.ubicacion = ubicacion;
         this.sectorlist = new ArrayList<>();
+        this.datosActividadList = new ArrayList<>();
     }
 
     public List<Miembro> obtenerMiembros() {

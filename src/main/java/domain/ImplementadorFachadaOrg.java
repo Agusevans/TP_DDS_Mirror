@@ -19,6 +19,6 @@ public class ImplementadorFachadaOrg implements FachadaOrg {
 
     @Override
     public Float obtenerHU(Collection<Medible> mediciones) {
-        organizacion.obtenerHU();
+        return null;
     }
 }

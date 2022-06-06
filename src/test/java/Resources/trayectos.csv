@@ -1,0 +1,4 @@
+﻿Miembro1;Trayecto1;Tramo1;"""transporte contratado""";taxi;1f;1f;5f;4f;[Miembro2];
+Miembro2;Trayecto1;Tramo1;"""transporte contratado""";taxi;1f;1f;5f;4f;[Miembro1];
+Miembro3;Trayecto2;Tramo2;"""transporte publico""";linea4;colectivo;2f;2f;4f;4f;[]
+Miembro3;Trayecto2;Tramo3;"""transporte publico""";linea5;colectivo;4f;4f;5f;4f;[]
