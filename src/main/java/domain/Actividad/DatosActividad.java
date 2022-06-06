@@ -11,14 +11,16 @@ public class DatosActividad implements Medible {
     List<TipoConsumo> tiposConsumo;
     String periodoDeImputacion;
     Alcance alcance;
+    FactorEmision factorEmision;
 
     public DatosActividad(){};
 
-    public DatosActividad(String actividad, String periodoDeImputacion, Alcance alcance) {
+    public DatosActividad(String actividad, String periodoDeImputacion, Alcance alcance, FactorEmision factorEmision) {
         this.actividad = actividad;
         this.tiposConsumo = new ArrayList<>();
         this.periodoDeImputacion = periodoDeImputacion;
         this.alcance = alcance;
+        this.factorEmision = factorEmision;
     }
 
     public void agregarTipoConsumo(TipoConsumo tipoConsumo){
@@ -37,7 +39,7 @@ public class DatosActividad implements Medible {
 
     @Override
     public String getCategoria() { //TODO: definir que es categoria
-        return null;
+        return String.valueOf(alcance);
     }
 
     public String getActividad() {
@@ -70,5 +72,13 @@ public class DatosActividad implements Medible {
 
     public void setAlcance(Alcance alcance) {
         this.alcance = alcance;
+    }
+
+    public FactorEmision getFactorEmision() {
+        return factorEmision;
+    }
+
+    public void setFactorEmision(FactorEmision factorEmision) {
+        this.factorEmision = factorEmision;
     }
 }

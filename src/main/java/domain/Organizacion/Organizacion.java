@@ -102,6 +102,7 @@ public class Organizacion implements FachadaOrg {
         Float total = 0f;
         int factorEmision = 2; //TODO revisar por donde entra el factor de emision
         //El factor de emision probablemente entre por params
+        //Update: el factor de emision lo va a tener el DatoActividad cargado
 
         for (DatosActividad datoActividad:datosActividadList) {
             total += datoActividad.getValor() * factorEmision;
