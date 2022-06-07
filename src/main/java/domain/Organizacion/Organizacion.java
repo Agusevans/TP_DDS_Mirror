@@ -114,7 +114,7 @@ public class Organizacion implements FachadaOrg {
         Float HUMiembro = 0f;
         Float HUOrganizacion = obtenerHU(datosActividadList);//No toma el datosActividad como Medible;
         Tramo tramo;
-        for(Trayecto trayecto:miembro.trayectos){
+        for(Trayecto trayecto : miembro.getTrayectos()){
             tramo = miembro.detectarTramo(trayecto,this);
             if(tramo != null) {
                 HUMiembro = tramo.calcularTramo()*factorEmision;

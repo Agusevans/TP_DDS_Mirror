@@ -35,7 +35,7 @@ public class Miembro {
 
         List<Sector> sectoresList = new ArrayList<>();
         for (Organizacion organizacion : organizacionlist) {
-            for (Sector sector : organizacion.sectorlist){
+            for (Sector sector : organizacion.getSectorlist()){
                 if (sector.esMiembro(this)){
                     sectoresList.add(sector);
                 }
@@ -52,6 +52,7 @@ public class Miembro {
     public void agregarTrayecto(Trayecto trayecto){
         trayectos.add(trayecto);
     }
+
     public void cargarMedicion(List<DatosActividad> mediciones, String organizacion) {
         Organizacion org = new Organizacion(); //Cuando haya persistencia, el parametro "organizacion" sera la ID de la organizacion
         org.cargarMedicion(mediciones);
@@ -73,8 +74,8 @@ public class Miembro {
     Tramo detectarTramo(Trayecto trayecto, Organizacion organizacion){
         Tramo tramoEncontrado = null;
         for(Tramo tramo: trayecto.getTramos()){
-            if(tramo.getPuntoFin().getLatitud() == organizacion.ubicacion.getLatitud()){
-                if (tramo.getPuntoFin().getLongitud() == organizacion.ubicacion.getLongitud())
+            if(tramo.getPuntoFin().getLatitud() == organizacion.getUbicacion().getLatitud()){
+                if (tramo.getPuntoFin().getLongitud() == organizacion.getUbicacion().getLongitud())
                     tramoEncontrado = tramo;
             }
         }
@@ -121,4 +122,5 @@ public class Miembro {
     public Punto getDomicilio() {
         return domicilio;
     }
+    public ArrayList<Trayecto> getTrayectos(){ return trayectos; }
 }

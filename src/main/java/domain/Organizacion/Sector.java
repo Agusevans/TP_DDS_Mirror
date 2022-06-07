@@ -25,17 +25,7 @@ public class Sector {
 
     public boolean esMiembro(Miembro miembro){ return miembrosList.contains(miembro); }
 
-    public int cantidadMiembros(){
-
-        int cant = 0;
-
-        for (Miembro miebro : this.miembrosList){
-            cant++;
-        }
-
-        return cant;
-
-    }
+    public int cantidadMiembros(){ return miembrosList.size(); }
 
     //Getters y Setters//
     public String getNombre() {
