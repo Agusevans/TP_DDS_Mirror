@@ -116,8 +116,8 @@ public class Miembro {
     public void setDatosActividadList(List<DatosActividad> datosActividadList) {
         this.datosActividadList = datosActividadList;
     }
-    public void setDomicilio(Punto domicilio) {
-        this.domicilio = domicilio;
+    public void setDomicilio(Float latitud, Float longitud) {
+        this.domicilio = new Punto(latitud, longitud);
     }
     public Punto getDomicilio() {
         return domicilio;
