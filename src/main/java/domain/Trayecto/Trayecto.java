@@ -1,5 +1,7 @@
 package domain.Trayecto;
 
+import domain.Organizacion.Organizacion;
+
 import java.util.List;
 
 public class Trayecto {
@@ -27,11 +29,27 @@ public class Trayecto {
         System.out.println("Recorrido Total: " + total);
         return total;
     }
+    public Float tramoOrganizacion(Organizacion organizacion) {
+        Tramo tramoDeOrganizacion = this.detectarTramo(organizacion);
+        Float distanciaVuelta = tramos.get(tramos.size() - 1).calcularTramo();
+        return (tramoDeOrganizacion.calcularTramo() + (distanciaVuelta / tramos.size()));
+    }
+    public Tramo detectarTramo(Organizacion organizacion){
+        Tramo tramoEncontrado = null;
+        for(Tramo tramo: tramos){
+            if(tramo.getPuntoFin().getLatitud() == organizacion.getUbicacion().getLatitud()){
+                if (tramo.getPuntoFin().getLongitud() == organizacion.getUbicacion().getLongitud())
+                    tramoEncontrado = tramo;
+            }
+        }
+        return tramoEncontrado;
+    }
 
     public List<Tramo> getTramos() {
         return tramos;
     }
     public void setTramos(List<Tramo> tramos) {
+
         this.tramos = tramos;
     }
 

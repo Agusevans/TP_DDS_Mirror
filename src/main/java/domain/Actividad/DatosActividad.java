@@ -71,4 +71,5 @@ public class DatosActividad implements Medible {
     public void setAlcance(Alcance alcance) {
         this.alcance = alcance;
     }
+
 }

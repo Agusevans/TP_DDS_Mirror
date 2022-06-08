@@ -70,16 +70,7 @@ public class Miembro {
         System.out.println("Huella Carbono total:"+ String.valueOf(huTotal));
     }
     /*Calculo de HU en relacion a la ORG*/
-    Tramo detectarTramo(Trayecto trayecto, Organizacion organizacion){
-        Tramo tramoEncontrado = null;
-        for(Tramo tramo: trayecto.getTramos()){
-            if(tramo.getPuntoFin().getLatitud() == organizacion.ubicacion.getLatitud()){
-                if (tramo.getPuntoFin().getLongitud() == organizacion.ubicacion.getLongitud())
-                    tramoEncontrado = tramo;
-            }
-        }
-        return tramoEncontrado;
-    }
+
     //getters & setters
     public String getNombre() {
         return nombre;
@@ -120,5 +111,13 @@ public class Miembro {
     }
     public Punto getDomicilio() {
         return domicilio;
+    }
+
+    public void setTrayectos(ArrayList<Trayecto> trayectos) {
+        this.trayectos = trayectos;
+    }
+
+    public ArrayList<Trayecto> getTrayectos() {
+        return trayectos;
     }
 }

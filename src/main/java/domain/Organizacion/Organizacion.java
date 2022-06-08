@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Organizacion implements FachadaOrg {
+
     String razonSocial;
     TipoOrg tipo;
     ClasificacionOrg clasificacion;
@@ -113,7 +114,7 @@ public class Organizacion implements FachadaOrg {
         Float HUOrganizacion = obtenerHU(datosActividadList);//No toma el datosActividad como Medible;
         Tramo tramo;
         for(Trayecto trayecto:miembro.trayectos){
-            tramo = miembro.detectarTramo(trayecto,this);
+            tramo = trayecto.detectarTramo(this);
             if(tramo != null) {
                 HUMiembro = tramo.calcularTramo()*factorEmision;
 
@@ -188,4 +189,8 @@ public class Organizacion implements FachadaOrg {
     public void setDatosActividadList(List<DatosActividad> datosActividadList) {
         this.datosActividadList = datosActividadList;
     }
+    public void setUbicacion(Punto ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+
 }
