@@ -28,10 +28,10 @@ public class Router {
         //OrganizacionController
         OrganizacionController orgController = new OrganizacionController();
 
-        Spark.get("/organizacion", orgController::mostrar);
-        Spark.post("/organizacion/:id", orgController::modificar);
-        Spark.post("/organizacion", orgController::guardar);
-        Spark.delete("/organizacion/:id", orgController::eliminar);
+        Spark.post("/organizacion", orgController::create);
+        Spark.get("/organizacion/:id", orgController::read);
+        Spark.post("/organizacion/:id", orgController::update);
+        Spark.delete("/organizacion/:id", orgController::delete);
 
         //FactorEmisionController
 
