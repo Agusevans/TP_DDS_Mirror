@@ -32,13 +32,13 @@ public class Router {
         MedicionController medicionController = new MedicionController();
 
         Spark.post("/organizacion", orgController::createOrg);
-        Spark.get("/organizacion/:id", orgController::readOrg);
-        Spark.post("/organizacion/:id", orgController::updateOrg);
-        Spark.delete("/organizacion/:id", orgController::deleteOrg);
-        Spark.post("/organizacion/:id_o/sector", orgController::createSect);
-        Spark.get("/organizacion/:id_o/sector/:id_s", orgController::readSect);
-        Spark.post("/organizacion/:id_o/sector/:id_s", orgController::updateSect);
-        Spark.delete("/organizacion/:id_o/sector/:id_s", orgController::deleteSect);
+        Spark.get("/organizacion/:razonSocial", orgController::readOrg);
+        Spark.post("/organizacion/:razonSocial", orgController::updateOrg);
+        Spark.delete("/organizacion/:razonSocial", orgController::deleteOrg);
+        Spark.post("/organizacion/:razonSocial/sector", orgController::createSect);
+        Spark.get("/organizacion/:razonSocial/sector/:id_s", orgController::readSect);
+        Spark.post("/organizacion/:razonSocial/sector/:id_s", orgController::updateSect);
+        Spark.delete("/organizacion/:razonSocial/sector/:id_s", orgController::deleteSect);
 
 
         //FactorEmisionController

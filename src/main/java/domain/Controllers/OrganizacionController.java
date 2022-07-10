@@ -19,40 +19,40 @@ public class OrganizacionController {
         Organizacion organizacion = new Organizacion();
         asignarAtributosA(organizacion, request);
         agregarMiembrosAOrg(organizacion);
-        this.repoOrganizacion.add(organizacion); //se define en repo
+        this.repoOrganizacion.agregar(organizacion); //se define en repo
         //response.redirect("/organizacion/:id_o/sector") --> creado la org, se crean los sectores
         return response;
     }
 
     public Organizacion readOrg(Request request, Response response) {
         //considerando que tiene id
-        Organizacion organizacion = repoOrganizacion.search(request.queryParams("id"));
+        Organizacion organizacion = repoOrganizacion.buscar(request.queryParams("razonSocial"));
         return organizacion;
     }
 
     public Response updateOrg(Request request, Response response) {
-        Organizacion organizacion = this.repoOrganizacion.search(request.queryParams("id"));
+        Organizacion organizacion = this.repoOrganizacion.buscar(request.queryParams("razonSocial"));
         asignarAtributosA(organizacion, request);
-        this.repoOrganizacion.update(organizacion);
+        this.repoOrganizacion.actualizar(organizacion);
         return response;
     }
 
     public Response deleteOrg(Request request, Response response) {
-        Organizacion organizacion = this.repoOrganizacion.search(request.queryParams("id"));
+        Organizacion organizacion = this.repoOrganizacion.buscar(request.queryParams("razonSocial"));
         if( organizacion != null){
-            this.repoOrganizacion.delete(organizacion);
+            this.repoOrganizacion.borrar(organizacion);
         }
         return response;
     }
 
     public Response createSect(Request request, Response response) {
-        Organizacion organizacion = repoOrganizacion.search(request.queryParams("id_o"));
+        Organizacion organizacion = repoOrganizacion.buscar(request.queryParams("razonSoacial"));
         Sector sector = new Sector();
         asignarAtributosA(sector, request);
         agregarMiembrosASector(sector,organizacion);
         organizacion.agregarSector(sector);
         this.repoSector.add(sector); //se define en repo
-        this.repoOrganizacion.update(organizacion); //puede no ser necesario, depende como se defina el repoOrg
+        this.repoOrganizacion.actualizar(organizacion); //puede no ser necesario, depende como se defina el repoOrg
         //organizacion.aceptarMiembros(request.queryParams("archivo"))
         //      --> al crear se recibe el archivo de miembros por queryparams (o un form)
         return response;
