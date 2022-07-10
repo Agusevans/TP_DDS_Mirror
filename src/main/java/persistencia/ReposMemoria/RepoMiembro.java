@@ -1,6 +1,6 @@
 package persistencia.ReposMemoria;
 
-public class RepoOrganizacion {
+public class RepoMiembro {
 
 
 }

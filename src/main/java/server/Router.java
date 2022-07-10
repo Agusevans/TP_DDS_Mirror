@@ -51,7 +51,11 @@ public class Router {
         Spark.delete("/agente/:id", agenteSocialController::delete);
 
         //MedicionController
+        Spark.get("/mediciones",medicionController::filterMed);
+        Spark.get("/mediciones/:id",medicionController::listMed);
 
-
+        //batchMediciones
+        Spark.post("/mediciones",medicionController::batchAlta);
+        Spark.delete("/mediciones",medicionController::batchBaja);
     }
 }
