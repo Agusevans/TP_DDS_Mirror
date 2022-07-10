@@ -1,7 +1,9 @@
 package domain.Controllers;
 
 import domain.Organizacion.*;
+import persistencia.ReposMemoria.RepoMiembro;
 import persistencia.ReposMemoria.RepoOrganizacion;
+import persistencia.ReposMemoria.RepoSector;
 import spark.Request;
 import spark.Response;
 
@@ -11,7 +13,7 @@ public class OrganizacionController {
 
     RepoOrganizacion repoOrganizacion = new RepoOrganizacion();
     RepoSector repoSector = new RepoSector();
-    RepoMiembros repoMiembros = new RepoMiembros();
+    RepoMiembro repoMiembros = new RepoMiembro();
 
     public Response createOrg(Request request, Response response) {
         Organizacion organizacion = new Organizacion();
@@ -34,7 +36,6 @@ public class OrganizacionController {
         this.repoOrganizacion.update(organizacion);
         return response;
     }
-
 
     public Response deleteOrg(Request request, Response response) {
         Organizacion organizacion = this.repoOrganizacion.search(request.queryParams("id"));
