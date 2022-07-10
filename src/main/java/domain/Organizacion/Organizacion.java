@@ -19,7 +19,7 @@ public class Organizacion implements FachadaOrg {
     TipoOrg tipo;
     ClasificacionOrg clasificacion;
     Punto ubicacion;
-    AgenteTerritorial territorio;
+    AgenteSocial territorio;
     List<Sector> sectorlist;
     List<DatosActividad> datosActividadList;
 
@@ -196,11 +196,11 @@ public class Organizacion implements FachadaOrg {
         this.ubicacion = ubicacion;
     }
 
-    public AgenteTerritorial getTerritorio() {
+    public AgenteSocial getTerritorio() {
         return territorio;
     }
 
-    public void setTerritorio(AgenteTerritorial territorio) {
+    public void setTerritorio(AgenteSocial territorio) {
         this.territorio = territorio;
     }
 }

@@ -2,13 +2,26 @@ package domain.Organizacion;
 
 import java.util.List;
 
-public class AgenteTerritorial {
+public class AgenteSocial {
+    String nombre;
     TipoTerritorio tipoTerritorio;
     List<Organizacion> organizaciones;
     String email;
     String periodo;
 
     public void obtenerHCTerritorial(){};
+
+    public void agregarOrganizacion(Organizacion organizacion){
+        this.organizaciones.add(organizacion);
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
     public TipoTerritorio getTipoTerritorio() {
         return tipoTerritorio;

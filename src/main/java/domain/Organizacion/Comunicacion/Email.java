@@ -1,7 +1,6 @@
 package domain.Organizacion.Comunicacion;
 
-import domain.Organizacion.AgenteTerritorial;
-import domain.Organizacion.Comunicacion.Comunicacion;
+import domain.Organizacion.AgenteSocial;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -13,7 +12,7 @@ import java.util.Properties;
 
 public class Email implements Comunicacion {
 
-    public void notificar(AgenteTerritorial agenteTerritorial, String mensaje) {
+    public void notificar(AgenteSocial agenteTerritorial, String mensaje) {
 
         Properties propiedad = new Properties();
         propiedad.setProperty("mail.smtp.host", "smtp.gmail.com");

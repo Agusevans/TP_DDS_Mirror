@@ -27,15 +27,28 @@ public class Router {
 
         //OrganizacionController
         OrganizacionController orgController = new OrganizacionController();
+        FactorEmisionController factorEmisionController = new FactorEmisionController();
+        AgenteSocialController agenteSocialController = new AgenteSocialController();
+        MedicionController medicionController = new MedicionController();
 
-        Spark.post("/organizacion", orgController::create);
-        Spark.get("/organizacion/:id", orgController::read);
-        Spark.post("/organizacion/:id", orgController::update);
-        Spark.delete("/organizacion/:id", orgController::delete);
+        Spark.post("/organizacion", orgController::createOrg);
+        Spark.get("/organizacion/:id", orgController::readOrg);
+        Spark.post("/organizacion/:id", orgController::updateOrg);
+        Spark.delete("/organizacion/:id", orgController::deleteOrg);
+        Spark.post("/organizacion/:id_o/sector", orgController::createSect);
+        Spark.get("/organizacion/:id_o/sector/:id_s", orgController::readSect);
+        Spark.post("/organizacion/:id_o/sector/:id_s", orgController::updateSect);
+        Spark.delete("/organizacion/:id_o/sector/:id_s", orgController::deleteSect);
+
 
         //FactorEmisionController
+        Spark.post("/factoremision/:id", factorEmisionController::update);
 
         //AgenteSocialController
+        Spark.post("/agente", agenteSocialController::create);
+        Spark.get("/agente/:id", agenteSocialController::read);
+        Spark.post("/agente/:id", agenteSocialController::update);
+        Spark.delete("/agente/:id", agenteSocialController::delete);
 
         //MedicionController
 

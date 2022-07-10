@@ -1,7 +1,7 @@
 package domain.Organizacion.Comunicacion;
 
-import domain.Organizacion.AgenteTerritorial;
+import domain.Organizacion.AgenteSocial;
 
 public interface Comunicacion {
-    public void notificar(AgenteTerritorial agenteTerritorial, String mensaje);
+    public void notificar(AgenteSocial agenteTerritorial, String mensaje);
 }

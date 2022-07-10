@@ -7,4 +7,3 @@ Grupo 2
 - Bruno Rombolá
 - Esteban Quintana
 - Federico Macias
-- Luis Gomez
