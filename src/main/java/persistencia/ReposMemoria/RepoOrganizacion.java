@@ -1,7 +1,6 @@
 package persistencia.ReposMemoria;
 
 import domain.Organizacion.Organizacion;
-import domain.Organizacion.Sector;
 
 import java.util.List;
 
@@ -18,16 +17,19 @@ public class RepoOrganizacion {
 
     public Organizacion buscar(String razonSocial) {
 
+        Organizacion laOrg = new Organizacion();
+
         for (Organizacion org : listOrganizacion) {
 
             if (org.getRazonSocial() == razonSocial);
             {
 
-                return org;
+                laOrg = org;
 
             }
         }
 
+        return laOrg;
     }
 
     public void actualizar(Organizacion organizacion) {
@@ -64,8 +66,6 @@ public class RepoOrganizacion {
         }
 
         listOrganizacion.remove(index);
-
-        return;
 
     }
 }

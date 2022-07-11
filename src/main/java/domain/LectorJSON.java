@@ -1,7 +1,4 @@
 package domain;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.*;
 
 public class LectorJSON {
 
@@ -17,6 +14,6 @@ public class LectorJSON {
 
             System.out.println("First name is: " + firstName);
             System.out.println("Last name is: " +lastName);
-        }
-    }*/
+        }*/
+    }
 }

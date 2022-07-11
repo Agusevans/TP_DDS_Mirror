@@ -36,9 +36,11 @@ public class Router {
         Spark.post("/organizacion/:razonSocial", orgController::updateOrg);
         Spark.delete("/organizacion/:razonSocial", orgController::deleteOrg);
         Spark.post("/organizacion/:razonSocial/sector", orgController::createSect);
-        Spark.get("/organizacion/:razonSocial/sector/:id_s", orgController::readSect);
-        Spark.post("/organizacion/:razonSocial/sector/:id_s", orgController::updateSect);
-        Spark.delete("/organizacion/:razonSocial/sector/:id_s", orgController::deleteSect);
+        Spark.get("/organizacion/:razonSocial/sector/:nombre", orgController::readSect);
+        Spark.post("/organizacion/:razonSocial/sector/:nombre", orgController::updateSect);
+        Spark.delete("/organizacion/:razonSocial/sector/:nombre", orgController::deleteSect);
+        Spark.post("/organizacion/:razonSocial/sector/:nombre/miembro/:dni", orgController::deleteSect);
+        Spark.delete("/organizacion/:razonSocial/sector/:nombre/miembro/:dni", orgController::deleteSect);
 
 
         //FactorEmisionController

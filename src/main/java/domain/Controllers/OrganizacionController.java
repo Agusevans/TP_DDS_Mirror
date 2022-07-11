@@ -7,8 +7,6 @@ import persistencia.ReposMemoria.RepoSector;
 import spark.Request;
 import spark.Response;
 
-import java.util.List;
-
 public class OrganizacionController {
 
     RepoOrganizacion repoOrganizacion = new RepoOrganizacion();
@@ -46,12 +44,13 @@ public class OrganizacionController {
     }
 
     public Response createSect(Request request, Response response) {
-        Organizacion organizacion = repoOrganizacion.buscar(request.queryParams("razonSoacial"));
+        Organizacion organizacion = repoOrganizacion.buscar(request.queryParams("razonSocial"));
+        Miembro miembro = repoMiembros.buscar(request.queryParams("dni"));
         Sector sector = new Sector();
         asignarAtributosA(sector, request);
-        agregarMiembrosASector(sector,organizacion);
+        agregarMiembrosASector(miembro,sector);
         organizacion.agregarSector(sector);
-        this.repoSector.add(sector); //se define en repo
+        this.repoSector.agregar(sector); //se define en repo
         this.repoOrganizacion.actualizar(organizacion); //puede no ser necesario, depende como se defina el repoOrg
         //organizacion.aceptarMiembros(request.queryParams("archivo"))
         //      --> al crear se recibe el archivo de miembros por queryparams (o un form)
@@ -60,22 +59,22 @@ public class OrganizacionController {
 
     public Sector readSect(Request request, Response response) {
         //considerando que tiene id
-        Sector sector = repoSector.search(request.queryParams("id_s"));
+        Sector sector = repoSector.buscar(request.queryParams("nombre"));
         return sector;
     }
 
     public Response updateSect(Request request, Response response) {
-        Sector sector = this.repoSector.search(request.queryParams("id_s"));
+        Sector sector = this.repoSector.buscar(request.queryParams("nombre"));
         asignarAtributosA(sector, request);
-        this.repoSector.update(sector);
+        this.repoSector.actualizar(sector);
         return response;
     }
 
 
     public Response deleteSect(Request request, Response response) {
-        Sector sector = this.repoSector.search(request.queryParams("id_s"));
+        Sector sector = this.repoSector.buscar(request.queryParams("nombre"));
         if( sector != null){
-            this.repoSector.delete(sector);
+            this.repoSector.borrar(sector);
         }
         return response;
     }
@@ -112,10 +111,8 @@ public class OrganizacionController {
 
     }
 
-    private void agregarMiembrosASector(Sector sector, Organizacion organizacion){
-        List<Miembro> miembros = repoMiembros.listBy(organizacion);
-        for (Miembro miembro:miembros) {
-            sector.agregarMiembro(miembro);
-        }
+    private void agregarMiembrosASector(Miembro miembro, Sector sector){
+
+        sector.agregarMiembro(miembro);
     }
 }
