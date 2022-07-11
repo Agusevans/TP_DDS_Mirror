@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 public class RepoMedicion {
 
+    List<DatosActividad> mediciones = new ArrayList<DatosActividad>();
 
     //String actividad;
     public List<DatosActividad> actividadFilter(ArrayList<DatosActividad> datos, String filter){
@@ -34,5 +35,30 @@ public class RepoMedicion {
         return datos.stream()
                 .filter(datosActividad -> {return datosActividad.getAlcance().compareTo(filter) == 0;})
                 .collect(Collectors.toList());
+    }
+
+    public List<DatosActividad> list(String cadena)
+    {
+        return mediciones;
+    }
+
+    /*public List<DatosActividad> filter(String cadena)
+    {
+        return mediciones;
+    }*/
+    
+    public void addAll(String mediciones) //TODO
+    {
+
+    }
+
+    public void deleteAll(String mediciones)
+    {
+
+    }
+
+    public List<DatosActividad> getMediciones()
+    {
+        return mediciones;
     }
 }

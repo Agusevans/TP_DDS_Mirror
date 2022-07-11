@@ -2,11 +2,12 @@ package persistencia.ReposMemoria;
 
 import domain.Organizacion.Organizacion;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RepoOrganizacion {
 
-    List<Organizacion> listOrganizacion;
+    List<Organizacion> listOrganizacion = new ArrayList<Organizacion>();
 
 
     public void agregar(Organizacion organizacion) {

@@ -1,12 +1,13 @@
-package  persistencia.ReposMemoria;
+package persistencia.ReposMemoria;
 
 import domain.Organizacion.Sector;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RepoSector {
 
-    List<Sector> listSector;
+    List<Sector> listSector = new ArrayList<Sector>();
 
     public void agregar(Sector sector) {
 
@@ -20,7 +21,7 @@ public class RepoSector {
 
         for (Sector sec : listSector) {
 
-            if (sec.getNombre() == nombre);
+            if (sec.getNombre() == nombre) ;
             {
 
                 elSector = sec;
@@ -34,17 +35,18 @@ public class RepoSector {
 
     public void actualizar(Sector sector) {
 
-            for (Sector sec : listSector) {
+        for (Sector sec : listSector) {
 
-                if (sec.getNombre() == sector.getNombre());
-                {
+            if (sec.getNombre() == sector.getNombre()) ;
+            {
 
-                    sec = sector;
+                sec = sector;
 
-                }
             }
+        }
 
     }
+
     public void borrar(Sector sector) {
 
         int i = 0;
@@ -54,7 +56,7 @@ public class RepoSector {
 
             i++;
 
-            if (sec.getNombre() == sector.getNombre());
+            if (sec.getNombre() == sector.getNombre()) ;
             {
 
                 index = i;

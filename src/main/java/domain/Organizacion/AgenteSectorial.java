@@ -2,7 +2,7 @@ package domain.Organizacion;
 
 import java.util.List;
 
-public class AgenteSocial {
+public class AgenteSectorial {
     String nombre;
     TipoTerritorio tipoTerritorio;
     List<Organizacion> organizaciones;

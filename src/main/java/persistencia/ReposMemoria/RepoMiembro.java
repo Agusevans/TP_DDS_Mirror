@@ -2,11 +2,12 @@ package persistencia.ReposMemoria;
 
 import domain.Organizacion.Miembro;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RepoMiembro {
 
-    List<Miembro> listMiembro;
+    List<Miembro> listMiembro = new ArrayList<Miembro>();
 
     public Miembro buscar(String dni) {
 

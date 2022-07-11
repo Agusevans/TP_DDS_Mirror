@@ -28,7 +28,7 @@ public class Router {
         //OrganizacionController
         OrganizacionController orgController = new OrganizacionController();
         FactorEmisionController factorEmisionController = new FactorEmisionController();
-        AgenteSocialController agenteSocialController = new AgenteSocialController();
+        AgenteSectorialController agenteSectorialController = new AgenteSectorialController();
         MedicionController medicionController = new MedicionController();
 
         Spark.post("/organizacion", orgController::createOrg);
@@ -46,11 +46,11 @@ public class Router {
         //FactorEmisionController
         Spark.post("/factoremision/:id", factorEmisionController::update);
 
-        //AgenteSocialController
-        Spark.post("/agente", agenteSocialController::create);
-        Spark.get("/agente/:id", agenteSocialController::read);
-        Spark.post("/agente/:id", agenteSocialController::update);
-        Spark.delete("/agente/:id", agenteSocialController::delete);
+        //AgenteSectorialController
+        Spark.post("/agente", agenteSectorialController::create);
+        Spark.get("/agente/:id", agenteSectorialController::read);
+        Spark.post("/agente/:id", agenteSectorialController::update);
+        Spark.delete("/agente/:id", agenteSectorialController::delete);
 
         //MedicionController
         Spark.get("/mediciones",medicionController::filterMed);
