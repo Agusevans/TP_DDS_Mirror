@@ -84,7 +84,7 @@ public class Organizacion implements FachadaOrg {
 
     @Override
     public void cargarParametros(Map<String, Float> parametrosSistema) {
-        //TODO
+        //TODO carga factor de emision
     }
 
     @Override
@@ -153,7 +153,7 @@ public class Organizacion implements FachadaOrg {
 
     }
 
-    public void reportarHC(){} //TODO metodo
+    public void reportarHC(){} //TODO agregar email y envio de reporte
 
     //Getters & setters
     public String getRazonSocial() {

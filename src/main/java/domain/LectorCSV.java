@@ -13,6 +13,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+//TODO: opencsv cambiarlo a algo exportable a la nube
+
 import static org.hsqldb.StatementTypes.RETURN_COUNT;
 
 public class LectorCSV implements LectorArchivos {

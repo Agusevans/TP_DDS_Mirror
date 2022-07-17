@@ -6,4 +6,6 @@ public class Parada {
     Float longitud;
     Parada anterior;
     Parada siguiente;
+
+    //TODO calcular distancia entre paradas
 }

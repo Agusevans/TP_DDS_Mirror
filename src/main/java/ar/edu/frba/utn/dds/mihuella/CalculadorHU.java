@@ -12,7 +12,7 @@ import net.sourceforge.argparse4j.inf.Namespace;
 
 import java.util.Collection;
 
-
+//TODO terminar programa de consola HC
 public class CalculadorHU {
 
     public static void main(String[] args) {

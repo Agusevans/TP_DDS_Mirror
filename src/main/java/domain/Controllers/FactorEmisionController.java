@@ -12,7 +12,7 @@ public class FactorEmisionController {
     RepoFactorEmision repoFactorEmision = new RepoFactorEmision();
 
     public Response update(Request request, Response response){
-        FactorEmision factorEmision = this.repoFactorEmision.search(request.queryParams("id"));
+        FactorEmision factorEmision = this.repoFactorEmision.search(String.valueOf(request.params()));
         asignarAtributosA(factorEmision, request);
         this.repoFactorEmision.update(factorEmision);
         return response;

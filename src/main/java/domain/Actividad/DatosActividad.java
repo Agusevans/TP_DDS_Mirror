@@ -36,7 +36,7 @@ public class DatosActividad implements Medible {
     }
 
     @Override
-    public String getCategoria() { //TODO: definir que es categoria
+    public String getCategoria() {
         return null;
     }
 

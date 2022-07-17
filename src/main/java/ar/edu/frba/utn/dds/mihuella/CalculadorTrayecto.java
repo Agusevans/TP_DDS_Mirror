@@ -12,7 +12,7 @@ import net.sourceforge.argparse4j.inf.Namespace;
 
 import java.util.Collection;
 
-
+//TODO terminar programa de consola Trayectos
 public class CalculadorTrayecto {
 
     public static void main(String[] args) {
