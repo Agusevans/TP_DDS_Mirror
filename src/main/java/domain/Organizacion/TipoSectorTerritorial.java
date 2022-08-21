@@ -1,6 +1,6 @@
 package domain.Organizacion;
 
-public enum TipoTerritorio {
+public enum TipoSectorTerritorial {
     municipio,
     departamento,
     provincia
