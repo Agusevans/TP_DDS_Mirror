@@ -1,7 +1,8 @@
 package domain.Controllers;
 
 import domain.Organizacion.AgenteSectorial;
-import domain.Organizacion.TipoTerritorio;
+import domain.Organizacion.SectorTerritorial;
+import domain.Organizacion.TipoSectorTerritorial;
 import persistencia.ReposMemoria.RepoAgenteSectorial;
 import spark.Request;
 import spark.Response;
@@ -19,19 +20,19 @@ public class AgenteSectorialController {
 
     public AgenteSectorial read(Request request, Response response) {
         //considerando que tiene id
-        AgenteSectorial agenteSectorial = repoAgenteSectorial.search(request.queryParams("id"));
+        AgenteSectorial agenteSectorial = repoAgenteSectorial.search(request.params("id"));
         return agenteSectorial;
     }
 
     public Response update(Request request, Response response) {
-        AgenteSectorial agenteSocial = this.repoAgenteSectorial.search(request.queryParams("id"));
+        AgenteSectorial agenteSocial = this.repoAgenteSectorial.search(request.params("id"));
         asignarAtributosA(agenteSocial, request);
         this.repoAgenteSectorial.update(agenteSocial);
         return response;
     }
 
     public Response delete(Request request, Response response) {
-        AgenteSectorial agenteSocial = this.repoAgenteSectorial.search(request.queryParams("id"));
+        AgenteSectorial agenteSocial = this.repoAgenteSectorial.search(request.params("id"));
         if( agenteSocial != null){
             this.repoAgenteSectorial.delete(agenteSocial);
         }
@@ -45,7 +46,8 @@ public class AgenteSectorialController {
         }
 
         if (request.queryParams("tipo") != null){
-            agenteSectorial.setTipoTerritorio(TipoTerritorio.valueOf(request.queryParams("tipo")));
+            SectorTerritorial sectorTerritorial = new SectorTerritorial(request.queryParams("nombreSector"), TipoSectorTerritorial.valueOf(request.queryParams("tipo")));
+            agenteSectorial.setSectorTerritorial(sectorTerritorial);
         }
 
         if (request.queryParams("organizaciones") != null){

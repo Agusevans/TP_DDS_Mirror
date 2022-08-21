@@ -24,19 +24,19 @@ public class OrganizacionController {
 
     public Organizacion readOrg(Request request, Response response) {
         //considerando que tiene id
-        Organizacion organizacion = repoOrganizacion.buscar(request.queryParams("razonSocial"));
+        Organizacion organizacion = repoOrganizacion.buscar(request.params("razonSocial"));
         return organizacion;
     }
 
     public Response updateOrg(Request request, Response response) {
-        Organizacion organizacion = this.repoOrganizacion.buscar(request.queryParams("razonSocial"));
+        Organizacion organizacion = this.repoOrganizacion.buscar(request.params("razonSocial"));
         asignarAtributosA(organizacion, request);
         this.repoOrganizacion.actualizar(organizacion);
         return response;
     }
 
     public Response deleteOrg(Request request, Response response) {
-        Organizacion organizacion = this.repoOrganizacion.buscar(request.queryParams("razonSocial"));
+        Organizacion organizacion = this.repoOrganizacion.buscar(request.params("razonSocial"));
         if( organizacion != null){
             this.repoOrganizacion.borrar(organizacion);
         }
@@ -44,7 +44,7 @@ public class OrganizacionController {
     }
 
     public Response createSect(Request request, Response response) {
-        Organizacion organizacion = repoOrganizacion.buscar(request.queryParams("razonSocial"));
+        Organizacion organizacion = repoOrganizacion.buscar(request.params("razonSocial"));
         Miembro miembro = repoMiembros.buscar(request.queryParams("dni"));
         Sector sector = new Sector();
         asignarAtributosA(sector, request);
@@ -59,12 +59,12 @@ public class OrganizacionController {
 
     public Sector readSect(Request request, Response response) {
         //considerando que tiene id
-        Sector sector = repoSector.buscar(request.queryParams("nombre"));
+        Sector sector = repoSector.buscar(request.params("nombre"));
         return sector;
     }
 
     public Response updateSect(Request request, Response response) {
-        Sector sector = this.repoSector.buscar(request.queryParams("nombre"));
+        Sector sector = this.repoSector.buscar(request.params("nombre"));
         asignarAtributosA(sector, request);
         this.repoSector.actualizar(sector);
         return response;
@@ -72,7 +72,7 @@ public class OrganizacionController {
 
 
     public Response deleteSect(Request request, Response response) {
-        Sector sector = this.repoSector.buscar(request.queryParams("nombre"));
+        Sector sector = this.repoSector.buscar(request.params("nombre"));
         if( sector != null){
             this.repoSector.borrar(sector);
         }

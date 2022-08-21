@@ -4,7 +4,7 @@ import java.util.List;
 
 public class AgenteSectorial {
     String nombre;
-    TipoTerritorio tipoTerritorio;
+    SectorTerritorial sectorTerritorial;
     List<Organizacion> organizaciones;
     String email;
     String periodo;
@@ -23,12 +23,12 @@ public class AgenteSectorial {
         this.nombre = nombre;
     }
 
-    public TipoTerritorio getTipoTerritorio() {
-        return tipoTerritorio;
+    public SectorTerritorial getSectorTerritorial() {
+        return sectorTerritorial;
     }
 
-    public void setTipoTerritorio(TipoTerritorio tipoTerritorio) {
-        this.tipoTerritorio = tipoTerritorio;
+    public void setSectorTerritorial(SectorTerritorial tipoTerritorio) {
+        this.sectorTerritorial = tipoTerritorio;
     }
 
     public List<Organizacion> getOrganizaciones() {
