@@ -13,7 +13,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-public class Organizacion implements FachadaOrg {
+public class Organizacion {
 
     String razonSocial;
     TipoOrg tipo;
@@ -52,7 +52,7 @@ public class Organizacion implements FachadaOrg {
 
     public void aceptarMiembros(String archivo) {
 
-        LectorCSV lector = new LectorCSV(archivo, ',');
+        LectorCSV lector = new LectorCSV(archivo, ','); //TODO: Sacar esto de aca, pedirle los datos al lector
 
         String[] linea = lector.LeerLinea();
 
@@ -82,12 +82,6 @@ public class Organizacion implements FachadaOrg {
         this.sectorlist.add(sector);
     }
 
-    @Override
-    public void cargarParametros(Map<String, Float> parametrosSistema) {
-        //TODO carga factor de emision
-    }
-
-    @Override
     public Float obtenerHU(Collection<Medible> mediciones) {
         Float total = 0f;
         int factorEmision = 2; //TODO revisar por donde entra el factor de emision
