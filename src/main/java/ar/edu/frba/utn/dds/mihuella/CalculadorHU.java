@@ -2,6 +2,7 @@ package ar.edu.frba.utn.dds.mihuella;
 
 import ar.edu.frba.utn.dds.mihuella.fachada.FachadaOrg;
 import ar.edu.frba.utn.dds.mihuella.fachada.Medible;
+import domain.ImplementadorFachadaOrg;
 import domain.LectorArchivos;
 import domain.LectorCSV;
 import domain.Organizacion.Organizacion;
@@ -39,7 +40,7 @@ public class CalculadorHU {
 
         // calcular huella de las actividades y el total
         LectorArchivos lector = new LectorCSV(ns.get("mediciones"), ','); //TODO revisar por donde entra el archivo de mediciones
-        FachadaOrg fachadaOrg = new Organizacion();
+        ImplementadorFachadaOrg fachadaOrg = new ImplementadorFachadaOrg(new Organizacion());
 
         Collection<Medible> mediciones = lector.leerMediciones();
         Float huellaCarbono = fachadaOrg.obtenerHU(mediciones);

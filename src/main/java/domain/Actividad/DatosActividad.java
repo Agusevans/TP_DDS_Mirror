@@ -7,32 +7,26 @@ import java.util.List;
 
 public class DatosActividad implements Medible {
 
-    String actividad;
-    List<TipoConsumo> tiposConsumo;
+    Actividad actividad;
+    List<Medicion> mediciones;
     String periodoDeImputacion;
-    Alcance alcance;
 
     public DatosActividad(){};
 
-    public DatosActividad(String actividad, String periodoDeImputacion, Alcance alcance) {
+    public DatosActividad(Actividad actividad, List<Medicion> mediciones, String periodoDeImputacion) {
         this.actividad = actividad;
-        this.tiposConsumo = new ArrayList<>();
         this.periodoDeImputacion = periodoDeImputacion;
-        this.alcance = alcance;
+        this.mediciones = mediciones;
     }
 
-    public void agregarTipoConsumo(TipoConsumo tipoConsumo){
-        tiposConsumo.add(tipoConsumo);
-    };
-
-    @Override
+    @Override //TODO: Checkear estos overrides del medible
     public String getUnidad() {
         return String.valueOf(TipoConsumo.getUnidad());
     }
 
     @Override
     public Float getValor() {
-        return TipoConsumo.getValor();
+        return null; //TipoConsumo.getValor();
     }
 
     @Override
@@ -40,20 +34,14 @@ public class DatosActividad implements Medible {
         return null;
     }
 
-    public String getActividad() {
-        return actividad;
-    }
+    public Float calcularHU()
+    {
+        Float hu = 0f;
+        for(Medicion medicion : mediciones) {
+            hu += medicion.calcularHUMedicion();
+        }
 
-    public void setActividad(String actividad) {
-        this.actividad = actividad;
-    }
-
-    public List<TipoConsumo> getTiposConsumo() {
-        return tiposConsumo;
-    }
-
-    public void setTiposConsumo(List<TipoConsumo> tiposConsumo) {
-        this.tiposConsumo = tiposConsumo;
+        return hu;
     }
 
     public String getPeriodoDeImputacion() {
@@ -64,12 +52,5 @@ public class DatosActividad implements Medible {
         this.periodoDeImputacion = periodoDeImputacion;
     }
 
-    public Alcance getAlcance() {
-        return alcance;
-    }
-
-    public void setAlcance(Alcance alcance) {
-        this.alcance = alcance;
-    }
 
 }

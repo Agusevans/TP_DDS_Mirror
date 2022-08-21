@@ -4,15 +4,17 @@ public class TipoConsumo {
 
     String tipo;
     static Unidad unidad;
-    static Float valor;
-    Periodicidad periodicidad;
+    FactorEmision factorEmision;
 
     public TipoConsumo(){};
-    public TipoConsumo(String tipo, Unidad unidad, Float valor, Periodicidad periodicidad) {
+    public TipoConsumo(String tipo, Unidad unidad, FactorEmision fe) {
         this.tipo = tipo;
         this.unidad = unidad;
-        this.valor = valor;
-        this.periodicidad = periodicidad;
+        this.factorEmision = fe;
+    }
+
+    public FactorEmision getFactorEmision(){
+        return this.factorEmision;
     }
 
     public String getTipo() {
@@ -29,22 +31,6 @@ public class TipoConsumo {
 
     public void setUnidad(Unidad unidad) {
         this.unidad = unidad;
-    }
-
-    public static Float getValor() {
-        return valor;
-    }
-
-    public void setValor(Float valor) {
-        this.valor = valor;
-    }
-
-    public Periodicidad getPeriodicidad() {
-        return periodicidad;
-    }
-
-    public void setPeriodicidad(Periodicidad periodicidad) {
-        this.periodicidad = periodicidad;
     }
 
 }

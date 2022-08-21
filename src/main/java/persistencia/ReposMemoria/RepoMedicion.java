@@ -12,7 +12,7 @@ public class RepoMedicion {
     List<DatosActividad> mediciones = new ArrayList<DatosActividad>();
 
     //String actividad;
-    public List<DatosActividad> actividadFilter(ArrayList<DatosActividad> datos, String filter){
+    public List<DatosActividad> actividadFilter(ArrayList<DatosActividad> datos, String filter){ //TODO: Checkear cambios
 
         return datos.stream()
                 .filter(datosActividad -> {return datosActividad.getActividad().compareTo(filter) == 0;})

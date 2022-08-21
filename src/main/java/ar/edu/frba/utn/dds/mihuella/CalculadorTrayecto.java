@@ -5,6 +5,7 @@ import ar.edu.frba.utn.dds.mihuella.fachada.Medible;
 import domain.ImplementadorFachadaOrg;
 import domain.LectorArchivos;
 import domain.LectorCSV;
+import domain.Organizacion.Organizacion;
 import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
@@ -46,7 +47,7 @@ public class CalculadorTrayecto {
 /*        LectorArchivos lectorJSONOrg = new LectorJSON(ns.get("datosOrg" ...));
         LectorArchivos lectorJSONTrasporte = new LectorJSON(ns.get("transportes" ...));
 */
-        FachadaOrg fachadaOrg = new ImplementadorFachadaOrg();
+        ImplementadorFachadaOrg fachadaOrg = new ImplementadorFachadaOrg(new Organizacion());
 
         Collection<Medible> trayectos = lectorCSV.leerMediciones();
         Float huellaCarbono = fachadaOrg.obtenerHU(trayectos);
