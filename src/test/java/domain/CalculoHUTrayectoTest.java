@@ -1,14 +1,7 @@
 package domain;
 
-import ar.edu.frba.utn.dds.mihuella.fachada.Medible;
-import domain.Actividad.DatosActividad;
 import domain.Actividad.FactorEmision;
-import domain.Actividad.Periodicidad;
-import domain.Actividad.TipoConsumo;
-import domain.Organizacion.ClasificacionOrg;
-import domain.Organizacion.Organizacion;
 import domain.Organizacion.Miembro;
-import domain.Organizacion.TipoOrg;
 import domain.Trayecto.Punto;
 import domain.Trayecto.Tramo;
 import domain.Trayecto.Trayecto;
@@ -16,12 +9,10 @@ import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Optional;
 
-class CalculoTest {
+class CalculoHUTrayectoTest {
 
     FactorEmision factorEmision;
     ArrayList<Tramo> tramos;

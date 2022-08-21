@@ -84,11 +84,9 @@ public class Organizacion {
 
     public Float obtenerHU(Collection<Medible> mediciones) {
         Float total = 0f;
-        int factorEmision = 2; //TODO revisar por donde entra el factor de emision
-        //El factor de emision probablemente entre por params
 
         for (Medible medicion:mediciones) {
-            total += medicion.getValor() * factorEmision;
+            total += medicion.calcularHU();
         }
         return total;
     }

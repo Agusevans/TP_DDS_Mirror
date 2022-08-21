@@ -5,4 +5,6 @@ public interface Medible {
     public String getUnidad();
     public Float getValor();
     public String getCategoria();
+
+    public Float calcularHU();
 }

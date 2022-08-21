@@ -6,6 +6,12 @@ public class Medicion {
     Float valor;
     Periodicidad periodicidad;
 
+    public Medicion(TipoConsumo tipoConsumo, Float valor, Periodicidad periodicidad) {
+        this.tipoConsumo = tipoConsumo;
+        this.valor = valor;
+        this.periodicidad = periodicidad;
+    }
+
     public Float calcularHUMedicion()
     {
         FactorEmision fe = tipoConsumo.getFactorEmision();
