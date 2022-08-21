@@ -4,6 +4,7 @@ public class FactorEmision {
 
     Float valor;
     Unidad unidad;
+    Integer id;
 
     public FactorEmision(){};
     public FactorEmision(Float valor, Unidad unidad) {
@@ -13,6 +14,10 @@ public class FactorEmision {
 
     public Float getValor() {
         return valor;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public void setValor(Float valor) {

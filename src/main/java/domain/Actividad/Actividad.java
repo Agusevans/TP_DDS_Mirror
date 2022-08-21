@@ -8,4 +8,8 @@ public class Actividad {
     List<TipoConsumo> tiposConsumo;
     Alcance alcance;
 
+    public String getNombre(){
+        return nombre;
+    }
+
 }

@@ -52,5 +52,9 @@ public class DatosActividad implements Medible {
         this.periodoDeImputacion = periodoDeImputacion;
     }
 
+    public Actividad getActividad() {
+        return actividad;
+    }
+
 
 }
