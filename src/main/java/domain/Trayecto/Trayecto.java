@@ -8,6 +8,10 @@ public class Trayecto {
 
     List<Tramo> tramos;
 
+    public Trayecto(List<Tramo> tramos){
+        this.tramos = tramos;
+    }
+
     public float calcularRecorrido(){
         float total = 0f;
 

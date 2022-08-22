@@ -25,7 +25,6 @@ class CalculoHUMedicionTest {
     @Test
     void calculoHuellaCarbono(){
 
-        List<Medible> mediciones;
         Organizacion org = new Organizacion();
 
         FactorEmision fe1 = new FactorEmision(10f, Unidad.lt);
@@ -41,6 +40,7 @@ class CalculoHUMedicionTest {
         Actividad actividad1 = new Actividad("Combustion fija", tiposConsumos1, Alcance.Directa);
         Medible datosActividad1 = new DatosActividad(actividad1, mediciones1, "MM");
 
+        List<Medible> mediciones;
         mediciones = new ArrayList<Medible>();
         mediciones.add(datosActividad1);
 

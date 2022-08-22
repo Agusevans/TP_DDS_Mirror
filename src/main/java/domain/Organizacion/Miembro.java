@@ -57,7 +57,7 @@ public class Miembro {
         org.cargarMedicion(mediciones);
     }
 
-    public Float calcularHU(float factorEmision){
+    public Float calcularHU(float factorEmision){ //TODO: El fe deberia sacarse de la actividad de trayectos, ademas no deberia ser el miembro el que lo calcula
         float total = 0;
         for(Trayecto trayecto:trayectos){
             total +=trayecto.calcularRecorrido()*factorEmision;

@@ -11,6 +11,13 @@ public class Tramo {
     Punto puntoFin;
     List<Miembro> compartidoPor;
 
+    public Tramo(MedioTransporte transporte, Punto inicio, Punto fin, List<Miembro> compartidoPor){
+        this.medioTransporte = transporte;
+        this.puntoInicio = inicio;
+        this.puntoFin = fin;
+        this.compartidoPor = compartidoPor;
+    }
+
     public float calcularTramo(){
         float totalDistancia = 0f;
 
