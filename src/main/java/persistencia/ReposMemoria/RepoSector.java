@@ -10,9 +10,7 @@ public class RepoSector {
     List<Sector> listSector = new ArrayList<Sector>();
 
     public void agregar(Sector sector) {
-
         listSector.add(sector);
-
     }
 
     public Sector buscar(String nombre) {
@@ -20,50 +18,28 @@ public class RepoSector {
         Sector elSector = new Sector();
 
         for (Sector sec : listSector) {
-
-            if (sec.getNombre() == nombre) ;
-            {
-
+            if (sec.getNombre().equals(nombre)) {
                 elSector = sec;
-
+                break;
             }
         }
 
         return elSector;
-
     }
 
     public void actualizar(Sector sector) {
 
         for (Sector sec : listSector) {
-
-            if (sec.getNombre() == sector.getNombre()) ;
-            {
-
+            if (sec.getNombre() == sector.getNombre()) {
                 sec = sector;
-
+                break;
             }
         }
 
     }
 
     public void borrar(Sector sector) {
-
-        int i = 0;
-        int index = 0;
-
-        for (Sector sec : listSector) {
-
-            i++;
-
-            if (sec.getNombre() == sector.getNombre()) ;
-            {
-
-                index = i;
-
-            }
-        }
-
-        listSector.remove(index);
+        listSector.remove(sector);
     }
+
 }

@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class RepoMedicion {
+public class RepoMedicion { //TODO: Checkear cambios y completar
 
     List<DatosActividad> mediciones = new ArrayList<DatosActividad>();
 
     //String actividad;
-    public List<DatosActividad> actividadFilter(ArrayList<DatosActividad> datos, String filter){ //TODO: Checkear cambios
+    public List<DatosActividad> actividadFilter(ArrayList<DatosActividad> datos, String filter){
 
         return datos.stream()
                 .filter(datosActividad -> {return datosActividad.getActividad().getNombre().compareTo(filter) == 0;})

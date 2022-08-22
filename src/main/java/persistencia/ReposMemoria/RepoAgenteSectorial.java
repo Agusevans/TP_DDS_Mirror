@@ -13,7 +13,7 @@ public class RepoAgenteSectorial {
         agenteSectorialList.add(agente);
     }
 
-    public AgenteSectorial search(String nombre) { //Nombre es el unico campo de la clase comparable, TODO: checkear
+    public AgenteSectorial search(String nombre) {
         AgenteSectorial agenteBuscado = new AgenteSectorial();
         for (AgenteSectorial agente : agenteSectorialList)
             if (agente.getNombre().equals(nombre)) {
@@ -26,7 +26,7 @@ public class RepoAgenteSectorial {
     public void update(AgenteSectorial agente) {
         AgenteSectorial agenteBuscado = this.search(agente.getNombre());
         this.delete(agenteBuscado);
-        this.add(agenteBuscado);
+        this.add(agente);
     }
 
     public void delete(AgenteSectorial agente) {
