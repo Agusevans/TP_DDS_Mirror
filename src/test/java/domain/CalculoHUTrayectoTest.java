@@ -26,7 +26,7 @@ class CalculoHUTrayectoTest {
 
     @BeforeEach
     public void init (){
-        factorEmision = new FactorEmision(2f, Unidad.km); //TODO: El fe deberia sacarse de la actividad
+        factorEmision = new FactorEmision(2f, Unidad.km); //TODO: Borar cuando se implemente en la actividad
 
         Punto domicilio = new Punto(1f,1f);
         miembro1 = new Miembro("Pedro","Liniers","DNI",25000, domicilio);
@@ -52,7 +52,7 @@ class CalculoHUTrayectoTest {
 
     @Test
     void calculoHUCompartido(){
-        //TODO
+        //TODO: Probar que se haga bien la cuenta de trayectos compartidos
     }
 
 }

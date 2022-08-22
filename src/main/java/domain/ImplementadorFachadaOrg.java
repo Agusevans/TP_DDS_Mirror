@@ -20,7 +20,7 @@ public class ImplementadorFachadaOrg implements FachadaOrg {
 
     @Override
     public void cargarParametros(Map<String, Float> parametrosSistema) {
-        //TODO
+        //TODO: Ver como cargar los parametors
     }
 
     @Override
