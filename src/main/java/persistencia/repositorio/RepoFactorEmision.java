@@ -1,7 +1,6 @@
-package persistencia.ReposMemoria;
+package persistencia.repositorio;
 
 import domain.Actividad.FactorEmision;
-import domain.Organizacion.AgenteSectorial;
 
 import java.util.ArrayList;
 import java.util.List;

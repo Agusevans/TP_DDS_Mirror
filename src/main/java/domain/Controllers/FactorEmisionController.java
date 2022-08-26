@@ -2,8 +2,7 @@ package domain.Controllers;
 
 import domain.Actividad.FactorEmision;
 import domain.Actividad.Unidad;
-import domain.Organizacion.Organizacion;
-import persistencia.ReposMemoria.RepoFactorEmision;
+import persistencia.repositorio.RepoFactorEmision;
 import spark.Request;
 import spark.Response;
 

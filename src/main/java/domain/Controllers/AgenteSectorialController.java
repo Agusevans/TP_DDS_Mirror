@@ -3,7 +3,7 @@ package domain.Controllers;
 import domain.Organizacion.AgenteSectorial;
 import domain.Organizacion.SectorTerritorial;
 import domain.Organizacion.TipoSectorTerritorial;
-import persistencia.ReposMemoria.RepoAgenteSectorial;
+import persistencia.repositorio.RepoAgenteSectorial;
 import spark.Request;
 import spark.Response;
 

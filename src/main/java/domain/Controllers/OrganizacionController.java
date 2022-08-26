@@ -1,9 +1,9 @@
 package domain.Controllers;
 
 import domain.Organizacion.*;
-import persistencia.ReposMemoria.RepoMiembro;
-import persistencia.ReposMemoria.RepoOrganizacion;
-import persistencia.ReposMemoria.RepoSector;
+import persistencia.repositorio.RepoMiembro;
+import persistencia.repositorio.RepoOrganizacion;
+import persistencia.repositorio.RepoSector;
 import spark.Request;
 import spark.Response;
 

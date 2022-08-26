@@ -1,4 +1,4 @@
-package persistencia.ReposMemoria;
+package persistencia.repositorio;
 
 import domain.Organizacion.AgenteSectorial;
 

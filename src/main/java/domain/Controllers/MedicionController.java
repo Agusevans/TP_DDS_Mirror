@@ -1,7 +1,7 @@
 package domain.Controllers;
 
 import domain.Actividad.DatosActividad;
-import persistencia.ReposMemoria.RepoMedicion;
+import persistencia.repositorio.RepoMedicion;
 import spark.Request;
 import spark.Response;
 

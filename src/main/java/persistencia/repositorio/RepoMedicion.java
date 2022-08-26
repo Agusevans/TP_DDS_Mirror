@@ -1,6 +1,5 @@
-package persistencia.ReposMemoria;
+package persistencia.repositorio;
 
-import domain.Actividad.Alcance;
 import domain.Actividad.DatosActividad;
 
 import java.util.ArrayList;
