@@ -21,12 +21,12 @@ public class Repositorio<T> {
         this.dao.agregar(unObjeto);
     }
 
-    public void modificar(Object unObjeto){
-        this.dao.modificar(unObjeto);
+    public void actualizar(Object unObjeto){
+        this.dao.actualizar(unObjeto);
     }
 
-    public void eliminar(Object unObjeto){
-        this.dao.eliminar(unObjeto);
+    public void borrar(Object unObjeto){
+        this.dao.borrar(unObjeto);
     }
 
     public List<T> buscarTodos(){

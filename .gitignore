@@ -265,7 +265,7 @@ nbdist/
 *.csr
 *.css
 *.htm
-*.html
+##*.html
 *.js
 *.jsp
 *.php

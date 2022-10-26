@@ -1,35 +1,56 @@
 package domain.Organizacion;
 
+import com.google.gson.annotations.Expose;
+import domain.EntidadPersistente;
 import domain.Organizacion.Miembro;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sector {
 
-    String nombre;
-    String actividad;
-    List<Miembro> miembrosList;
+@Entity
+@Table(name = "sector")
+public class Sector extends EntidadPersistente {
 
-    public Sector(){};
+    @Expose
+    @Column
+    private String nombre;
 
-    public Sector(String nombre, String actividad) {
+    @Expose
+    @Column
+    private String descripcion;
+
+    @Expose
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "miembro_sector",
+            joinColumns = @JoinColumn(name = "sector_id"),
+            inverseJoinColumns = @JoinColumn(name = "miembro_id")
+    )
+    private List<Miembro> miembros;
+
+    public Sector(){
+        this.miembros = new ArrayList<>();
+    };
+
+    public Sector(String nombre, String descripcion) {
         this.nombre = nombre;
-        this.actividad = actividad;
-        this.miembrosList = new ArrayList<>();
+        this.descripcion = descripcion;
+        this.miembros = new ArrayList<>();
     }
 
     public void agregarMiembro(Miembro miembro){
-        this.miembrosList.add(miembro);
+        this.miembros.add(miembro);
     }
 
-    public boolean esMiembro(Miembro miembro){ return miembrosList.contains(miembro); }
+    public boolean esMiembro(Miembro miembro){ return miembros.contains(miembro); }
 
     public int cantidadMiembros(){
 
         int cant = 0;
 
-        for (Miembro miebro : this.miembrosList){
+        for (Miembro miebro : this.miembros){
             cant++;
         }
 
@@ -46,19 +67,19 @@ public class Sector {
         this.nombre = nombre;
     }
 
-    public String getActividad() {
-        return actividad;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setActividad(String actividad) {
-        this.actividad = actividad;
+    public void setDescripcion(String actividad) {
+        this.descripcion = actividad;
     }
 
-    public List<Miembro> getMiembrosList() {
-        return miembrosList;
+    public List<Miembro> getMiembros() {
+        return miembros;
     }
 
-    public void setMiembrosList(List<Miembro> miembrosList) {
-        this.miembrosList = miembrosList;
+    public void setMiembros(List<Miembro> miembrosList) {
+        this.miembros = miembrosList;
     }
 }

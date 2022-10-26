@@ -2,28 +2,25 @@ package domain;
 
 import ar.edu.frba.utn.dds.mihuella.fachada.Medible;
 import domain.Actividad.*;
-import domain.Organizacion.ClasificacionOrg;
 import domain.Organizacion.Organizacion;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 class CalculoHUMedicionTest {
 
+
+    @BeforeEach
     public void init(){
 
     }
 
     @Test
-    void cargaParametrosCorrectamente(){}
-
-    @Test
-    void calculoHuellaCarbono(){
+    void calculoHCMediciones(){
 
         Organizacion org = new Organizacion();
 
@@ -34,18 +31,16 @@ class CalculoHUMedicionTest {
         tiposConsumos1.add(tipoConsumo1);
 
         Medicion medicion1 = new Medicion(tipoConsumo1, 10f, Periodicidad.Mensual);
-        List<Medicion> mediciones1 = new ArrayList<Medicion>();
-        mediciones1.add(medicion1);
 
         Actividad actividad1 = new Actividad("Combustion fija", tiposConsumos1, Alcance.Directa);
-        Medible datosActividad1 = new DatosActividad(actividad1, mediciones1, "MM");
+        Medible datosActividad1 = new DatosActividad(actividad1, medicion1, LocalDate.of(2022,10,06));
 
         List<Medible> mediciones;
         mediciones = new ArrayList<Medible>();
         mediciones.add(datosActividad1);
 
         Float hu = 100f;
-        Assert.assertEquals(hu, org.obtenerHU(mediciones));
+        Assert.assertEquals(hu, org.obtenerHUMedible(mediciones));
     }
 
 }

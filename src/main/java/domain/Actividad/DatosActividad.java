@@ -1,54 +1,78 @@
 package domain.Actividad;
 
 import ar.edu.frba.utn.dds.mihuella.fachada.Medible;
+import com.google.gson.annotations.Expose;
 
-import java.util.ArrayList;
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
+@Entity
+@Table(name = "DatosActividad")
 public class DatosActividad implements Medible {
 
-    Actividad actividad;
-    List<Medicion> mediciones;
-    String periodoDeImputacion;
+    @Expose
+    @Id
+    @GeneratedValue
+    public int id;
+
+    @Expose
+    @ManyToOne
+    @JoinColumn(name = "actividad_id", referencedColumnName = "id")
+    private Actividad actividad;
+
+    @Expose
+    @OneToOne
+    private Medicion medicion;
+
+    @Expose
+    @Column
+    private LocalDate periodoDeImputacion;
 
     public DatosActividad(){};
 
-    public DatosActividad(Actividad actividad, List<Medicion> mediciones, String periodoDeImputacion) {
+    public DatosActividad(Actividad actividad, Medicion medicion, LocalDate periodoDeImputacion) {
         this.actividad = actividad;
         this.periodoDeImputacion = periodoDeImputacion;
-        this.mediciones = mediciones;
+        this.medicion = medicion;
     }
 
-    @Override //TODO: Checkear estos overrides del medible
+    @Override
+    public Float calcularHU()
+    {
+        return this.medicion.calcularHUMedicion();
+    }
+
+    @Override
     public String getUnidad() {
-        return String.valueOf(TipoConsumo.getUnidad());
+        return this.medicion.getTipoConsumo().getUnidad().name();
     }
 
     @Override
     public Float getValor() {
-        return null; //TipoConsumo.getValor();
+        return this.medicion.getValor();
     }
 
     @Override
     public String getCategoria() {
-        return null;
+        return this.medicion.getTipoConsumo().getNombre();
     }
 
-    public Float calcularHU()
-    {
-        Float hu = 0f;
-        for(Medicion medicion : mediciones) {
-            hu += medicion.calcularHUMedicion();
-        }
+    public int getId() { return id;}
 
-        return hu;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getPeriodoDeImputacion() {
+    public void setMedicion(Medicion medicion) {
+        this.medicion = medicion;
+    }
+
+    public LocalDate getPeriodoDeImputacion() {
         return periodoDeImputacion;
     }
 
-    public void setPeriodoDeImputacion(String periodoDeImputacion) {
+    public void setPeriodoDeImputacion(LocalDate periodoDeImputacion) {
         this.periodoDeImputacion = periodoDeImputacion;
     }
 
@@ -56,5 +80,11 @@ public class DatosActividad implements Medible {
         return actividad;
     }
 
+    public void setActividad(Actividad actividad) {
+        this.actividad = actividad;
+    }
 
+    public Medicion getMedicion() {
+        return medicion;
+    }
 }

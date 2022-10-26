@@ -1,36 +1,37 @@
 package persistencia.repositorio;
 
 import domain.Organizacion.AgenteSectorial;
+import domain.Organizacion.Miembro;
+import persistencia.BusquedaCondicional;
+import persistencia.daos.DAO;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RepoAgenteSectorial {
+public class RepoAgenteSectorial extends Repositorio<AgenteSectorial> {
 
-    List<AgenteSectorial> agenteSectorialList = new ArrayList<AgenteSectorial>();
-
-    public void add(AgenteSectorial agente) {
-        agenteSectorialList.add(agente);
+    public RepoAgenteSectorial(DAO<AgenteSectorial> dao) {
+        super(dao);
     }
 
-    public AgenteSectorial search(String nombre) {
-        AgenteSectorial agenteBuscado = new AgenteSectorial();
-        for (AgenteSectorial agente : agenteSectorialList)
-            if (agente.getNombre().equals(nombre)) {
-                agenteBuscado = agente;
-                break;
-            }
-        return agenteBuscado;
+    public AgenteSectorial buscarAgente(String nombre) {
+        return this.dao.buscar(nombreAgente(nombre));
     }
 
-    public void update(AgenteSectorial agente) {
-        AgenteSectorial agenteBuscado = this.search(agente.getNombre());
-        this.delete(agenteBuscado);
-        this.add(agente);
-    }
+    BusquedaCondicional nombreAgente(String nombre){
+        CriteriaBuilder criteriaBuilder = criteriaBuilder();
+        CriteriaQuery<AgenteSectorial> agenteQuery = criteriaBuilder.createQuery(AgenteSectorial.class);
 
-    public void delete(AgenteSectorial agente) {
-        agenteSectorialList.remove(agente);
-    }
+        Root<AgenteSectorial> raiz = agenteQuery.from(AgenteSectorial.class);
 
+        Predicate predicado = criteriaBuilder.equal(raiz.get("nombre"), nombre);
+
+        agenteQuery.where(predicado);
+
+        return new BusquedaCondicional(null, agenteQuery);
+    }
 }

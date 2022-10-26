@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-class OrganizacionTest { //TODO: Borrar? son test redundantes
+class OrganizacionTest {
 
     //Tests de la parte "organizativa/organigrama (miembro-sector-org)" de una Organizacion
 
@@ -34,13 +34,9 @@ class OrganizacionTest { //TODO: Borrar? son test redundantes
         callcenter.agregarMiembro(pablo);
 
         orgEmpresa = new Organizacion("pepito s.a.", TipoOrg.Empresa, new Punto(1.0f,2.0f));
-        ClasificacionOrg clasificacionOrgEmp = new ClasificacionOrg("Empresa Primaria");
-        orgEmpresa.setClasificacion(clasificacionOrgEmp);
         orgEmpresa.agregarSector(dev);
 
         orgONG = new Organizacion("ONG", TipoOrg.ONG, new Punto(2f,5f));
-        ClasificacionOrg clasificacionOrgONG = new ClasificacionOrg("ONG");
-        orgONG.setClasificacion(clasificacionOrgONG);
         orgONG.agregarSector(callcenter);
 
         orgSinMiembros = new Organizacion("org sin miembros", TipoOrg.Empresa, new Punto(4f,-5f));
@@ -68,30 +64,6 @@ class OrganizacionTest { //TODO: Borrar? son test redundantes
         sectores.add(dev);
         sectores.add(callcenter);
         Assert.assertEquals(sectores, pablo.obtenerSectores());
-    }
-
-    //Testeo de funcion aceptarMiembro(archivo)
-    @Test
-    void miembroAceptadoReflejadoEnSector(){
-        //1ro: crear el archivo de postulaciones
-        String archivo = "";
-
-        //Se asume que el miembro en el archivo entra al sectorSinMiembros en la orgSinMiembros
-        orgSinMiembros.aceptarMiembros(archivo);
-
-        Assert.assertFalse(sectorSinMiembros.getMiembrosList().isEmpty());
-    }
-
-    //Testeo de funcion aceptarMiembro(archivo)
-    @Test
-    void miembroAceptadoGuardaSuOrg(){
-        //1ro: crear el archivo de postulaciones
-        String archivo = "";
-
-        //Se asume que el miembro jose entra al sectorSinMiembros en la orgSinMiembros
-        orgSinMiembros.aceptarMiembros(archivo);
-
-        Assert.assertTrue(jose.getOrganizacionlist().contains(orgSinMiembros));
     }
 
 }

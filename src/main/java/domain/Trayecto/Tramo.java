@@ -1,29 +1,48 @@
 package domain.Trayecto;
 
-import domain.Organizacion.Miembro;
+import com.google.gson.annotations.Expose;
+import domain.EntidadPersistente;
 
-import java.util.List;
+import javax.persistence.*;
 
-public class Tramo {
+@Entity
+@Table
+public class Tramo extends EntidadPersistente {
 
-    MedioTransporte medioTransporte;
-    Punto puntoInicio;
-    Punto puntoFin;
-    List<Miembro> compartidoPor;
+    @Expose
+    @ManyToOne
+    @JoinColumn(name = "medioTransporte_id", referencedColumnName = "id")
+    private MedioTransporte medioTransporte;
 
-    public Tramo(MedioTransporte transporte, Punto inicio, Punto fin, List<Miembro> compartidoPor){
+    @Expose
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "punto_inicio_id", referencedColumnName = "id")
+    private Punto puntoInicio;
+
+    @Expose
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "punto_fin_id", referencedColumnName = "id")
+    private Punto puntoFin;
+
+    @Column
+    private float distancia;
+
+    public Tramo(){
+        this.distancia = 0;
+    };
+
+    public Tramo(MedioTransporte transporte, Punto inicio, Punto fin){
         this.medioTransporte = transporte;
         this.puntoInicio = inicio;
         this.puntoFin = fin;
-        this.compartidoPor = compartidoPor;
+        this.distancia = transporte.calcularDistancia(inicio, fin);
     }
 
-    public float calcularTramo(){
-        float totalDistancia = 0f;
-
-        totalDistancia = (float) Math.sqrt(Math.abs(Math.pow(puntoFin.longitud - puntoInicio.longitud, 2) - Math.pow(puntoFin.latitud - puntoInicio.latitud, 2)));
-        totalDistancia /= (compartidoPor.size()+1);
-        return totalDistancia;
+    public float getDistancia(){
+        if (distancia == 0){
+            distancia = medioTransporte.calcularDistancia(puntoInicio, puntoFin);
+        }
+        return this.distancia;
     }
 
     public MedioTransporte getMedioTransporte() {
@@ -50,11 +69,4 @@ public class Tramo {
         this.puntoFin = puntoFin;
     }
 
-    public List<Miembro> getCompartidoPor() {
-        return compartidoPor;
-    }
-
-    public void setCompartidoPor(List<Miembro> compartidoPor) {
-        this.compartidoPor = compartidoPor;
-    }
 }

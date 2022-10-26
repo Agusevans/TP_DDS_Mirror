@@ -1,25 +1,12 @@
 package ar.edu.frba.utn.dds.mihuella;
 
-import ar.edu.frba.utn.dds.mihuella.fachada.FachadaOrg;
-import ar.edu.frba.utn.dds.mihuella.fachada.Medible;
-import domain.ImplementadorFachadaOrg;
-import domain.LectorArchivos;
-import domain.LectorCSV;
-import domain.Organizacion.Organizacion;
-import net.sourceforge.argparse4j.ArgumentParsers;
-import net.sourceforge.argparse4j.inf.ArgumentParser;
-import net.sourceforge.argparse4j.inf.ArgumentParserException;
-import net.sourceforge.argparse4j.inf.Namespace;
-
-import java.util.Collection;
-
 //TODO terminar programa de consola HC
 public class CalculadorHU {
 
     public static void main(String[] args) {
 
 
-        ArgumentParser parser = ArgumentParsers.newFor("Checksum").build()
+        /*ArgumentParser parser = ArgumentParsers.newFor("Checksum").build()
                 .defaultHelp(true)
                 .description("Calculate checksum of given files.");
         parser.addArgument("-m", "--mediciones").required(true)
@@ -45,7 +32,7 @@ public class CalculadorHU {
         Collection<Medible> mediciones = lector.leerMediciones();
         Float huellaCarbono = fachadaOrg.obtenerHU(mediciones);
 
-        System.out.println("Huella de carbono: " + huellaCarbono);
+        System.out.println("Huella de carbono: " + huellaCarbono);*/
     }
 
 }

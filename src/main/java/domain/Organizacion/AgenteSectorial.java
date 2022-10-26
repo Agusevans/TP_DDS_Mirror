@@ -1,13 +1,38 @@
 package domain.Organizacion;
 
+import com.google.gson.annotations.Expose;
+import domain.EntidadPersistente;
+
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
-public class AgenteSectorial {
+@Entity
+@Table(name = "AgenteSectorial")
+public class AgenteSectorial extends EntidadPersistente {
+
+    @Expose
+    @Column
     String nombre;
+
+    @Expose
+    @OneToOne
     SectorTerritorial sectorTerritorial;
+
+    @OneToMany(mappedBy = "agente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<Organizacion> organizaciones;
+
+    @Expose
+    @Column
     String email;
+
+    @Expose
+    @Column
     String periodo;
+
+    public AgenteSectorial(){
+        this.organizaciones = new ArrayList<>();
+    }
 
     public void obtenerHCTerritorial(){};
 

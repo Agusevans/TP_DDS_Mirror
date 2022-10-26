@@ -1,48 +1,88 @@
 package domain.Organizacion;
 
-import ar.edu.frba.utn.dds.mihuella.fachada.FachadaOrg;
 import ar.edu.frba.utn.dds.mihuella.fachada.Medible;
+import com.google.gson.annotations.Expose;
 import domain.*;
+import domain.Actividad.Actividad;
 import domain.Actividad.DatosActividad;
+import domain.Actividad.Medicion;
+import domain.Trayecto.CalculadorHUTrayectos;
 import domain.Trayecto.Punto;
-import domain.Trayecto.Tramo;
-import domain.Trayecto.Trayecto;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
-public class Organizacion {
+@Entity
+@Table(name = "Organizacion")
+public class Organizacion extends EntidadPersistente{
 
-    String razonSocial;
-    TipoOrg tipo;
-    ClasificacionOrg clasificacion;
-    Punto ubicacion;
-    AgenteSectorial territorio;
-    List<Sector> sectorlist;
-    List<DatosActividad> datosActividadList;
+    @Expose
+    @Column
+    private String razonSocial;
 
-    public Organizacion(){};
+    @Expose
+    @Column
+    @Enumerated(EnumType.STRING)
+    private TipoOrg tipo;
+
+    @Expose
+    @Column
+    @Enumerated(EnumType.STRING)
+    private ClasificacionOrg clasificacion;
+
+    @Expose
+    @OneToOne
+    private Punto ubicacion;
+
+    @Expose
+    @OneToMany
+    @JoinColumn(name = "organizacion_id")
+    private List<Sector> sectores;
+
+    //@OneToMany
+    //@JoinColumn(name = "DatosActividad_id", referencedColumnName = "id")
+    @Transient
+    private transient List<DatosActividad> datosActividad;
+
+    @Expose
+    @ManyToOne
+    @JoinColumn(name = "Territorio_id", referencedColumnName = "id")
+    private SectorTerritorial territorio;
+
+    @Expose
+    @ManyToOne
+    @JoinColumn(name = "AgenteSectorial_id", referencedColumnName = "id")
+    private AgenteSectorial agente;
+
+    @Transient
+    private CalculadorHUTrayectos calculadorHUTrayectos;
+
+    public Organizacion(){
+        this.sectores = new ArrayList<>();
+        this.datosActividad = new ArrayList<>();
+    };
 
     public Organizacion(String razonSocial, TipoOrg tipo,Punto ubicacion) {
         this.razonSocial = razonSocial;
         this.tipo = tipo;
         this.ubicacion = ubicacion;
-        this.sectorlist = new ArrayList<>();
+        this.sectores = new ArrayList<>();
+        this.datosActividad = new ArrayList<>();
     }
 
     public List<Miembro> obtenerMiembros() {
         List<Miembro> miembrosList = new ArrayList<>();
-        for (Sector sector : sectorlist) {
-            miembrosList.addAll(sector.miembrosList);
+        for (Sector sector : sectores) {
+            miembrosList.addAll(sector.getMiembros());
         }
 
         return miembrosList;
     }
 
-    public void cargarMedicion(List<DatosActividad> mediciones) {
-        this.datosActividadList.addAll(mediciones);
+    public void cargarMedicion(DatosActividad da){
+        this.datosActividad.add(da);
     }
 
     public void aceptarMiembro(Miembro miembro, Sector sector){
@@ -50,102 +90,67 @@ public class Organizacion {
         miembro.agregarOrganizacion(this);
     }
 
-    public void aceptarMiembros(String archivo) {
-
-        LectorCSV lector = new LectorCSV(archivo, ','); //TODO: Sacar esto de aca, pedirle los datos al lector
-
-        String[] linea = lector.LeerLinea();
-
-        while(linea != null) {
-
-            Miembro miembro = new Miembro();
-            miembro.setNombre(linea[0]);
-            miembro.setApellido(linea[1]);
-            miembro.setTipoDocumento(linea[2]);
-            miembro.setNroDocumento(Integer.parseInt(linea[3]));
-
-            Sector sector = new Sector();
-            sector.setNombre(linea[4]);
-            sector.setActividad(linea[5]);
-
-        //Va a hacer la aprobacion de la postulacion cargada en el archivo de postulaciones
-        // asumo que el archivo el la combinacion "Miembro-Sector"
-        //El archivo tranquilamente puede ser un csv
-        //Y en algun momento va a llamar al metodo del sector que agrega el miembro
-            this.aceptarMiembro(miembro, sector);
-
-            linea = lector.LeerLinea();
-        }
-    }
-
     public void agregarSector(Sector sector){
-        this.sectorlist.add(sector);
+        this.sectores.add(sector);
     }
 
-    public Float obtenerHU(Collection<Medible> mediciones) {
+    public Float obtenerHUMedible(Collection<Medible> mediciones) {
         Float total = 0f;
-
         for (Medible medicion:mediciones) {
             total += medicion.calcularHU();
         }
         return total;
     }
 
-    public Float obtenerHU(List<DatosActividad> datosActividadList) {
+    public Float obtenerHUDA(List<DatosActividad> datosActividadList) {
         Float total = 0f;
-        int factorEmision = 2; //TODO revisar por donde entra el factor de emision
-        //El factor de emision probablemente entre por params
-
         for (DatosActividad datoActividad:datosActividadList) {
-            total += datoActividad.getValor() * factorEmision;
+            total += datoActividad.calcularHU();
         }
         return total;
     }
 
-    public Float obtenerHUPorcentualDeMiembro(Miembro miembro, Float factorEmision){
-        Float HUMiembro = 0f;
-        Float HUOrganizacion = obtenerHU(datosActividadList);//No toma el datosActividad como Medible;
-        Tramo tramo;
-        for(Trayecto trayecto:miembro.trayectos){
-            tramo = trayecto.detectarTramo(this);
-            if(tramo != null) {
-                HUMiembro = tramo.calcularTramo()*factorEmision;
-
-            }
-        }
-        return HUMiembro*100/HUOrganizacion;
+    public Float obtenerHUTotal(){
+        return this.obtenerHUDA(this.datosActividad) + this.obtenerHUMiembros();
     }
 
-    public float obtenerHUMiembros(float factorEmision) {
-        float huMiembros = 0f;
-
-        for (Sector sector : sectorlist){
-            for (Miembro miembro : sector.getMiembrosList()){
-                huMiembros += miembro.calcularHU(factorEmision);
-            }
-        }
-        return huMiembros;
+    public float obtenerHUMiembro(Miembro miembro) {
+        return this.getCalculadorHUTrayectos().calcularHUMiembro(miembro);
     }
 
-    /* Se debe permitir la visualización de un indicador de HC / Cant. de miembros por cada uno de los sectores/áreas de las Organizaciones. */
-
-    public void mostrarHCSectorMiembros(){
-
-        int factorEmision = 1;
-        float huMiembros = 0;
-
-        for (Sector sector : sectorlist){
-            for (Miembro miembro : sector.getMiembrosList()){
-                huMiembros += miembro.calcularHU(factorEmision);
-            }
-
-            System.out.println("El Sector " + sector.nombre + " tiene " + sector.cantidadMiembros() + "de miembros y su HC total es " + huMiembros);
-
-        }
-
+    public float obtenerHUMiembros() {
+        List<Miembro> miembros = this.obtenerMiembros();
+        return this.getCalculadorHUTrayectos().calcularHUMiembros(miembros);
     }
 
-    public void reportarHC(){} //TODO agregar email y envio de reporte
+    private void cargarReporteMediciones(ReporteHU reporte){
+        for(DatosActividad da : this.datosActividad) {
+            Medicion medicion = da.getMedicion();
+            reporte.agregarHUMedicion(da.getActividad(), medicion.getTipoConsumo(), medicion.getValor());
+        }
+    }
+
+    private void cargarReporteTrayectos(ReporteHU reporte){
+        for(Sector sector : this.sectores){
+            for(Miembro miembro : sector.getMiembros()){
+                float huMiembro = this.obtenerHUMiembro(miembro);
+                reporte.agregarHUTrayecto(sector, miembro, huMiembro);
+            }
+        }
+    }
+
+    public ReporteHU obtenerReporteHU(){
+        ReporteHU reporte = new ReporteHU();
+        this.cargarReporteMediciones(reporte);
+        this.cargarReporteTrayectos(reporte);
+        return reporte;
+    }
+
+    public void mostrarReporteHU(){
+        ReporteHU reporte = this.obtenerReporteHU();
+        System.out.println("MUESTRA DE REPORTE DE HU DE LA ORGANIZACION: " + this.getRazonSocial());
+        reporte.mostrarReporte();
+    }
 
     //Getters & setters
     public String getRazonSocial() {
@@ -172,27 +177,40 @@ public class Organizacion {
     public void setUbicacion(Float latitud, Float longitud) {
         this.ubicacion =new Punto(latitud,longitud);
     }
-    public List<Sector> getSectorlist() {
-        return sectorlist;
+    public List<Sector> getSectores() {
+        return sectores;
     }
-    public void setSectorlist(List<Sector> sectorlist) {
-        this.sectorlist = sectorlist;
+    public void setSectores(List<Sector> sectores) {
+        this.sectores = sectores;
     }
-    public List<DatosActividad> getDatosActividadList() {
-        return datosActividadList;
-    }
-    public void setDatosActividadList(List<DatosActividad> datosActividadList) {
-        this.datosActividadList = datosActividadList;
-    }
+
     public void setUbicacion(Punto ubicacion) {
         this.ubicacion = ubicacion;
     }
 
-    public AgenteSectorial getTerritorio() {
-        return territorio;
+    public AgenteSectorial getAgente() {
+        return agente;
     }
 
-    public void setTerritorio(AgenteSectorial territorio) {
-        this.territorio = territorio;
+    public void setAgente(AgenteSectorial territorio) {
+        this.agente = territorio;
+    }
+
+    public void setDatosActividad(List<DatosActividad> da){ this.datosActividad = da;}
+    public List<DatosActividad> getDatosActividad(){ return this.datosActividad;}
+
+    public void setTerritorio(SectorTerritorial st){
+        this.territorio = st;
+    }
+
+    public CalculadorHUTrayectos getCalculadorHUTrayectos() {
+        if ( this.calculadorHUTrayectos == null) {
+            this.calculadorHUTrayectos = new CalculadorHUTrayectos(this);
+        }
+        return calculadorHUTrayectos;
+    }
+
+    public void setActividadTrayectos(Actividad actividad){
+        this.getCalculadorHUTrayectos().setActividadTrayectos(actividad);
     }
 }

@@ -9,6 +9,6 @@ public interface DAO<T> {
     T buscar(int id);
     T buscar(BusquedaCondicional condicional);
     void agregar(Object unObjeto);
-    void modificar(Object unObjeto);
-    void eliminar(Object unObjeto);
+    void actualizar(Object unObjeto);
+    void borrar(Object unObjeto);
 }

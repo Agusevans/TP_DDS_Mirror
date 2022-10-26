@@ -1,60 +1,95 @@
 package domain.Trayecto;
 
-import domain.Organizacion.Organizacion;
+import com.google.gson.annotations.Expose;
+import domain.EntidadPersistente;
+import domain.Organizacion.Miembro;
 
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
-public class Trayecto {
+@Entity
+@Table
+public class Trayecto extends EntidadPersistente {
 
-    List<Tramo> tramos;
+    @Expose
+    @OneToMany
+    @JoinColumn(name = "trayecto_id")
+    private List<Tramo> tramos;
 
-    public Trayecto(List<Tramo> tramos){
+    @ManyToMany(mappedBy = "trayectos", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Miembro> integrantes;
+
+    @Expose
+    @Column
+    private int vecesRealizadoXMes;
+
+    public Trayecto(){
+        this.tramos = new ArrayList<>();
+        this.integrantes = new ArrayList<>();
+    };
+
+    public Trayecto(List<Tramo> tramos, List<Miembro> integrantes, int vecesRealizadoXMes) {
         this.tramos = tramos;
+        this.integrantes = integrantes;
+        this.vecesRealizadoXMes = vecesRealizadoXMes;
     }
 
-    public float calcularRecorrido(){
-        float total = 0f;
+    public float getDistancia(){
+        float distancia = 0f;
+        for (Tramo tramo : tramos) {
+            distancia += tramo.getDistancia();
+        }
+        return distancia;
+    }
 
-        for (Tramo tramo:tramos) {
-            total += tramo.calcularTramo();
+    public float getDistanciaDeConsumo(){
+        float distancia = 0f;
+        for (Tramo tramo : tramos) {
+            if(tramo.getMedioTransporte().usaCombustible())
+                distancia += tramo.getDistancia();
         }
-        System.out.println("Recorrido Total: " + total);
+        return distancia;
+    }
 
-        return total;
+    private Punto puntoInicio(){
+        Tramo primerTramo = this.tramos.get(0);
+        return primerTramo.getPuntoInicio();
     }
-    public Float calcularRecorridoPorSeccion(){
-        Float total = 0f;
-        Float parcial = 0f;
-        for (Tramo tramo: tramos) {
-            parcial = tramo.calcularTramo();
-            total += parcial;
-            System.out.println("Recorrido seccion " + tramos.indexOf(tramo) + ": " + parcial);
-        }
-        System.out.println("Recorrido Total: " + total);
-        return total;
+
+    private Punto puntoFinal(){
+        Tramo ultimoTramo = this.tramos.get( this.tramos.size() -1 );
+        return ultimoTramo.getPuntoFin();
     }
-    public Float tramoOrganizacion(Organizacion organizacion) {
-        Tramo tramoDeOrganizacion = this.detectarTramo(organizacion);
-        Float distanciaVuelta = tramos.get(tramos.size() - 1).calcularTramo();
-        return (tramoDeOrganizacion.calcularTramo() + (distanciaVuelta / tramos.size()));
+
+    public boolean iniciaOTerminaEn(Punto punto){
+        return this.puntoInicio().equals(punto) || this.puntoFinal().equals(punto);
     }
-    public Tramo detectarTramo(Organizacion organizacion){
-        Tramo tramoEncontrado = null;
-        for(Tramo tramo: tramos){
-            if(tramo.getPuntoFin().getLatitud() == organizacion.getUbicacion().getLatitud()){
-                if (tramo.getPuntoFin().getLongitud() == organizacion.getUbicacion().getLongitud())
-                    tramoEncontrado = tramo;
-            }
-        }
-        return tramoEncontrado;
+
+    public boolean esCompartido(){
+        return this.integrantes.size() >= 2;
+    }
+
+    public int cantidadIntegrantes(){
+        return this.integrantes.size();
     }
 
     public List<Tramo> getTramos() {
         return tramos;
     }
-    public void setTramos(List<Tramo> tramos) {
 
-        this.tramos = tramos;
+    public void setTramos(List<Tramo> tramos) { this.tramos = tramos; }
+
+    public void agregarIntegrante(Miembro miembro){
+        this.integrantes.add(miembro);
+    }
+
+    public void agregarTramo(Tramo tramo){
+        this.tramos.add(tramo);
+    }
+
+    public int getVecesRealizadoXMes() {
+        return vecesRealizadoXMes;
     }
 
 }

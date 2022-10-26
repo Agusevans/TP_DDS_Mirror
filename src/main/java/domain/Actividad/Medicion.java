@@ -1,10 +1,29 @@
 package domain.Actividad;
 
-public class Medicion {
+import com.google.gson.annotations.Expose;
+import domain.EntidadPersistente;
 
-    TipoConsumo tipoConsumo;
-    Float valor;
-    Periodicidad periodicidad;
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Medicion")
+public class Medicion extends EntidadPersistente {
+
+    @Expose
+    @ManyToOne
+    @JoinColumn(name = "tipoConsumo_id", referencedColumnName = "id")
+    private TipoConsumo tipoConsumo;
+
+    @Expose
+    @Column
+    private Float valor;
+
+    @Expose
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Periodicidad periodicidad;
+
+    public Medicion(){};
 
     public Medicion(TipoConsumo tipoConsumo, Float valor, Periodicidad periodicidad) {
         this.tipoConsumo = tipoConsumo;
@@ -16,5 +35,29 @@ public class Medicion {
     {
         FactorEmision fe = tipoConsumo.getFactorEmision();
         return  valor * fe.getValor();
+    }
+
+    public TipoConsumo getTipoConsumo() {
+        return tipoConsumo;
+    }
+
+    public void setTipoConsumo(TipoConsumo tipoConsumo) {
+        this.tipoConsumo = tipoConsumo;
+    }
+
+    public Float getValor() {
+        return valor;
+    }
+
+    public void setValor(Float valor) {
+        this.valor = valor;
+    }
+
+    public Periodicidad getPeriodicidad() {
+        return periodicidad;
+    }
+
+    public void setPeriodicidad(Periodicidad periodicidad) {
+        this.periodicidad = periodicidad;
     }
 }

@@ -1,9 +1,25 @@
 package domain.Organizacion;
 
 
-public class SectorTerritorial {
+import com.google.gson.annotations.Expose;
+import domain.EntidadPersistente;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "SectorTerritorial")
+public class SectorTerritorial extends EntidadPersistente {
+
+    @Expose
+    @Column
     private String nombre;
-    TipoSectorTerritorial tipoSectorTerritorial;
+
+    @Expose
+    @Column
+    @Enumerated(EnumType.STRING)
+    private TipoSectorTerritorial tipoSectorTerritorial;
+
+    public SectorTerritorial(){};
 
     public SectorTerritorial(String nombre, TipoSectorTerritorial tipoSectorTerritorial) {
         this.nombre = nombre;

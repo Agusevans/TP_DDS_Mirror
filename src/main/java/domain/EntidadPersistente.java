@@ -1,15 +1,15 @@
-package domain.entities;
+package domain;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import com.google.gson.annotations.Expose;
+
+import javax.persistence.*;
 
 @MappedSuperclass
 public class EntidadPersistente {
+    @Expose
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public int id;
 
     public void setId(int id){
         this.id = id;

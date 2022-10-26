@@ -1,14 +1,31 @@
 package domain.Actividad;
 
-public class TipoConsumo {
+import com.google.gson.annotations.Expose;
+import domain.EntidadPersistente;
 
-    String tipo;
-    static Unidad unidad;
-    FactorEmision factorEmision;
+import javax.persistence.*;
+
+@Entity
+@Table(name = "TipoConsumo")
+public class TipoConsumo extends EntidadPersistente {
+
+    @Expose
+    @Column
+    private String nombre;
+
+    @Expose
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Unidad unidad;
+
+    @Expose
+    @OneToOne
+    private FactorEmision factorEmision;
 
     public TipoConsumo(){};
-    public TipoConsumo(String tipo, Unidad unidad, FactorEmision fe) {
-        this.tipo = tipo;
+
+    public TipoConsumo(String nombre, Unidad unidad, FactorEmision fe) {
+        this.nombre = nombre;
         this.unidad = unidad;
         this.factorEmision = fe;
     }
@@ -17,15 +34,15 @@ public class TipoConsumo {
         return this.factorEmision;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public static Unidad getUnidad() {
+    public Unidad getUnidad() {
         return unidad;
     }
 

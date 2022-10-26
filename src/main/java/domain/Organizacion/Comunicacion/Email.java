@@ -12,20 +12,21 @@ import java.util.Properties;
 
 public class Email implements Comunicacion {
 
-    public void notificar(AgenteSectorial agenteTerritorial, String mensaje) {
+    public void notificar(AgenteSectorial agenteSectorial, Float huella) {
 
         Properties propiedad = new Properties();
-        propiedad.setProperty("mail.smtp.host", "smtp.gmail.com");
+        propiedad.setProperty("mail.smtp.host", "smtp-mail.outlook.com");
         propiedad.setProperty("mail.smtp.starttls.enable", "true");
         propiedad.setProperty("mail.smtp.port", "587");
         propiedad.setProperty("mail.smtp.auth", "true");
 
         Session sesion = Session.getDefaultInstance(propiedad);
 
-        String correoRemitente = "";
-        String contrasena = "";
-        String correoDestinatario = agenteTerritorial.getEmail();
-        String asunto = "";
+        String correoRemitente = "calculohcsectorial@outlook.com";
+        String contrasena = "HCSecCalculo";
+        String correoDestinatario = agenteSectorial.getEmail();
+        String asunto = "Reporte";
+        String mensaje = "HC del periodo: " + huella.toString();
 
         MimeMessage mail = new MimeMessage(sesion);
 

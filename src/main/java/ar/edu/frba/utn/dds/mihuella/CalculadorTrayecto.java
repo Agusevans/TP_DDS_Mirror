@@ -1,25 +1,12 @@
 package ar.edu.frba.utn.dds.mihuella;
 
-import ar.edu.frba.utn.dds.mihuella.fachada.FachadaOrg;
-import ar.edu.frba.utn.dds.mihuella.fachada.Medible;
-import domain.ImplementadorFachadaOrg;
-import domain.LectorArchivos;
-import domain.LectorCSV;
-import domain.Organizacion.Organizacion;
-import net.sourceforge.argparse4j.ArgumentParsers;
-import net.sourceforge.argparse4j.inf.ArgumentParser;
-import net.sourceforge.argparse4j.inf.ArgumentParserException;
-import net.sourceforge.argparse4j.inf.Namespace;
-
-import java.util.Collection;
-
 //TODO terminar programa de consola Trayectos
 public class CalculadorTrayecto {
 
     public static void main(String[] args) {
 
 
-        ArgumentParser parser = ArgumentParsers.newFor("Checksum").build()
+        /*ArgumentParser parser = ArgumentParsers.newFor("Checksum").build()
                 .defaultHelp(true)
                 .description("Calculate checksum of given files.");
         parser.addArgument("-m", "--datosOrg").required(true)
@@ -44,15 +31,15 @@ public class CalculadorTrayecto {
 
         // calcular huella de las actividades y el total
         LectorArchivos lectorCSV = new LectorCSV(ns.get("trayectos"), ','); //TODO revisar por donde entra el archivo de mediciones
-/*        LectorArchivos lectorJSONOrg = new LectorJSON(ns.get("datosOrg" ...));
+        LectorArchivos lectorJSONOrg = new LectorJSON(ns.get("datosOrg" ...));
         LectorArchivos lectorJSONTrasporte = new LectorJSON(ns.get("transportes" ...));
-*/
+
         ImplementadorFachadaOrg fachadaOrg = new ImplementadorFachadaOrg(new Organizacion());
 
         Collection<Medible> trayectos = lectorCSV.leerMediciones();
         Float huellaCarbono = fachadaOrg.obtenerHU(trayectos);
 
         System.out.println("Huella de carbono: " + huellaCarbono);
+    }*/
     }
-
 }

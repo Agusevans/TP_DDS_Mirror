@@ -1,25 +1,58 @@
 package domain.Organizacion;
 
-import domain.Actividad.DatosActividad;
+import com.google.gson.annotations.Expose;
+import domain.EntidadPersistente;
 import domain.Trayecto.Punto;
-import domain.Trayecto.Tramo;
 import domain.Trayecto.Trayecto;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Miembro {
+@Entity
+@Table(name = "Miembro")
+public class Miembro extends EntidadPersistente {
 
-    String nombre;
-    String apellido;
-    String tipoDocumento;
-    int nroDocumento;
-    Punto domicilio;
-    List<Organizacion> organizacionlist;
-    List<DatosActividad> datosActividadList;
-    ArrayList<Trayecto> trayectos;
+    @Expose
+    @Column
+    private String nombre;
 
-    public Miembro(){};
+    @Expose
+    @Column
+    private String apellido;
+
+    @Expose
+    @Column
+    private String tipoDocumento;
+
+    @Expose
+    @Column
+    private int nroDocumento;
+
+    @Expose
+    @OneToOne
+    private Punto domicilio;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "miembro_organizacion",
+            joinColumns = @JoinColumn(name = "miembro_id"),
+            inverseJoinColumns = @JoinColumn(name = "organizacion_id")
+    )
+    private transient List<Organizacion> organizacionlist;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "miembro_trayecto",
+            joinColumns = @JoinColumn(name = "miembro_id"),
+            inverseJoinColumns = @JoinColumn(name = "trayecto_id")
+    )
+    private List<Trayecto> trayectos;
+
+    public Miembro(){
+        this.organizacionlist = new ArrayList<>();
+        this.trayectos = new ArrayList<>();
+    };
 
     public Miembro(String nombre, String apellido, String tipoDocumento, int nroDocumento, Punto domicilio) {
         this.nombre = nombre;
@@ -27,7 +60,7 @@ public class Miembro {
         this.tipoDocumento = tipoDocumento;
         this.nroDocumento = nroDocumento;
         this.organizacionlist = new ArrayList<>();
-        this.trayectos = new ArrayList<Trayecto>();
+        this.trayectos = new ArrayList<>();
         this.domicilio = domicilio;
     }
 
@@ -35,7 +68,7 @@ public class Miembro {
 
         List<Sector> sectoresList = new ArrayList<>();
         for (Organizacion organizacion : organizacionlist) {
-            for (Sector sector : organizacion.sectorlist){
+            for (Sector sector : organizacion.getSectores()){
                 if (sector.esMiembro(this)){
                     sectoresList.add(sector);
                 }
@@ -46,30 +79,12 @@ public class Miembro {
     }
 
     public void agregarOrganizacion(Organizacion organizacion){
-            this.organizacionlist.add(organizacion);
+        this.organizacionlist.add(organizacion);
     }
 
     public void agregarTrayecto(Trayecto trayecto){
         trayectos.add(trayecto);
     }
-    public void cargarMedicion(List<DatosActividad> mediciones, String organizacion) {
-        Organizacion org = new Organizacion(); //Cuando haya persistencia, el parametro "organizacion" sera la ID de la organizacion
-        org.cargarMedicion(mediciones);
-    }
-
-    public Float calcularHU(float factorEmision){ //TODO: El fe deberia sacarse de la actividad de trayectos, ademas no deberia ser el miembro el que lo calcula
-        float total = 0;
-        for(Trayecto trayecto:trayectos){
-            total +=trayecto.calcularRecorrido()*factorEmision;
-        }
-        return total;
-    }
-    public void mostrarHUMiembro(float factorEmision){
-        float huTotal = 0;
-        huTotal = this.calcularHU(factorEmision);
-        System.out.println("Huella Carbono total:"+ String.valueOf(huTotal));
-    }
-    /*Calculo de HU en relacion a la ORG*/
 
     //getters & setters
     public String getNombre() {
@@ -100,12 +115,6 @@ public class Miembro {
     public void setOrganizacionlist(List<Organizacion> organizacionlist) {
         this.organizacionlist = organizacionlist;
     }
-    public List<DatosActividad> getDatosActividadList() {
-        return datosActividadList;
-    }
-    public void setDatosActividadList(List<DatosActividad> datosActividadList) {
-        this.datosActividadList = datosActividadList;
-    }
     public void setDomicilio(Punto domicilio) {
         this.domicilio = domicilio;
     }
@@ -117,7 +126,7 @@ public class Miembro {
         this.trayectos = trayectos;
     }
 
-    public ArrayList<Trayecto> getTrayectos() {
+    public List<Trayecto> getTrayectos() {
         return trayectos;
     }
 }

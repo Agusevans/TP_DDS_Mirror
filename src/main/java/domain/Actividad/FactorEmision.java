@@ -1,12 +1,25 @@
 package domain.Actividad;
 
-public class FactorEmision {
+import com.google.gson.annotations.Expose;
+import domain.EntidadPersistente;
 
-    Float valor;
-    Unidad unidad;
-    Integer id;
+import javax.persistence.*;
+
+@Entity
+@Table(name = "FactorEmision")
+public class FactorEmision extends EntidadPersistente {
+
+    @Expose
+    @Column
+    private Float valor;
+
+    @Expose
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Unidad unidad;
 
     public FactorEmision(){};
+
     public FactorEmision(Float valor, Unidad unidad) {
         this.valor = valor;
         this.unidad = unidad;
@@ -14,10 +27,6 @@ public class FactorEmision {
 
     public Float getValor() {
         return valor;
-    }
-
-    public Integer getId() {
-        return id;
     }
 
     public void setValor(Float valor) {

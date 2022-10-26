@@ -20,11 +20,11 @@ public class ImplementadorFachadaOrg implements FachadaOrg {
 
     @Override
     public void cargarParametros(Map<String, Float> parametrosSistema) {
-        //TODO: Ver como cargar los parametors
+        //TODO: Ver como cargar los parametors y que parametros serian
     }
 
     @Override
     public Float obtenerHU(Collection<Medible> mediciones) {
-        return organizacion.obtenerHU(mediciones);
+        return organizacion.obtenerHUMedible(mediciones);
     }
 }

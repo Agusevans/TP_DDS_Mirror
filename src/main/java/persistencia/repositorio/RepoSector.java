@@ -1,45 +1,38 @@
 package persistencia.repositorio;
 
 import domain.Organizacion.Sector;
+import persistencia.BusquedaCondicional;
+import persistencia.daos.DAO;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
-public class RepoSector {
+public class RepoSector extends Repositorio<Sector>{
 
-    List<Sector> listSector = new ArrayList<Sector>();
-
-    public void agregar(Sector sector) {
-        listSector.add(sector);
+    public RepoSector(DAO<Sector> dao) {
+        super(dao);
     }
 
-    public Sector buscar(String nombre) {
-
-        Sector elSector = new Sector();
-
-        for (Sector sec : listSector) {
-            if (sec.getNombre().equals(nombre)) {
-                elSector = sec;
-                break;
-            }
-        }
-
-        return elSector;
+    public Sector buscarSector(String nombreSect, int org) {
+        return this.dao.buscar(nombreSector(nombreSect, org));
     }
 
-    public void actualizar(Sector sector) {
 
-        for (Sector sec : listSector) {
-            if (sec.getNombre() == sector.getNombre()) {
-                sec = sector;
-                break;
-            }
-        }
+    BusquedaCondicional nombreSector(String nombreSect, int org){
+        CriteriaBuilder criteriaBuilder = criteriaBuilder();
+        CriteriaQuery<Sector> sectorQuery = criteriaBuilder.createQuery(Sector.class);
 
+        Root<Sector> raizSect = sectorQuery.from(Sector.class);
+
+        Predicate predicado1 = criteriaBuilder.equal(raizSect.get("nombre"), nombreSect);
+        Predicate predicado2 = criteriaBuilder.equal(raizSect.get("organizacion"), org); //suponiendo y rogando que tenga el id por FK
+
+        Predicate ambasCondiciones = criteriaBuilder.and(predicado1, predicado2);
+
+        sectorQuery.where(ambasCondiciones);
+
+        return new BusquedaCondicional(null, sectorQuery);
     }
-
-    public void borrar(Sector sector) {
-        listSector.remove(sector);
-    }
-
 }

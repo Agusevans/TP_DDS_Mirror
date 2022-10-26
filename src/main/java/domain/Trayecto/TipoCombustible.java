@@ -4,5 +4,5 @@ public enum TipoCombustible {
     gnc,
     nafta,
     electrico,
-    gasoil
+    gasoil,
 }

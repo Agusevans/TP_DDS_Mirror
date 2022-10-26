@@ -1,6 +1,6 @@
 package persistencia.daos;
 
-import domain.entities.EntidadPersistente;
+import domain.EntidadPersistente;
 import persistencia.BusquedaCondicional;
 
 import java.util.List;
@@ -41,12 +41,12 @@ public class DAOMemoria<T> implements DAO<T> {
     }
 
     @Override
-    public void modificar(Object unObjeto) {
+    public void actualizar(Object unObjeto) {
 
     }
 
     @Override
-    public void eliminar(Object unObjeto) {
+    public void borrar(Object unObjeto) {
         this.entidades.remove(unObjeto);
     }
 }

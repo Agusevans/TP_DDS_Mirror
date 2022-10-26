@@ -1,28 +1,53 @@
 {
   "razonSocial": "DestruyeMundo",
   "tipo": "Gubernamental",
-  "clasificacion": "Dañina",
-  "ubicacion": "[{1,8}]",
-  "Sector": [
+  "clasificacion": "Ministerio",
+  "ubicacion": {
+    "latitud":1,
+    "longitud":8
+  },
+  "sectores": [
     {
-      "nombre": "Nuclear",
-      "actividad": "GasQuimico",
+      "nombre": "Nucleares",
+      "actividad": "Hacen algo",
       "miembros": [
         {
           "nombre": "Megamente",
           "apellido": "Villano",
           "tipoDocumento":"DNI",
           "nroDocumento":"6873211",
-          "domicilio": "[{2,8}]",
+          "domicilio": {
+            "latitud":7,
+            "longitud":9
+          }
         },
         {
           "nombre": "Supermalo",
           "apellido": "Malitomalito",
           "tipoDocumento":"DNI",
           "nroDocumento":"7842321",
-          "domicilio": "[{32,70}]",
+          "domicilio": {
+            "latitud":7,
+            "longitud":9
+          }
         }
       ]
     },
+    {
+      "nombre": "Destructores",
+      "actividad": "Hacen algo",
+      "miembros": [
+        {
+          "nombre": "Titan",
+          "apellido": "Villano",
+          "tipoDocumento":"DNI",
+          "nroDocumento":"6873211",
+          "domicilio": {
+            "latitud":15,
+            "longitud":7
+          }
+        }
+      ]
+    }
   ]
 }
