@@ -13,12 +13,6 @@ import java.util.List;
 
 class CalculoHUMedicionTest {
 
-
-    @BeforeEach
-    public void init(){
-
-    }
-
     @Test
     void calculoHCMediciones(){
 
@@ -35,8 +29,7 @@ class CalculoHUMedicionTest {
         Actividad actividad1 = new Actividad("Combustion fija", tiposConsumos1, Alcance.Directa);
         Medible datosActividad1 = new DatosActividad(actividad1, medicion1, LocalDate.of(2022,10,06));
 
-        List<Medible> mediciones;
-        mediciones = new ArrayList<Medible>();
+        List<Medible> mediciones = new ArrayList<>();
         mediciones.add(datosActividad1);
 
         Float hu = 100f;

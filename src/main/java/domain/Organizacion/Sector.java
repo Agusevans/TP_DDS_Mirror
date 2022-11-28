@@ -6,6 +6,7 @@ import domain.Organizacion.Miembro;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -28,7 +29,7 @@ public class Sector extends EntidadPersistente {
             joinColumns = @JoinColumn(name = "sector_id"),
             inverseJoinColumns = @JoinColumn(name = "miembro_id")
     )
-    private List<Miembro> miembros;
+    public List<Miembro> miembros;
 
     public Sector(){
         this.miembros = new ArrayList<>();
@@ -44,18 +45,14 @@ public class Sector extends EntidadPersistente {
         this.miembros.add(miembro);
     }
 
+    public void removerMiembro(Miembro miembro){
+        this.miembros.remove(miembro);
+    }
+
     public boolean esMiembro(Miembro miembro){ return miembros.contains(miembro); }
 
     public int cantidadMiembros(){
-
-        int cant = 0;
-
-        for (Miembro miebro : this.miembros){
-            cant++;
-        }
-
-        return cant;
-
+        return this.miembros.size();
     }
 
     //Getters y Setters//

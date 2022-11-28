@@ -20,69 +20,69 @@
     <meta name="theme-color" content="#7952b3">
 
     <style>
-          .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
-          }
+              .bd-placeholder-img {
+                font-size: 1.125rem;
+                text-anchor: middle;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                user-select: none;
+              }
 
-          @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-              font-size: 3.5rem;
+              @media (min-width: 768px) {
+                .bd-placeholder-img-lg {
+                  font-size: 3.5rem;
+                }
+              }
+
+              body {
+              min-height: 75rem;
+              padding-top: 4.5rem;
+              }
+
+            .form-container{
+              padding:10px;
+              padding-bottom:25px;
+              margin:0 auto;
+              margin-top:20px;
+              width:50%;
+              border-radius:20px;
+              background-color: #ececec;
             }
-          }
 
-          body {
-          min-height: 75rem;
-          padding-top: 4.5rem;
-          }
+            .add-one{
+              color:green;
+              text-align:center;
+              font-weigth:bolder;
+              cursor:pointer;
+              margin-top:10px;
+            }
 
-        .form-container{
-          padding:10px;
-          padding-bottom:25px;
-          margin:0 auto;
-          margin-top:20px;
-          width:50%;
-          border-radius:20px;
-          background-color: #ececec;
-        }
+            .delete{
+              color:white;
+              background-color:rgb(231, 76, 60);
+              text-align:center;
+              margin-top:6px;
+              font-weight:700;
+              border-radius:5px;
+              min-width:20px;
+              cursor:pointer;
+            }
 
-        .add-one{
-          color:green;
-          text-align:center;
-          font-weigth:bolder;
-          cursor:pointer;
-          margin-top:10px;
-        }
+            #singlebutton{
+              width:100%;
+              margin-top:20px;
+            }
 
-        .delete{
-          color:white;
-          background-color:rgb(231, 76, 60);
-          text-align:center;
-          margin-top:6px;
-          font-weight:700;
-          border-radius:5px;
-          min-width:20px;
-          cursor:pointer;
-        }
+            .title{
+              text-align:center;
+              font-size:40px;
+              margin-bottom:40px;
+            }
 
-        #singlebutton{
-          width:100%;
-          margin-top:20px;
-        }
-
-        .title{
-          text-align:center;
-          font-size:40px;
-          margin-bottom:40px;
-        }
-
-        .dynamic-element{
-          margin-bottom:0px;
-        }
-        </style>
+            .dynamic-element{
+              margin-bottom:0px;
+            }
+            </style>
 
 </head>
 
@@ -102,7 +102,7 @@
                     <a class="nav-link active" aria-current="page" href="index">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Hola {{usuario.nombreUsuario}}</a>
+                    <a class="nav-link" href="#">Link</a>
                 </li>
             </ul>
             <form class="d-flex">
@@ -117,15 +117,13 @@
 <!-- BODY -->
 <main class="container">
     <div class="bg-light p-5 rounded">
-        <div class="col-12"><h1>Acciones</h1></div>
-    </div>
-    <div class="d-flex flex-column bg-light p-5 rounded">
-        <a href="trayecto" class="col-12 mb-4">Cargar trayecto</a>
-        <a href="miembros" class="col-12 mb-4" role="button">Ver miembros</a>
-        <a href="reporte" class="col-12 mb-4" role="button">Generar reporte HU</a>
+        <div class="col-12"><h1>Success</h1></div>
+        <div class="col-12"><h3>El trayecto fue cargado con exito</h3></div>
+        <form action="/index">
+            <input type="submit" value="Volver al index" />
+        </form>
     </div>
 
 </main>
-
 </body>
 </html>

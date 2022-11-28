@@ -5,6 +5,7 @@ import domain.Trayecto.MedioTransporte;
 import domain.Trayecto.Punto;
 import domain.Trayecto.Tramo;
 import domain.Trayecto.Trayecto;
+import org.jetbrains.annotations.NotNull;
 import persistencia.factories.FactoryRepoMiembro;
 import persistencia.factories.FactoryRepoUsuario;
 import persistencia.factories.FactoryRepositorio;
@@ -15,6 +16,8 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,12 +28,14 @@ public class TrayectoController {
     RepoMiembro repoMiembro;
     Repositorio<MedioTransporte> repoTransporte;
     RepoUsuario repoUsuario;
+    Repositorio<Organizacion> repoOrganizacion;
 
     public TrayectoController(){
         this.repoTrayecto = FactoryRepositorio.get(Trayecto.class);
         this.repoMiembro = FactoryRepoMiembro.get();
         this.repoTransporte = FactoryRepositorio.get(MedioTransporte.class);
         this.repoUsuario = FactoryRepoUsuario.get();
+        this.repoOrganizacion = FactoryRepositorio.get(Organizacion.class);
     }
 
     private void asignarUsuarioSiEstaLogueado(Request request, Map<String, Object> parametros){
@@ -45,18 +50,29 @@ public class TrayectoController {
     public ModelAndView create(Request request, Response response){
         Map<String, Object> parametros = new HashMap<>();
         asignarUsuarioSiEstaLogueado(request, parametros);
+        Usuario usuario = repoUsuario.buscar(request.session().attribute("id"));
+
         List<MedioTransporte> medioTransportes = this.repoTransporte.buscarTodos();
+        List<Miembro> miembros = this.repoMiembro.buscarMiembrosDeOrg(usuario.getOrganizacion().getId());
+
         parametros.put("medio_transportes", medioTransportes);
+        parametros.put("miembros", miembros);
 
         return new ModelAndView(parametros, "trayecto.hbs");
     }
 
-    public Response save(Request request, Response response) {
+    public Response save(Request request, Response response) throws IOException {
         Trayecto trayecto = new Trayecto();
-        asignarAtributosA(trayecto, request);
-        this.repoTrayecto.agregar(trayecto);
-        //response.redirect("/");
+        //TODO: Borrar trayecto anterior a cada miembro
+        this.asignarAtributosA(trayecto, request);
+        response.redirect("/success");
         return response;
+    }
+
+    public ModelAndView success(Request request, Response response){
+        Map<String, Object> parametros = new HashMap<>();
+        asignarUsuarioSiEstaLogueado(request, parametros);
+        return new ModelAndView(parametros, "success.hbs");
     }
 
     public Response delete(Request request, Response response) {
@@ -67,44 +83,43 @@ public class TrayectoController {
         return response;
     }
 
-    private void asignarAtributosA(Trayecto trayecto, Request request){
-        if (request.queryParams("compartido") == "true"){
-            if(request.queryParams("miembro_1") != null){
-            trayecto.agregarIntegrante(this.repoMiembro.buscarMiembro(Integer.parseInt(request.queryParams("miembro_1"))));
+    private void asignarAtributosA(Trayecto trayecto,Request request) throws IOException {
+
+        if(request.queryParams("cant").isEmpty())
+            trayecto.setVecesRealizadoXMes(21); //hardcodeo por las dudas
+        else
+            trayecto.setVecesRealizadoXMes(Integer.parseInt(request.queryParams("cant")));
+
+        for (int i=1; i<4; i++){
+            if(!request.queryParams("transporte_"+i).equals("null")){
+                MedioTransporte transporte = this.repoTransporte.buscar(Integer.parseInt(request.queryParams("transporte_"+i)));
+                Punto punto_ini = new Punto(request.queryParams("punto_inicio_"+i));
+                Punto punto_fin = new Punto(request.queryParams("punto_fin_"+i));
+
+                Tramo tramo1 = new Tramo(transporte, punto_ini, punto_fin);
+                trayecto.agregarTramo(tramo1);
             }
-            if(request.queryParams("miembro_2") != null) {
-                trayecto.agregarIntegrante(this.repoMiembro.buscarMiembro(Integer.parseInt(request.queryParams("miembro_2"))));
+        }
+
+        for(int i = 1; i<5; i++){
+            if(!request.queryParams("miembro_"+i).equals("null")){
+                Miembro miembro = this.repoMiembro.buscar(Integer.parseInt(request.queryParams("miembro_"+i)));
+                miembro.agregarTrayecto(trayecto);
+                this.repoMiembro.agregar(miembro);
             }
-            if(request.queryParams("miembro_3") != null) {
-                trayecto.agregarIntegrante(this.repoMiembro.buscarMiembro(Integer.parseInt(request.queryParams("miembro_3"))));
+        }
+
+    }
+
+    public List<Miembro> filtrarMiembros(List<Miembro> miembros, Organizacion organizacion){
+        List<Miembro> aux = new ArrayList<>();
+        for (Miembro miembro: miembros) {
+            if(miembro.getOrganizacionlist().contains(organizacion)){
+                aux.add(miembro);
             }
         }
 
-        if (request.queryParams("transporte_1") != null){
-            MedioTransporte transporte = this.repoTransporte.buscar(Integer.parseInt(request.queryParams("transporte_1")));
-            Punto punto_ini = new Punto(request.queryParams("punto_inicio_1"));
-            Punto punto_fin = new Punto(request.queryParams("punto_fin_1"));
-
-            Tramo tramo1 = new Tramo(transporte, punto_ini, punto_fin);
-            trayecto.agregarTramo(tramo1);
-        }
-        if (request.queryParams("transporte_2") != null){
-            MedioTransporte transporte = this.repoTransporte.buscar(Integer.parseInt(request.queryParams("transporte_2")));
-            Punto punto_ini = new Punto(request.queryParams("punto_inicio_2"));
-            Punto punto_fin = new Punto(request.queryParams("punto_fin_2"));
-
-            Tramo tramo1 = new Tramo(transporte, punto_ini, punto_fin);
-            trayecto.agregarTramo(tramo1);
-        }
-        if (request.queryParams("transporte_3") != null){
-            MedioTransporte transporte = this.repoTransporte.buscar(Integer.parseInt(request.queryParams("transporte_3")));
-            Punto punto_ini = new Punto(request.queryParams("punto_inicio_3"));
-            Punto punto_fin = new Punto(request.queryParams("punto_fin_3"));
-
-            Tramo tramo1 = new Tramo(transporte, punto_ini, punto_fin);
-            trayecto.agregarTramo(tramo1);
-        }
-
+        return aux;
     }
 
 }

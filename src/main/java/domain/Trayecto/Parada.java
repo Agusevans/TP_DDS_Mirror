@@ -14,7 +14,7 @@ public class Parada extends EntidadPersistente {
     private String nombre;
 
     @Expose
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "punto_id", referencedColumnName = "id")
     private Punto punto;
 

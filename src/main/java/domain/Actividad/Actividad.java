@@ -12,11 +12,11 @@ import java.util.List;
 public class Actividad extends EntidadPersistente {
 
     @Expose
-    @Column
+    @Column(unique = true)
     private String nombre;
 
     @Expose
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "actividad_id")
     private List<TipoConsumo> tiposConsumo;
 
@@ -33,6 +33,12 @@ public class Actividad extends EntidadPersistente {
         this.nombre = nombre;
         this.tiposConsumo = tiposConsumo;
         this.alcance = alcance;
+    }
+
+    public TipoConsumo getTipoConsumo(String nombre){
+        String nombreUpper = nombre.toUpperCase();
+        return this.tiposConsumo.stream().filter(tipoConsumo ->
+                tipoConsumo.getNombre().toUpperCase().equals(nombreUpper)).findFirst().get();
     }
 
     public void setAlcance(Alcance alcance) {

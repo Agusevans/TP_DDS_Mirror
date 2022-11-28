@@ -19,7 +19,7 @@ public class TipoConsumo extends EntidadPersistente {
     private Unidad unidad;
 
     @Expose
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private FactorEmision factorEmision;
 
     public TipoConsumo(){};

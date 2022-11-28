@@ -37,6 +37,10 @@ public class Punto extends EntidadPersistente {
         return distancia;
     }
 
+    public boolean coincideCon(Punto punto){
+        return this.latitud.equals(punto.getLatitud()) && this.longitud.equals(punto.getLongitud());
+    }
+
     public Float getLatitud() { return latitud;}
     public void setLatitud(Float latitud) { this.latitud = latitud;}
     public Float getLongitud() { return longitud;}

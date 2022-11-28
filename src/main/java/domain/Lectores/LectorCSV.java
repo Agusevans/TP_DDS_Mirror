@@ -1,101 +1,142 @@
 package domain.Lectores;
 
 import ar.edu.frba.utn.dds.mihuella.fachada.Medible;
-//import com.opencsv.CSVReader;
-//TODO: Cambiar este import para que funcione
+import domain.Actividad.*;
+import persistencia.EntityManagerHelper;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
-//TODO: opencsv cambiarlo a algo exportable a la nube
-
-//import static org.hsqldb.StatementTypes.RETURN_COUNT;
+import static java.lang.String.valueOf;
 
 public class LectorCSV implements LectorArchivos {
-	/*private String nombre;
-	private	char separador;
-	//private CSVReader reader;
+	private String archivo;
+	private	String separador;
+	public BufferedReader buffer = null;
 
 	public Collection<Medible> mediciones = new ArrayList<>();
 
-	//Segun entendimiento, el archivo al crearse el objeto LectorCSV, queda abierto durante to-do el contexto
-	public LectorCSV(String nombreArchivo, char separadorArchivo) {
-		nombre = nombreArchivo;
+	public LectorCSV(){}
+
+	public LectorCSV(String nombreArchivo, String separadorArchivo) {
+		archivo = nombreArchivo;
 		separador = separadorArchivo;
-		//try {
-			//reader = new CSVReader(new FileReader(nombre));
-			//} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
-		//}
+		try	{
+			buffer = new BufferedReader(new FileReader(valueOf(archivo)));
+		}catch (Exception error) {
+			error.printStackTrace();
+		}
 	}
 
-	public String[] LeerLinea() {
+	public String[] LeerLinea(){
+		String[] campos = null;
+		String linea = null;
 		try {
-		//return reader.readNext();
+			 linea = this.buffer.readLine();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return new String[0]; //TODO: resolver return
+		if(linea != null)
+			campos = linea.split(this.separador);
+		return campos;
 	}
-	public DatosActividad convertirLinea(String[] linea) { //TODO: Checkear lectura luego de los cambios en las actividades
+	public DatosActividad convertirLinea(String[] linea) {
+
 		DatosActividad datosActividad = new DatosActividad();
+		Actividad actividad = new Actividad();
 		TipoConsumo consumo = new TipoConsumo();
-		//cargo la datosActividad
-		//datosActividad.setActividad(linea[0]);
-		consumo.setTipo(String.valueOf(linea[1]));
-		consumo.setUnidad(Unidad.valueOf(linea[2]));
-		//consumo.setValor(Float.valueOf(linea[3]));
-		//consumo.setPeriodicidad(Periodicidad.valueOf(linea[4]));
-		//datosActividad.getTiposConsumo().add(consumo);
-		datosActividad.setPeriodoDeImputacion(linea[5]);
-		//datosActividad.setAlcance(Alcance.valueOf(linea[6]));
+		List<TipoConsumo> consumos= new ArrayList<>();
+		Medicion medicion = new Medicion();
+
+		//Carga consumos
+		consumo.setNombre(linea[1]);
+		consumos.add(consumo);
+
+		//Carga Actividad
+		actividad.setNombre(linea[0]);
+		actividad.setTiposConsumo(consumos);
+
+		if(linea[0] == "Combustión fija" || linea[0] == "Combustión móvil") //Hardcodeo, deberia borrarse
+			actividad.setAlcance(Alcance.Directa);
+		else if (linea [0] == "Electricidad adquirida y consumida")
+			actividad.setAlcance(Alcance.Indirecta);
+		else
+			actividad.setAlcance(Alcance.NoControladas);
+
+		//Carga Medicion
+		medicion.setTipoConsumo(consumo);
+		medicion.setPeriodicidad(Periodicidad.valueOf(linea[3]));
+		medicion.setValor(Float.valueOf(linea[2]));
+
+		//Carga DatosActividad
+		datosActividad.setActividad(actividad);
+		datosActividad.setMedicion(medicion);
+
+		datosActividad.setPeriodoDeImputacion(LocalDate.parse(linea[4]));
+
 		return datosActividad;
 	}
-*/
 	@Override
 	public Collection<Medible> leerMediciones() {
 
-		/*Collection<Medible> mediciones = new ArrayList<>();
 		String[] linea = LeerLinea();
+		DatosActividad medicion;
 
 		while(linea != null) {
-			mediciones.add(convertirLinea(linea));
+			medicion = convertirLinea(linea);
+			this.mediciones.add(medicion);
+
 			linea = LeerLinea();
 		}
 
-		return mediciones;*/
-		return null;
+		return mediciones;
 	}
 
-	/*public static Map<Sector, Miembro> convertirPostulante(String[] linea){
+	public DatosActividad parsearLinea(String[] linea) {
 
-		Map<Sector,  Miembro> result = new HashMap<>((0));//RETURN_COUNT));
+		String query = "from Actividad where nombre = " + ("'" + linea[0] + "'");
+		Actividad actividad = (Actividad) EntityManagerHelper.createQuery(query).getSingleResult();
 
-		Miembro miembro = new Miembro();
-		miembro.setNombre(linea[0]);
-		miembro.setApellido(linea[1]);
-		miembro.setTipoDocumento(linea[2]);
-		miembro.setNroDocumento(Integer.parseInt(linea[3]));
+		TipoConsumo consumo = actividad.getTipoConsumo(linea[1]);
+		Medicion medicion = new Medicion(consumo, Float.valueOf(linea[2]), Periodicidad.valueOf(linea[3]));
+		LocalDate periodo = LocalDate.parse(linea[4]);
+		DatosActividad datosActividad = new DatosActividad(actividad, medicion, periodo);
 
-		Sector sector = new Sector();
-		sector.setNombre(linea[4]);
-		sector.setActividad(linea[5]);
-
-		result.put(sector, miembro);
-
-		return result;
-
+		return datosActividad;
 	}
 
-//  Esto debería hacerlo el calculador:
+	public BatchDatosActividad leerBatch() {
 
-//	public float leerMedicionTotal() {
-//		float total = 0;
-//		leerMediciones();
-//		for (DatosActividad medicion:mediciones) {
-//			total+=medicion.getConsumo().getValor();
-//		}
-//
-//		return total;
-//	}*/
+		BatchDatosActividad batch = new BatchDatosActividad();
+
+		String[] linea = LeerLinea();
+		while(linea != null) {
+			DatosActividad medicion = parsearLinea(linea);
+			batch.getDatosAct().add(medicion);
+
+			linea = LeerLinea();
+		}
+
+		return batch;
+	}
+
+	public BatchDatosActividad leerBatchDeString(String csv) {
+
+		BatchDatosActividad batch = new BatchDatosActividad();
+
+		String[] mediciones = csv.split("\r\n");
+		for(String medicion : mediciones) {
+			String[] linea = medicion.split(",");
+			DatosActividad datosActividad = parsearLinea(linea);
+			batch.getDatosAct().add(datosActividad);
+		}
+
+		return batch;
+	}
+
+
 }

@@ -2,9 +2,9 @@ package domain.Trayecto;
 
 import com.google.gson.annotations.Expose;
 import domain.EntidadPersistente;
-import domain.Organizacion.Miembro;
 
 import javax.persistence.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,12 +13,13 @@ import java.util.List;
 public class Trayecto extends EntidadPersistente {
 
     @Expose
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "trayecto_id")
     private List<Tramo> tramos;
 
-    @ManyToMany(mappedBy = "trayectos", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Miembro> integrantes;
+    @Expose
+    @Column
+    private int integrantes;
 
     @Expose
     @Column
@@ -26,16 +27,16 @@ public class Trayecto extends EntidadPersistente {
 
     public Trayecto(){
         this.tramos = new ArrayList<>();
-        this.integrantes = new ArrayList<>();
+        this.integrantes = 0;
     };
 
-    public Trayecto(List<Tramo> tramos, List<Miembro> integrantes, int vecesRealizadoXMes) {
+    public Trayecto(List<Tramo> tramos, int vecesRealizadoXMes) {
         this.tramos = tramos;
-        this.integrantes = integrantes;
+        this.integrantes = 0;
         this.vecesRealizadoXMes = vecesRealizadoXMes;
     }
 
-    public float getDistancia(){
+    public float getDistancia() throws IOException {
         float distancia = 0f;
         for (Tramo tramo : tramos) {
             distancia += tramo.getDistancia();
@@ -43,7 +44,7 @@ public class Trayecto extends EntidadPersistente {
         return distancia;
     }
 
-    public float getDistanciaDeConsumo(){
+    public float getDistanciaDeConsumo() throws IOException {
         float distancia = 0f;
         for (Tramo tramo : tramos) {
             if(tramo.getMedioTransporte().usaCombustible())
@@ -63,15 +64,11 @@ public class Trayecto extends EntidadPersistente {
     }
 
     public boolean iniciaOTerminaEn(Punto punto){
-        return this.puntoInicio().equals(punto) || this.puntoFinal().equals(punto);
+        return this.puntoInicio().coincideCon(punto) || this.puntoFinal().coincideCon(punto);
     }
 
     public boolean esCompartido(){
-        return this.integrantes.size() >= 2;
-    }
-
-    public int cantidadIntegrantes(){
-        return this.integrantes.size();
+        return this.integrantes >= 2;
     }
 
     public List<Tramo> getTramos() {
@@ -80,8 +77,8 @@ public class Trayecto extends EntidadPersistente {
 
     public void setTramos(List<Tramo> tramos) { this.tramos = tramos; }
 
-    public void agregarIntegrante(Miembro miembro){
-        this.integrantes.add(miembro);
+    public void sumarIntegrante(){
+        this.integrantes++;
     }
 
     public void agregarTramo(Tramo tramo){
@@ -92,4 +89,15 @@ public class Trayecto extends EntidadPersistente {
         return vecesRealizadoXMes;
     }
 
+    public void setIntegrantes(int integrantes) {
+        this.integrantes = integrantes;
+    }
+
+    public int getIntegrantes() {
+        return integrantes;
+    }
+
+    public void setVecesRealizadoXMes(int vecesRealizadoXMes) {
+        this.vecesRealizadoXMes = vecesRealizadoXMes;
+    }
 }

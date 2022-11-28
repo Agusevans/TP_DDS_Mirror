@@ -34,10 +34,12 @@ public class Router {
         AuthMiddleware authMiddleware = new AuthMiddleware();
 
         //AuthMiddleware
+        Spark.before("/index", authMiddleware::verificarSesion);
         Spark.before("/miembros", authMiddleware::verificarSesion);
         Spark.before("/miembro/:id_m", authMiddleware::verificarSesion);
         Spark.before("/trayecto", authMiddleware::verificarSesion);
         Spark.before("/carga_mediciones", authMiddleware::verificarSesion);
+        Spark.before("/reporte", authMiddleware::verificarSesion);
 
         //LoginController
         LoginController loginController = new LoginController();
@@ -56,12 +58,15 @@ public class Router {
         Spark.delete("/organizacion/:id_o/sector/:id_s", orgController::deleteSect);
         Spark.get("/miembros", orgController::readMiembros, Router.engine);
         Spark.get("/miembro/:id_m", orgController::readMiembro, Router.engine);
-        //Spark.post("/organizacion/:id_o/sector/:id_s/miembro/:id_m", orgController::readMiembro);
+        Spark.post("/miembro/:id_m", orgController::updateMiembro);
+        Spark.post("/miembro/:id_m/organizacion/:id_o/sector/:id_s", orgController::updateSectorMiembro);
+        Spark.post("/agregarMiembro", orgController::agregarMiembro);
 
         //TrayectoController
         Spark.get("/trayecto", trayectoController::create, Router.engine);
         Spark.post("/trayecto", trayectoController::save);
         Spark.delete("/trayecto/:id", trayectoController::delete);
+        Spark.get("/success", trayectoController::success, Router.engine);
 
         //FactorEmisionController
         Spark.post("/factor_emision/:id", factorEmisionController::update);
@@ -78,5 +83,8 @@ public class Router {
         Spark.get("/mediciones/:id",medicionController::listMed);
         Spark.post("/batch",medicionController::batchAlta);
         Spark.delete("/batch/:id",medicionController::batchBaja);
+        Spark.get("/reporte", medicionController::reporte, Router.engine);
+        Spark.post("/reporte", medicionController::calculoHU, Router.engine);
+        Spark.get("/organizacion/:id/calculo_hu", medicionController::apiCalculoHU);
     }
 }

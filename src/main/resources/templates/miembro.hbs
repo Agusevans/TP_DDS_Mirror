@@ -126,25 +126,15 @@
         <div class="col-12 mb-4 fw-bold">Numero documento: <span class="fw-light">{{miembro.nroDocumento}}</span></div>
     </div>
     <div class="bg-light p-5 rounded">
-        <div class="col-12"><h1>Trayecto</h1></div>
-        {{#each miembro.trayectos}}
-            <div class="col-12"><h2>Compartido con</h2></div>
-            {{#each miembro.trayectos.integrantes}}
-            <div class="d-flex flex-column bg-light p-5 pt-0 pb-0 rounded">
-                <div class="col-12 mb-4 fw-bold">Nombre: <span class="fw-light">{{nombre}}</span></div>
-                <div class="col-12 mb-4 fw-bold">Apellido: <span class="fw-light">{{apellido}}</span></div>
-                <div class="col-12 mb-4 fw-bold">Tipo documento: <span class="fw-light">{{tipoDocumento}}</span></div>
-                <div class="col-12 mb-4 fw-bold">Numero documento: <span class="fw-light">{{nroDocumento}}</span></div>
-            </div>
-            {{/each}}
-            <div class="col-12"><h2>Tramos</h2></div>
-            {{#each miembro.trayectos.tramos}}
+
+        {{#each trayectos}}
+            <div class="col-12"><h3>Trayecto {{id}}</h3></div>
+            {{#each tramos}}
+                <div class="col-12"><h5>Tramo</h5></div>
                 <div class="d-flex flex-column bg-light p-5 pt-0 pb-0 rounded">
-                    <div class="col-12 mb-4 fw-bold">Medio de transporte: <span class="fw-light">{{medioTransporte.nombre}}</span></div>
-                    <div class="col-12 mb-4 fw-bold">Latitud inicio: <span class="fw-light">{{puntoInicio.latitud}}</span></div>
-                    <div class="col-12 mb-4 fw-bold">Longitud inicio: <span class="fw-light">{{puntoInicio.longitud}}</span></div>
-                    <div class="col-12 mb-4 fw-bold">Latitud de fin: <span class="fw-light">{{puntoFin.latitud}}</span></div>
-                    <div class="col-12 mb-4 fw-bold">Longitud de fin: <span class="fw-light">{{puntoFin.longitud}}</span></div>
+                    <div class="col-12 mb-4 fw-bold">Medio de transporte: {{medioTransporte.nombre}}</div>
+                    <div class="col-12 mb-4 fw-bold">Punto inicio: <span class="fw-light">{{puntoInicio.latitud}},{{puntoInicio.longitud}}</span></div>
+                    <div class="col-12 mb-4 fw-bold">Punto fin: <span class="fw-light">{{puntoFin.latitud}},{{puntoFin.longitud}}</span></div>
                 </div>
             {{/each}}
         {{/each}}

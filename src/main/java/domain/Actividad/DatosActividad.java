@@ -13,7 +13,7 @@ public class DatosActividad implements Medible {
 
     @Expose
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;
 
     @Expose
@@ -22,7 +22,7 @@ public class DatosActividad implements Medible {
     private Actividad actividad;
 
     @Expose
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Medicion medicion;
 
     @Expose
@@ -35,6 +35,8 @@ public class DatosActividad implements Medible {
         this.actividad = actividad;
         this.periodoDeImputacion = periodoDeImputacion;
         this.medicion = medicion;
+
+
     }
 
     @Override

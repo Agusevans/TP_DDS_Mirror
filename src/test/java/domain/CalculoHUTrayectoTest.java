@@ -9,6 +9,7 @@ import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,27 +22,23 @@ class CalculoHUTrayectoTest {
     List<TipoConsumo> tcList;
 
     Trayecto trayecto1;
-    Trayecto trayecto2;
 
-    ArrayList<Tramo> tramos1;
-    ArrayList<Tramo> tramos2;
+    List<Tramo> tramos1;
 
     Tramo tramo1;
     Tramo tramo2;
-    Tramo tramo3;
 
     VehiculoParticular vehiculoParticular;
 
     Miembro miembro1;
     Miembro miembro2;
-    List<Miembro> miembros;
 
     Organizacion organizacion;
     Punto ubicacionOrg;
     Sector sector;
 
     @BeforeEach
-    public void init (){
+    public void init () throws Exception {
 
         //Actividad trayectos
         feTrayectos = new FactorEmision(2f, Unidad.km);
@@ -70,27 +67,24 @@ class CalculoHUTrayectoTest {
 
         //tramos
         vehiculoParticular = new VehiculoParticular();
-        miembros = new ArrayList<>();
-        miembros.add(miembro1);
         tramos1 = new ArrayList<Tramo>();
         tramo1 = new Tramo(vehiculoParticular, direccionM1, direccionM2);
         tramo2 = new Tramo(vehiculoParticular, direccionM2, ubicacionOrg);
         tramos1.add(tramo1);
         tramos1.add(tramo2);
-        trayecto1 = new Trayecto(tramos1, miembros, 21);
+        trayecto1 = new Trayecto(tramos1, 21);
         miembro1.agregarTrayecto(trayecto1);
 
     }
 
     @Test
-    void calculoHUMiembro(){
+    void calculoHUMiembro() throws IOException {
         float huEncontrada = organizacion.obtenerHUMiembro(miembro1);
         org.junit.jupiter.api.Assertions.assertEquals(178,Math.floor(huEncontrada));
     }
 
     @Test
-    void calculoHUCompartido(){
-        miembros.add(miembro2);
+    void calculoHUCompartido() throws IOException {
         miembro2.agregarTrayecto(trayecto1);
 
         float huM1 = organizacion.obtenerHUMiembro(miembro1);

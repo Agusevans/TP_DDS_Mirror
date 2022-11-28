@@ -18,6 +18,12 @@ public class TransporteContratado extends MedioTransporte {
         this.usaCombustible = true;
     }
 
+    public TransporteContratado(String nombre, TipoContratado tipo){
+        this.nombre = nombre;
+        this.tipo = tipo;
+        this.usaCombustible = true;
+    };
+
     public TransporteContratado(TipoContratado tipo){
         this.tipo = tipo;
         this.usaCombustible = true;

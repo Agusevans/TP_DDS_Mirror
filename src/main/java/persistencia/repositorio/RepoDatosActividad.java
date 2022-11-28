@@ -10,6 +10,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -51,6 +52,25 @@ public class  RepoDatosActividad extends Repositorio<DatosActividad>{
         predicatesList.toArray(finalPredicates);
         criteriaQuery.where(finalPredicates);
 
+
+        List<DatosActividad> result = EntityManagerHelper.getEntityManager()
+                .createQuery(criteriaQuery)
+                .getResultList();
+
+        return result;
+    }
+
+    public List<DatosActividad> filterDate(int año, int mes, int idOrg){ //TODO: Hacer bien el filtro
+        CriteriaBuilder criteriaBuilder = EntityManagerHelper.getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<DatosActividad> criteriaQuery = criteriaBuilder.createQuery(DatosActividad.class);
+        Root<DatosActividad> root = criteriaQuery.from(DatosActividad.class);
+
+        List<Predicate> predicatesList = new ArrayList<>();
+        //filtro por fecha
+        predicatesList.add(criteriaBuilder.between(root.get("periodoDeImputacion"), LocalDate.of(año,mes,1), LocalDate.of(año,mes,31)));
+        Predicate[] finalPredicates = new Predicate[predicatesList.size()];
+        predicatesList.toArray(finalPredicates);
+        criteriaQuery.where(finalPredicates);
 
         List<DatosActividad> result = EntityManagerHelper.getEntityManager()
                 .createQuery(criteriaQuery)

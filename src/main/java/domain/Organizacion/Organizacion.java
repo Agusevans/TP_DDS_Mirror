@@ -3,16 +3,14 @@ package domain.Organizacion;
 import ar.edu.frba.utn.dds.mihuella.fachada.Medible;
 import com.google.gson.annotations.Expose;
 import domain.*;
-import domain.Actividad.Actividad;
-import domain.Actividad.DatosActividad;
-import domain.Actividad.Medicion;
+import domain.Actividad.*;
 import domain.Trayecto.CalculadorHUTrayectos;
 import domain.Trayecto.Punto;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.io.IOException;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "Organizacion")
@@ -33,18 +31,18 @@ public class Organizacion extends EntidadPersistente{
     private ClasificacionOrg clasificacion;
 
     @Expose
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Punto ubicacion;
 
     @Expose
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "organizacion_id")
     private List<Sector> sectores;
 
-    //@OneToMany
+    //@OneToMany(cascade = CascadeType.ALL)
     //@JoinColumn(name = "DatosActividad_id", referencedColumnName = "id")
     @Transient
-    private transient List<DatosActividad> datosActividad;
+    private List<DatosActividad> datosActividad;
 
     @Expose
     @ManyToOne
@@ -64,12 +62,14 @@ public class Organizacion extends EntidadPersistente{
         this.datosActividad = new ArrayList<>();
     };
 
-    public Organizacion(String razonSocial, TipoOrg tipo,Punto ubicacion) {
+    public Organizacion(String razonSocial, TipoOrg tipo, ClasificacionOrg clasificacion,Punto ubicacion,SectorTerritorial sectorTerritorial) {
         this.razonSocial = razonSocial;
         this.tipo = tipo;
+        this.clasificacion = clasificacion;
         this.ubicacion = ubicacion;
         this.sectores = new ArrayList<>();
         this.datosActividad = new ArrayList<>();
+        this.territorio = sectorTerritorial;
     }
 
     public List<Miembro> obtenerMiembros() {
@@ -85,13 +85,22 @@ public class Organizacion extends EntidadPersistente{
         this.datosActividad.add(da);
     }
 
-    public void aceptarMiembro(Miembro miembro, Sector sector){
+    public void aceptarMiembro(Miembro miembro, Sector sector) throws Exception {
+
+        if(this.obtenerMiembros().contains(miembro)){
+            throw new Exception("El miembro no puede estar en mas de un sector");
+        }
+
         sector.agregarMiembro(miembro);
         miembro.agregarOrganizacion(this);
     }
 
     public void agregarSector(Sector sector){
         this.sectores.add(sector);
+    }
+
+    public  void agregarSectores(Sector ... sector){
+        Collections.addAll(this.sectores, sector);
     }
 
     public Float obtenerHUMedible(Collection<Medible> mediciones) {
@@ -110,15 +119,15 @@ public class Organizacion extends EntidadPersistente{
         return total;
     }
 
-    public Float obtenerHUTotal(){
+    public Float obtenerHUTotal() throws IOException {
         return this.obtenerHUDA(this.datosActividad) + this.obtenerHUMiembros();
     }
 
-    public float obtenerHUMiembro(Miembro miembro) {
+    public float obtenerHUMiembro(Miembro miembro) throws IOException {
         return this.getCalculadorHUTrayectos().calcularHUMiembro(miembro);
     }
 
-    public float obtenerHUMiembros() {
+    public float obtenerHUMiembros() throws IOException {
         List<Miembro> miembros = this.obtenerMiembros();
         return this.getCalculadorHUTrayectos().calcularHUMiembros(miembros);
     }
@@ -126,11 +135,14 @@ public class Organizacion extends EntidadPersistente{
     private void cargarReporteMediciones(ReporteHU reporte){
         for(DatosActividad da : this.datosActividad) {
             Medicion medicion = da.getMedicion();
-            reporte.agregarHUMedicion(da.getActividad(), medicion.getTipoConsumo(), medicion.getValor());
+            TipoConsumo tc = medicion.getTipoConsumo();
+            float valor = medicion.getValor();
+            float fe = tc.getFactorEmision().getValor();
+            reporte.agregarHUMedicion(da.getActividad(), tc, valor * fe);
         }
     }
 
-    private void cargarReporteTrayectos(ReporteHU reporte){
+    private void cargarReporteTrayectos(ReporteHU reporte) throws IOException {
         for(Sector sector : this.sectores){
             for(Miembro miembro : sector.getMiembros()){
                 float huMiembro = this.obtenerHUMiembro(miembro);
@@ -139,14 +151,15 @@ public class Organizacion extends EntidadPersistente{
         }
     }
 
-    public ReporteHU obtenerReporteHU(){
+    public ReporteHU obtenerReporteHU() throws IOException {
         ReporteHU reporte = new ReporteHU();
         this.cargarReporteMediciones(reporte);
         this.cargarReporteTrayectos(reporte);
+        reporte.sumarTotal();
         return reporte;
     }
 
-    public void mostrarReporteHU(){
+    public void mostrarReporteHU() throws IOException {
         ReporteHU reporte = this.obtenerReporteHU();
         System.out.println("MUESTRA DE REPORTE DE HU DE LA ORGANIZACION: " + this.getRazonSocial());
         reporte.mostrarReporte();

@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import domain.EntidadPersistente;
 
 import javax.persistence.*;
+import java.io.IOException;
 
 @Entity
 @Table
@@ -15,13 +16,11 @@ public class Tramo extends EntidadPersistente {
     private MedioTransporte medioTransporte;
 
     @Expose
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "punto_inicio_id", referencedColumnName = "id")
+    @OneToOne(cascade = CascadeType.ALL)
     private Punto puntoInicio;
 
     @Expose
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "punto_fin_id", referencedColumnName = "id")
+    @OneToOne(cascade = CascadeType.ALL)
     private Punto puntoFin;
 
     @Column
@@ -31,14 +30,14 @@ public class Tramo extends EntidadPersistente {
         this.distancia = 0;
     };
 
-    public Tramo(MedioTransporte transporte, Punto inicio, Punto fin){
+    public Tramo(MedioTransporte transporte, Punto inicio, Punto fin) throws IOException {
         this.medioTransporte = transporte;
         this.puntoInicio = inicio;
         this.puntoFin = fin;
         this.distancia = transporte.calcularDistancia(inicio, fin);
     }
 
-    public float getDistancia(){
+    public float getDistancia() throws IOException {
         if (distancia == 0){
             distancia = medioTransporte.calcularDistancia(puntoInicio, puntoFin);
         }

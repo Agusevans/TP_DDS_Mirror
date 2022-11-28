@@ -26,7 +26,7 @@ public class CalculadorHU {
         System.out.println("Archivo de parametros: " + ns.get("params"));
 
         // calcular huella de las actividades y el total
-        LectorArchivos lector = new LectorCSV(ns.get("mediciones"), ','); //TODO revisar por donde entra el archivo de mediciones
+        LectorArchivos lector = new LectorCSV(ns.get("mediciones"), ',');
         ImplementadorFachadaOrg fachadaOrg = new ImplementadorFachadaOrg(new Organizacion());
 
         Collection<Medible> mediciones = lector.leerMediciones();

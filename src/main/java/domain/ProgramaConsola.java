@@ -1,15 +1,17 @@
 package domain;
 
+import com.google.gson.Gson;
 import domain.Actividad.*;
+import domain.Lectores.LectorJSON_String;
 import domain.Organizacion.Miembro;
 import domain.Organizacion.Organizacion;
-import domain.Organizacion.ReporteHU;
 import domain.Organizacion.Sector;
 import domain.Trayecto.Punto;
 import domain.Trayecto.Tramo;
 import domain.Trayecto.Trayecto;
 import domain.Trayecto.VehiculoParticular;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +19,8 @@ import java.util.List;
 //la idea de esta clase es mostrar por pantalla el output de los calculos e ir verificando
 public class ProgramaConsola {
 
-    public static void main(String[] args) { //TODO: Los objetos deberian sacarse de un JSON o CSV
+    public static void main(String[] args) throws Exception {
+
         FactorEmision feTrayectos;
         Actividad actividadTrayectos;
         TipoConsumo tipoConsumoTrayectos;
@@ -34,7 +37,6 @@ public class ProgramaConsola {
 
         Miembro miembro1;
         Miembro miembro2;
-        List<Miembro> miembros;
 
         Organizacion organizacion;
         Punto ubicacionOrg;
@@ -45,7 +47,7 @@ public class ProgramaConsola {
         tipoConsumoTrayectos = new TipoConsumo("Distancia media recorrida", Unidad.km, feTrayectos);
         tcList = new ArrayList<>();
         tcList.add(tipoConsumoTrayectos);
-        actividadTrayectos = new Actividad("Traslado miembros Org", tcList, Alcance.NoControladas);
+        actividadTrayectos = new Actividad("Traslado de miembros de la Org", tcList, Alcance.NoControladas);
 
         //Miembros
         Punto direccionM1 = new Punto(1f,2f);
@@ -89,17 +91,13 @@ public class ProgramaConsola {
 
         //tramos
         vehiculoParticular = new VehiculoParticular();
-        miembros = new ArrayList<>();
-        miembros.add(miembro1);
         tramos1 = new ArrayList<>();
         tramo1 = new Tramo(vehiculoParticular, direccionM1, direccionM2);
         tramo2 = new Tramo(vehiculoParticular, direccionM2, ubicacionOrg);
         tramos1.add(tramo1);
         tramos1.add(tramo2);
-        trayecto1 = new Trayecto(tramos1, miembros, 21);
+        trayecto1 = new Trayecto(tramos1, 21);
         miembro1.agregarTrayecto(trayecto1);
-
-        miembros.add(miembro2);
         miembro2.agregarTrayecto(trayecto1);
 
         organizacion.mostrarReporteHU();

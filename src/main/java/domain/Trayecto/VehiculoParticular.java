@@ -31,4 +31,11 @@ public class VehiculoParticular extends MedioTransporte {
         this.combustible = combustible;
         this.usaCombustible = true;
     };
+
+    public VehiculoParticular(String nombre, TipoVehiculo vehiculo,TipoCombustible combustible){
+        this.nombre = nombre;
+        this.tipoVehiculo = vehiculo;
+        this.combustible = combustible;
+        this.usaCombustible = true;
+    };
 }

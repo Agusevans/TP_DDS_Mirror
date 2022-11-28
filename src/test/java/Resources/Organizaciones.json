@@ -20,34 +20,9 @@
             "latitud":7,
             "longitud":9
           }
-        },
-        {
-          "nombre": "Supermalo",
-          "apellido": "Malitomalito",
-          "tipoDocumento":"DNI",
-          "nroDocumento":"7842321",
-          "domicilio": {
-            "latitud":7,
-            "longitud":9
-          }
-        }
-      ]
-    },
-    {
-      "nombre": "Destructores",
-      "actividad": "Hacen algo",
-      "miembros": [
-        {
-          "nombre": "Titan",
-          "apellido": "Villano",
-          "tipoDocumento":"DNI",
-          "nroDocumento":"6873211",
-          "domicilio": {
-            "latitud":15,
-            "longitud":7
-          }
         }
       ]
     }
   ]
+
 }

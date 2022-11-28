@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 public class EmailTest {
 
     @Test
-    public void abc(){
+    public void enviarMail(){
 
         AgenteSectorial agenteSectorial = new AgenteSectorial();
         agenteSectorial.setEmail("javiquintana99@hotmail.com");
@@ -16,6 +16,6 @@ public class EmailTest {
         Email email = new Email();
         email.notificar(agenteSectorial,12.3f);
 
-        Assert.assertEquals(1,1);
+        //TODO: Probar que se envio el mail
     }
 }

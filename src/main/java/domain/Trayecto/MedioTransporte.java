@@ -2,8 +2,11 @@ package domain.Trayecto;
 
 import com.google.gson.annotations.Expose;
 import domain.EntidadPersistente;
+import domain.Trayecto.Distancia.Distancia;
+import domain.Trayecto.Distancia.DistanciaAPI;
 
 import javax.persistence.*;
+import java.io.IOException;
 
 @Table
 @Entity
@@ -26,8 +29,11 @@ public class MedioTransporte extends EntidadPersistente {
         this.usaCombustible = false;
     }
 
-    public float calcularDistancia(Punto puntoInicio, Punto puntoFin){
-        //TODO: aca hay que poner el servicio externo, porque lo usan todos menos el publico que hace override
+    public float calcularDistancia(Punto puntoInicio, Punto puntoFin) throws IOException {
+
+        //TODO: Arreglar conexion con API Distancia
+        //Distancia distancia = DistanciaAPI.getInstancia().distancia(1,"a",1,1,"a",1);
+        //return Float.parseFloat(distancia.valor);
 
         return puntoInicio.distanciaAPunto(puntoFin);
     }

@@ -4,6 +4,7 @@ import domain.Organizacion.Miembro;
 import domain.Organizacion.Sector;
 import domain.Trayecto.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class DataSectores {
@@ -192,69 +193,63 @@ public class DataSectores {
         return miembros3;
     }
     /*--------------Trayectos---------------*/
-    static public ArrayList<Trayecto> setTrayectos1() {
+    static public ArrayList<Trayecto> setTrayectos1() throws IOException {
         ArrayList<Miembro> miembros = setMiembros1();
 
         ArrayList<Trayecto> trayectos1 = new ArrayList<Trayecto>();
         Trayecto trayecto = new Trayecto();
         trayecto.agregarTramo(new Tramo(new MedioTransporte("a pie"),miembros.get(1).getDomicilio(),setParada110().get(1).getPunto()));
         trayecto.agregarTramo(new Tramo(new TransportePublico("Colectivo","110",TipoPublico.colectivo,setParada110()),setParada110().get(1).getPunto(),setParada110().get(4).getPunto()));
-        trayecto.agregarIntegrante(miembros.get(0));
         trayectos1.add(trayecto);
         return trayectos1;
     }
 
-    static public ArrayList<Trayecto> setTrayectos2() {
+    static public ArrayList<Trayecto> setTrayectos2() throws IOException {
 
         ArrayList<Miembro> miembros = setMiembros1();
         ArrayList<Trayecto> trayectos2 = new ArrayList<Trayecto>();
         Trayecto trayecto = new Trayecto();
         trayecto.agregarTramo(new Tramo(new TransportePublico("Subte","Linea B",TipoPublico.subte,setParadaSubteB()),setParadaSubteB().get(1).getPunto(),setParadaSubteB().get(1).getPunto()));
-        trayecto.agregarIntegrante(miembros.get(1));
         trayectos2.add(trayecto);
         return trayectos2;
     }
 
-    static public ArrayList<Trayecto> setTrayectos3() {
+    static public ArrayList<Trayecto> setTrayectos3() throws IOException {
         ArrayList<Miembro> miembros = setMiembros2();
         ArrayList<Trayecto> trayectos3 = new ArrayList<Trayecto>();
 
         Trayecto trayecto = new Trayecto();
         trayecto.agregarTramo(new Tramo(new TransportePublico("Subte","Linea C",TipoPublico.subte,setParadaSubteC()),setParadaSubteC().get(1).getPunto(),setParadaSubteC().get(4).getPunto()));
-        trayecto.agregarIntegrante(miembros.get(0));
         trayectos3.add(trayecto);
         return trayectos3;
     }
 
-    static public ArrayList<Trayecto> setTrayectos4() {
+    static public ArrayList<Trayecto> setTrayectos4() throws IOException {
         ArrayList<Miembro> miembros = setMiembros2();
         ArrayList<Trayecto> trayectos4 = new ArrayList<Trayecto>();
 
         Trayecto trayecto = new Trayecto();
         trayecto.agregarTramo(new Tramo(new TransporteContratado(TipoContratado.taxi),miembros.get(2).getDomicilio(),UbicacionList().get(1)));
-        trayecto.agregarIntegrante(miembros.get(1));
         trayectos4.add(trayecto);
         return trayectos4;
     }
 
-    static public ArrayList<Trayecto> setTrayectos5() {
+    static public ArrayList<Trayecto> setTrayectos5() throws IOException {
         ArrayList<Miembro> miembros = setMiembros3();
         ArrayList<Trayecto> trayectos5 = new ArrayList<Trayecto>();
 
         Trayecto trayecto = new Trayecto();
         trayecto.agregarTramo(new Tramo(new TransporteContratado(TipoContratado.remis),miembros.get(1).getDomicilio(),UbicacionList().get(2)));
-        trayecto.agregarIntegrante(miembros.get(0));
         trayectos5.add(trayecto);
         return trayectos5;
     }
 
-    static public ArrayList<Trayecto> setTrayectos6() {
+    static public ArrayList<Trayecto> setTrayectos6() throws IOException {
         ArrayList<Miembro> miembros = setMiembros3();
         ArrayList<Trayecto> trayectos6 = new ArrayList<Trayecto>();
 
         Trayecto trayecto = new Trayecto();
         trayecto.agregarTramo(new Tramo(new MedioTransporte("bicicleta"),miembros.get(1).getDomicilio(),UbicacionList().get(2)));
-        trayecto.agregarIntegrante(miembros.get(1));
         trayectos6.add(trayecto);
         return trayectos6;
     }

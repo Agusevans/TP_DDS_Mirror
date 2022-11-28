@@ -7,6 +7,7 @@ import domain.Trayecto.Trayecto;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -26,20 +27,20 @@ public class Miembro extends EntidadPersistente {
     private String tipoDocumento;
 
     @Expose
-    @Column
+    @Column(unique = true)
     private int nroDocumento;
 
     @Expose
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Punto domicilio;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "miembro_organizacion",
             joinColumns = @JoinColumn(name = "miembro_id"),
             inverseJoinColumns = @JoinColumn(name = "organizacion_id")
     )
-    private transient List<Organizacion> organizacionlist;
+    private List<Organizacion> organizacionlist;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
@@ -84,6 +85,7 @@ public class Miembro extends EntidadPersistente {
 
     public void agregarTrayecto(Trayecto trayecto){
         trayectos.add(trayecto);
+        trayecto.sumarIntegrante();
     }
 
     //getters & setters
@@ -122,8 +124,11 @@ public class Miembro extends EntidadPersistente {
         return domicilio;
     }
 
-    public void setTrayectos(ArrayList<Trayecto> trayectos) {
+    public void setTrayectos(List<Trayecto> trayectos) {
         this.trayectos = trayectos;
+        for (Trayecto trayecto : trayectos) {
+            trayecto.sumarIntegrante();
+        }
     }
 
     public List<Trayecto> getTrayectos() {

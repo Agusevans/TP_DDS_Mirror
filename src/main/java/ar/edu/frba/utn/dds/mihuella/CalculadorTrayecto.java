@@ -30,7 +30,7 @@ public class CalculadorTrayecto {
 
 
         // calcular huella de las actividades y el total
-        LectorArchivos lectorCSV = new LectorCSV(ns.get("trayectos"), ','); //TODO revisar por donde entra el archivo de mediciones
+        LectorArchivos lectorCSV = new LectorCSV(ns.get("trayectos"), ',');
         LectorArchivos lectorJSONOrg = new LectorJSON(ns.get("datosOrg" ...));
         LectorArchivos lectorJSONTrasporte = new LectorJSON(ns.get("transportes" ...));
 

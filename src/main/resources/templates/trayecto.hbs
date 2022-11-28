@@ -20,69 +20,69 @@
         <meta name="theme-color" content="#7952b3">
 
         <style>
-          .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
-          }
+              .bd-placeholder-img {
+                font-size: 1.125rem;
+                text-anchor: middle;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                user-select: none;
+              }
 
-          @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-              font-size: 3.5rem;
+              @media (min-width: 768px) {
+                .bd-placeholder-img-lg {
+                  font-size: 3.5rem;
+                }
+              }
+
+              body {
+              min-height: 75rem;
+              padding-top: 4.5rem;
+              }
+
+            .form-container{
+              padding:10px;
+              padding-bottom:25px;
+              margin:0 auto;
+              margin-top:20px;
+              width:50%;
+              border-radius:20px;
+              background-color: #ececec;
             }
-          }
 
-          body {
-          min-height: 75rem;
-          padding-top: 4.5rem;
-          }
+            .add-one{
+              color:green;
+              text-align:center;
+              font-weigth:bolder;
+              cursor:pointer;
+              margin-top:10px;
+            }
 
-        .form-container{
-          padding:10px;
-          padding-bottom:25px;
-          margin:0 auto;
-          margin-top:20px;
-          width:50%;
-          border-radius:20px;
-          background-color: #ececec;
-        }
+            .delete{
+              color:white;
+              background-color:rgb(231, 76, 60);
+              text-align:center;
+              margin-top:6px;
+              font-weight:700;
+              border-radius:5px;
+              min-width:20px;
+              cursor:pointer;
+            }
 
-        .add-one{
-          color:green;
-          text-align:center;
-          font-weigth:bolder;
-          cursor:pointer;
-          margin-top:10px;
-        }
+            #singlebutton{
+              width:100%;
+              margin-top:20px;
+            }
 
-        .delete{
-          color:white;
-          background-color:rgb(231, 76, 60);
-          text-align:center;
-          margin-top:6px;
-          font-weight:700;
-          border-radius:5px;
-          min-width:20px;
-          cursor:pointer;
-        }
+            .title{
+              text-align:center;
+              font-size:40px;
+              margin-bottom:40px;
+            }
 
-        #singlebutton{
-          width:100%;
-          margin-top:20px;
-        }
-
-        .title{
-          text-align:center;
-          font-size:40px;
-          margin-bottom:40px;
-        }
-
-        .dynamic-element{
-          margin-bottom:0px;
-        }
-        </style>
+            .dynamic-element{
+              margin-bottom:0px;
+            }
+            </style>
 
     </head>
 
@@ -114,7 +114,7 @@
     </nav>
     <!-- END HEADER -->
 
-    <!-- BODY -->
+        <!-- BODY -->
         <main class="container">
             <div class="bg-light p-5 rounded">
                 <div class="col-12"><h1>Carga de Trayecto</h1></div>
@@ -130,31 +130,41 @@
 
                     <!-- TRAYECTO COMPARTIDO -->
                     <div class="row">
-                        <legend class="col-form-label col-2 pt-0">Trayecto Compartido?</legend>
-                        <div class="col-1">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="compartido" onclick="checkbox_enabled()">
-                            </div>
-                        </div>
+                        <legend class="col-form-label col-12 pt-0">Elija los integrantes del trayecto</legend>
                         <div class="form-group col-3">
-                            <label for="miembro_1">Acompañante 1</label>
-                            <select name=miembro_1 id="miembro_1" class="form-control" disabled>
-                                <option selected>Choose...</option>
-                                <option>...</option>
+                            <label for="miembro_1">Integrante 1</label>
+                            <select name=miembro_1 id="miembro_1" class="form-control">
+                                <option value="null">Choose...</option>
+                                {{#each miembros}}
+                                <option value="{{id}}">{{apellido}}, {{nombre}}</option>
+                                {{/each}}
                             </select>
                         </div>
                         <div class="form-group col-3">
-                            <label for="miembro_2">Acompañante 2</label>
-                            <select name=miembro_2 id="miembro_2" class="form-control" disabled>
-                                <option selected>Choose...</option>
-                                <option>...</option>
+                            <label for="miembro_2">Integrante 2</label>
+                            <select name=miembro_2 id="miembro_2" class="form-control">
+                                <option value="null">Choose...</option>
+                                {{#each miembros}}
+                                <option value="{{id}}">{{apellido}}, {{nombre}}</option>
+                                {{/each}}
                             </select>
                         </div>
                         <div class="form-group col-3">
-                            <label for="miembro_3">Acompañante 3</label>
-                            <select name=miembro_3 id="miembro_3" class="form-control" disabled>
-                                <option selected>Choose...</option>
-                                <option>...</option>
+                            <label for="miembro_3">Integrante 3</label>
+                            <select name=miembro_3 id="miembro_3" class="form-control">
+                                <option value="null">Choose...</option>
+                                {{#each miembros}}
+                                <option value="{{id}}">{{apellido}}, {{nombre}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="miembro_4">Integrante 4</label>
+                            <select name=miembro_4 id="miembro_4" class="form-control">
+                                <option value="null">Choose...</option>
+                                {{#each miembros}}
+                                    <option value="{{id}}">{{apellido}}, {{nombre}}</option>
+                                {{/each}}
                             </select>
                         </div>
                     </div>
@@ -162,21 +172,84 @@
                     <!-- TRAMOS -->
 
                     <div class="bg-light p-5 rounded">
-                        <div class="col-5"><h5>Tramos:</h5></div>
-                        <div class="col-7"></div>
+                        <div class="col-4"><h5>Tramos:</h5></div>
+                        <div class="col-8"><h6>Ingresar puntos como grados decimales (Ejemplo: "15.4,14.5")</h6></div>
                     </div>
+
                     <div class="row">
-                        <div class="dynamic-stuff">
+                        <div class="form-group col-3">
+                            <label for="cant">Cantidad realizada por mes</label>
+                            <input name="cant" class="form-control" id="cant">
                         </div>
 
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-12">
-                                    <p class="add-one">+ Añadir Tramo</p>
-                                </div>
-                            </div>
+                        <div class="form-group col-3">
+
+                            <label for="transporte_1">Medio Transporte</label>
+                            <select name="transporte_1" id="transporte_1" class="form-control">
+                                <option value="null">Choose...</option>
+                                {{#each medio_transportes}}
+                                <option value="{{id}}">{{nombre}}</option>
+                                {{/each}}
+                            </select>
+
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="punto_inicio_1">Punto Inicio Tramo</label>
+                            <input name="punto_inicio_1" class="form-control" id="punto_inicio_1">
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="punto_fin_1">Punto Fin Tramo</label>
+                            <input name="punto_fin_1" class="form-control" id="punto_fin_1">
+                        </div>
+
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-3"></div>
+                        <div class="form-group col-3">
+
+                            <label for="transporte_2">Medio Transporte</label>
+                            <select name="transporte_2" id="transporte_2" class="form-control">
+                                <option value="null">Choose...</option>
+                                {{#each medio_transportes}}
+                                <option value="{{id}}">{{nombre}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+
+                        <div class="form-group col-3">
+                            <label for="punto_inicio_2">Punto Inicio Tramo</label>
+                            <input name="punto_inicio_2" class="form-control" id="punto_inicio_2">
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="punto_fin_2">Punto Fin Tramo</label>
+                            <input name="punto_fin_2" class="form-control" id="punto_fin_2">
                         </div>
                     </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-3"></div>
+                        <div class="form-group col-3">
+
+                            <label for="transporte_3">Medio Transporte</label>
+                            <select name="transporte_3" id="transporte_3" class="form-control">
+                                <option value="null">Choose...</option>
+                                {{#each medio_transportes}}
+                                <option value="{{id}}">{{nombre}}</option>
+                                {{/each}}
+                            </select>
+
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="punto_inicio_3">Punto Inicio Tramo</label>
+                            <input name="punto_inicio_3" class="form-control" id="punto_inicio_3">
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="punto_fin_3">Punto Fin Tramo</label>
+                            <input name="punto_fin_3" class="form-control" id="punto_fin_3">
+                        </div>
+                    </div>
+                    <br>
                     <div class="row">
                         <div class="col-9"></div>
                         <div class="col-3">
@@ -190,74 +263,28 @@
 
         </main>
 
-        <!-- TRAMO OCULTO -->
-        <div class="form-group dynamic-element" style="display:none">
-            <div class="row">
-                <div class="col-1"></div>
+            <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 
-                <div class="form-group col-3">
-                    <label for="transporte">Medio Transporte</label>
-                    <select id="transporte" class="form-control">
-                        <option selected>Choose...</option>
-                        <option>...</option>
-                    </select>
-                </div>
-                <div class="form-group col-3">
-                    <label for="punto_inicio">Punto Inicio Tramo</label>
-                    <input class="form-control" id="punto_inicio">
-                </div>
-                <div class="form-group col-3">
-                    <label for="punto_fin">Punto Fin Tramo</label>
-                    <input class="form-control" id="punto_fin">
-                </div>
-                <div class="col-1">
-                    <p class="delete">x</p>
-                </div>
-            </div>
+            <script>
 
-            <br>
-        </div>
-        <!-- END TRAMO OCULTO -->
+                function checkbox_enabled() {
 
+                  var checkBox = document.getElementById("compartido");
 
+                  if (checkBox.checked == true){
+                  document.getElementById("miembro_1").disabled = false;
+                  document.getElementById("miembro_2").disabled = false;
+                  document.getElementById("miembro_3").disabled = false;
+                  document.getElementById("compartido").value = "true";
+                  } else {
+                  document.getElementById("miembro_1").disabled = true;
+                  document.getElementById("miembro_2").disabled = true;
+                  document.getElementById("miembro_3").disabled = true;
+                  document.getElementById("compartido").value = "false";
+                  }
+                }
 
-        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-
-        <script>
-            //Añadir tramo
-            $('.add-one').click(function(){
-              $('.dynamic-element').first().clone().appendTo('.dynamic-stuff').show();
-              attach_delete();
-            });
-
-
-            //Borrar tramo
-            function attach_delete(){
-              $('.delete').off();
-              $('.delete').click(function(){
-                console.log("click");
-                $(this).closest('.form-group').remove();
-              });
-            }
-
-            function checkbox_enabled() {
-
-              var checkBox = document.getElementById("compartido");
-
-              if (checkBox.checked == true){
-              document.getElementById("miembro_1").disabled = false;
-              document.getElementById("miembro_2").disabled = false;
-              document.getElementById("miembro_3").disabled = false;
-              document.getElementById("compartido").value = "true";
-              } else {
-              document.getElementById("miembro_1").disabled = true;
-              document.getElementById("miembro_2").disabled = true;
-              document.getElementById("miembro_3").disabled = true;
-              document.getElementById("compartido").value = "false";
-              }
-            }
-
-        </script>
+            </script>
 
     </body>
 </html>

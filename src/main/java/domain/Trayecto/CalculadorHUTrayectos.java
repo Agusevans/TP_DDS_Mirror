@@ -4,6 +4,7 @@ import domain.Actividad.Actividad;
 import domain.Organizacion.Miembro;
 import domain.Organizacion.Organizacion;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class CalculadorHUTrayectos {
         this.organizacion = organizacion;
     }
 
-    public float calcularHUMiembro(Miembro miembro){
+    public float calcularHUMiembro(Miembro miembro) throws IOException {
         List<Trayecto> trayectosOrg = this.trayectosDeLaOrg(miembro.getTrayectos());
 
         float huTrayectos = 0f;
@@ -25,7 +26,7 @@ public class CalculadorHUTrayectos {
         for(Trayecto trayecto : trayectosOrg){
             float huTrayecto = trayecto.getDistanciaDeConsumo() * trayecto.getVecesRealizadoXMes() * fe;
             if(trayecto.esCompartido()){
-                huTrayectos += huTrayecto / trayecto.cantidadIntegrantes(); //Asume que cada miembro tiene la misma instancia del trayecto
+                huTrayectos += huTrayecto / trayecto.getIntegrantes(); //Asume que cada miembro tiene la misma instancia del trayecto
             }
             else {
                 huTrayectos += huTrayecto;
@@ -35,7 +36,7 @@ public class CalculadorHUTrayectos {
         return huTrayectos;
     }
 
-    public float calcularHUMiembros(List<Miembro> miembros){
+    public float calcularHUMiembros(List<Miembro> miembros) throws IOException {
         float huMiembros = 0f;
         for( Miembro miembro : miembros){
             huMiembros += this.calcularHUMiembro(miembro);
@@ -43,7 +44,7 @@ public class CalculadorHUTrayectos {
         return huMiembros;
     }
 
-    private List<Trayecto> trayectosDeLaOrg(List<Trayecto> trayectos)
+    public List<Trayecto> trayectosDeLaOrg(List<Trayecto> trayectos)
     {
         List<Trayecto> trayectosOrg = new ArrayList<>();
         Punto ubicacionOrg = organizacion.getUbicacion();

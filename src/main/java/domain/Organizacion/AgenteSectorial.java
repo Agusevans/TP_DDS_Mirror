@@ -5,6 +5,7 @@ import domain.EntidadPersistente;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -19,7 +20,7 @@ public class AgenteSectorial extends EntidadPersistente {
     @OneToOne
     SectorTerritorial sectorTerritorial;
 
-    @OneToMany(mappedBy = "agente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "agente", fetch = FetchType.LAZY)
     List<Organizacion> organizaciones;
 
     @Expose
@@ -32,6 +33,21 @@ public class AgenteSectorial extends EntidadPersistente {
 
     public AgenteSectorial(){
         this.organizaciones = new ArrayList<>();
+    }
+
+    public AgenteSectorial(String nombre, SectorTerritorial sectorTerritorial, String email, String periodo) {
+        this.nombre = nombre;
+        this.sectorTerritorial = sectorTerritorial;
+        this.organizaciones = new ArrayList<>();
+        this.email = email;
+        this.periodo = periodo;
+    }
+
+    public void agregarOrganizaciones(Organizacion ... organizaciones){
+        Collections.addAll(this.organizaciones, organizaciones);
+        for (Organizacion org : organizaciones) {
+            org.setAgente(this);
+        }
     }
 
     public void obtenerHCTerritorial(){};

@@ -12,7 +12,7 @@ import java.util.List;
 public class BatchDatosActividad extends EntidadPersistente {
 
     @Expose
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "batch_id")
     private List<DatosActividad> datosAct;
 

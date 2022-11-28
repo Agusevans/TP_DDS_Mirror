@@ -3,6 +3,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Query;
 
 import java.io.IOException;
 
@@ -72,5 +73,17 @@ public class DistanciaAPI {
         Call<ListadoDeLocalidades> requestLocalidades = serviceDistancia.localidades(offset, municipioId);
         Response<ListadoDeLocalidades> responseLocalidades = requestLocalidades.execute();
         return responseLocalidades.body();
+    }
+
+    public Distancia distancia(int localidadOrigenId,
+                               String calleOrigen,
+                               int alturaOrigen,
+                               int localidadDestinoId,
+                               String calleDestino,
+                               int alturaDestino) throws IOException {
+        FachadaCalcularDistancia serviceDistancia = this.retrofit.create(FachadaCalcularDistancia.class);
+        Call<Distancia> requestDistancia = serviceDistancia.distancia(localidadOrigenId, calleOrigen, alturaOrigen, localidadDestinoId, calleDestino, alturaDestino);
+        Response<Distancia> responseDistancia = requestDistancia.execute();
+        return responseDistancia.body();
     }
 }

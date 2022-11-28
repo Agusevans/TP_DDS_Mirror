@@ -5,4 +5,5 @@ public enum TipoOrg {
     ONG,
     Empresa,
     Institucion
+
 }

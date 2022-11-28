@@ -15,6 +15,7 @@ public class RepoSector extends Repositorio<Sector>{
         super(dao);
     }
 
+    /*
     public Sector buscarSector(String nombreSect, int org) {
         return this.dao.buscar(nombreSector(nombreSect, org));
     }
@@ -34,5 +35,5 @@ public class RepoSector extends Repositorio<Sector>{
         sectorQuery.where(ambasCondiciones);
 
         return new BusquedaCondicional(null, sectorQuery);
-    }
+    }*/
 }

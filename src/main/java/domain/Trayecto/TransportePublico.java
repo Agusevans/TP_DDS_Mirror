@@ -21,7 +21,7 @@ public class TransportePublico extends MedioTransporte {
     private TipoPublico tipo;
 
     @Expose
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "transporte_id")
     private List<Parada> paradas;
 
@@ -41,12 +41,12 @@ public class TransportePublico extends MedioTransporte {
     @Override
     public float calcularDistancia(Punto puntoInicio, Punto puntoFin){
 
-        List<Parada> recorrido = this.obtenerRecorrido(puntoFin, puntoFin);
+        List<Parada> recorrido = this.obtenerRecorrido(puntoInicio, puntoFin);
 
         float distancia = 0f;
 
         Parada parada1 = recorrido.get(0);
-        for(int i = 1; i < recorrido.size() - 1; i++){
+        for(int i = 1; i <= recorrido.size() - 1; i++){
             Parada parada2 = recorrido.get(i);
             distancia += parada1.distanciaA(parada2);
             parada1 = parada2;
@@ -59,7 +59,7 @@ public class TransportePublico extends MedioTransporte {
     {
         Parada parada = null;
         for(Parada p : paradas){
-            if(p.getPunto().equals(punto)){
+            if(p.getPunto().getLatitud().floatValue() == punto.getLatitud().floatValue() && p.getPunto().getLongitud().floatValue() == punto.getLongitud().floatValue()){
                 parada = p;
                 break;
             }
@@ -72,7 +72,7 @@ public class TransportePublico extends MedioTransporte {
         Parada pa = this.buscarParada(a);
         Parada pb = this.buscarParada(b);
 
-        return paradas.subList(paradas.indexOf(pa), paradas.indexOf(pb));
+        return paradas.subList(paradas.indexOf(pa), paradas.indexOf(pb)+1);
     }
 
     public String getLinea() {

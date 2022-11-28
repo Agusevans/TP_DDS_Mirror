@@ -1,7 +1,7 @@
 package persistencia.repositorio;
 
-import domain.Organizacion.AgenteSectorial;
 import domain.Organizacion.Miembro;
+import domain.Organizacion.Organizacion;
 import persistencia.BusquedaCondicional;
 import persistencia.EntityManagerHelper;
 import persistencia.daos.DAO;
@@ -10,6 +10,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.List;
 
 public class RepoMiembro extends Repositorio<Miembro>{
 
@@ -17,7 +18,26 @@ public class RepoMiembro extends Repositorio<Miembro>{
         super(dao);
     }
 
-    public Miembro buscarMiembro(int nro_doc) {return this.dao.buscar(miembro(nro_doc));}
+    public List<Miembro> buscarMiembrosDeOrg(int idOrg) {
+
+        String query = "from Organizacion where id = " + idOrg;
+        Organizacion org = EntityManagerHelper.getEntityManager().createQuery(query,Organizacion.class).getSingleResult();
+
+        return org.obtenerMiembros();
+    }
+
+    //esta mal hecha esta busqueda, revisar
+    public Miembro buscarMiembro(int nro_doc) {
+        Miembro miembro = null;
+        try{
+            miembro = this.dao.buscar(miembro(nro_doc));
+        }
+        catch (Exception e){
+            return null;
+        }
+
+        return miembro;
+    }
 
     BusquedaCondicional miembro(int nro_doc){
         CriteriaBuilder criteriaBuilder = criteriaBuilder();
@@ -25,7 +45,7 @@ public class RepoMiembro extends Repositorio<Miembro>{
 
         Root<Miembro> raiz = agenteQuery.from(Miembro.class);
 
-        Predicate predicado = criteriaBuilder.equal(raiz.get("nro_doc"), nro_doc);
+        Predicate predicado = criteriaBuilder.equal(raiz.get("nroDocumento"), nro_doc);
 
         agenteQuery.where(predicado);
 
