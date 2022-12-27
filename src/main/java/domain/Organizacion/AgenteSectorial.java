@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import domain.EntidadPersistente;
 
 import javax.persistence.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -17,10 +18,10 @@ public class AgenteSectorial extends EntidadPersistente {
     String nombre;
 
     @Expose
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     SectorTerritorial sectorTerritorial;
 
-    @OneToMany(mappedBy = "agente", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "agente", fetch = FetchType.EAGER)
     List<Organizacion> organizaciones;
 
     @Expose
@@ -50,7 +51,16 @@ public class AgenteSectorial extends EntidadPersistente {
         }
     }
 
-    public void obtenerHCTerritorial(){};
+    public void quitarOrganizacion(Organizacion organizacion){
+        this.organizaciones.remove(organizacion);
+        organizacion.setAgente(null);
+    }
+
+    public void obtenerHCTerritorial() throws IOException {
+        for (Organizacion org : organizaciones) {
+            org.notificarAgente();
+        }
+    };
 
     public void agregarOrganizacion(Organizacion organizacion){
         this.organizaciones.add(organizacion);

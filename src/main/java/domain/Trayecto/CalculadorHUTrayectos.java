@@ -18,7 +18,7 @@ public class CalculadorHUTrayectos {
     }
 
     public float calcularHUMiembro(Miembro miembro) throws IOException {
-        List<Trayecto> trayectosOrg = this.trayectosDeLaOrg(miembro.getTrayectos());
+        List<Trayecto> trayectosOrg = miembro.trayectosDeLaOrg(this.organizacion);
 
         float huTrayectos = 0f;
         float fe = actividadTrayectos.getTiposConsumo().get(0).getFactorEmision().getValor();
@@ -42,20 +42,6 @@ public class CalculadorHUTrayectos {
             huMiembros += this.calcularHUMiembro(miembro);
         }
         return huMiembros;
-    }
-
-    public List<Trayecto> trayectosDeLaOrg(List<Trayecto> trayectos)
-    {
-        List<Trayecto> trayectosOrg = new ArrayList<>();
-        Punto ubicacionOrg = organizacion.getUbicacion();
-
-        for(Trayecto trayecto : trayectos){
-            if(trayecto.iniciaOTerminaEn(ubicacionOrg)){
-                trayectosOrg.add(trayecto);
-            }
-        }
-
-        return trayectosOrg;
     }
 
     public void setActividadTrayectos(Actividad actividadTrayectos){

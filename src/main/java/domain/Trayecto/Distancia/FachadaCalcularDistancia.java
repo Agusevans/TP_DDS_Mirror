@@ -3,6 +3,7 @@ package domain.Trayecto.Distancia;
 import domain.Trayecto.Punto;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Query;
 
 public interface FachadaCalcularDistancia {
@@ -34,6 +35,7 @@ public interface FachadaCalcularDistancia {
                               @Query("alturaOrigen") int alturaOrigen,
                               @Query("localidadDestinoId") int localidadDestinoId,
                               @Query("calleDestino") String calleDestino,
-                              @Query("alturaDestino") int alturaDestino
+                              @Query("alturaDestino") int alturaDestino,
+                              @Header("Authorization") String authHeader
                               );
 }

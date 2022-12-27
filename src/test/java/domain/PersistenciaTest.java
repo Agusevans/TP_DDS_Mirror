@@ -19,10 +19,10 @@ public class PersistenciaTest {
     public void persistirClases() throws Exception {
 
         Punto ubicOrg = new Punto(1f,1f);
-        Organizacion organizacion = new Organizacion("Palmera",TipoOrg.Empresa,ClasificacionOrg.Pyme,ubicOrg,new SectorTerritorial());
+        Organizacion organizacion = new Organizacion("Palmera",TipoOrg.Empresa,ClasificacionOrg.Pyme,ubicOrg);
 
         Punto ubicMiem = new Punto(2f,2f);
-        Miembro miembro = new Miembro("Juan","Perez","DNI",28956475,ubicMiem);
+        Miembro miembro = new Miembro("Juan","Perez","DNI",28956475);
 
         FactorEmision factor = new FactorEmision(4F,Unidad.m3);
         TipoConsumo tconsumo = new TipoConsumo("Gas Natural", Unidad.m3, factor);
@@ -41,8 +41,6 @@ public class PersistenciaTest {
         Sector sector2 = new Sector("Otra gerencia", "sector re piola de gerencia");
 
         SectorTerritorial sectorT = new SectorTerritorial("Patagonico", TipoSectorTerritorial.departamento);
-        organizacion.setTerritorio(sectorT);
-
         AgenteSectorial agente = new AgenteSectorial("Roberto",sectorT, "test@gmail.com","022022");
 
         organizacion.agregarSector(sector);
@@ -126,10 +124,10 @@ public class PersistenciaTest {
     @Test
     void otroPersist() throws Exception {
         Punto ubicOrg = new Punto(1f,1f);
-        Organizacion organizacion = new Organizacion("Roble",TipoOrg.Empresa,ClasificacionOrg.Pyme,ubicOrg, new SectorTerritorial());
+        Organizacion organizacion = new Organizacion("Roble",TipoOrg.Empresa,ClasificacionOrg.Pyme,ubicOrg);
 
         Punto ubicMiem = new Punto(2f,2f);
-        Miembro miembro = new Miembro("Jose","Lopez","DNI",28956476,ubicMiem);
+        Miembro miembro = new Miembro("Jose","Lopez","DNI",28956476);
 
         Sector sector = new Sector("Gerencia", "sector re piola de gerencia");
 

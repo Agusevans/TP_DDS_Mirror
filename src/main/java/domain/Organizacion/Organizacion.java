@@ -4,13 +4,15 @@ import ar.edu.frba.utn.dds.mihuella.fachada.Medible;
 import com.google.gson.annotations.Expose;
 import domain.*;
 import domain.Actividad.*;
+import domain.Organizacion.Comunicacion.Email;
 import domain.Trayecto.CalculadorHUTrayectos;
 import domain.Trayecto.Punto;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "Organizacion")
@@ -35,19 +37,13 @@ public class Organizacion extends EntidadPersistente{
     private Punto ubicacion;
 
     @Expose
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     @JoinColumn(name = "organizacion_id")
     private List<Sector> sectores;
 
-    //@OneToMany(cascade = CascadeType.ALL)
-    //@JoinColumn(name = "DatosActividad_id", referencedColumnName = "id")
     @Transient
     private List<DatosActividad> datosActividad;
-
-    @Expose
-    @ManyToOne
-    @JoinColumn(name = "Territorio_id", referencedColumnName = "id")
-    private SectorTerritorial territorio;
 
     @Expose
     @ManyToOne
@@ -62,14 +58,13 @@ public class Organizacion extends EntidadPersistente{
         this.datosActividad = new ArrayList<>();
     };
 
-    public Organizacion(String razonSocial, TipoOrg tipo, ClasificacionOrg clasificacion,Punto ubicacion,SectorTerritorial sectorTerritorial) {
+    public Organizacion(String razonSocial, TipoOrg tipo, ClasificacionOrg clasificacion,Punto ubicacion) {
         this.razonSocial = razonSocial;
         this.tipo = tipo;
         this.clasificacion = clasificacion;
         this.ubicacion = ubicacion;
         this.sectores = new ArrayList<>();
         this.datosActividad = new ArrayList<>();
-        this.territorio = sectorTerritorial;
     }
 
     public List<Miembro> obtenerMiembros() {
@@ -165,6 +160,15 @@ public class Organizacion extends EntidadPersistente{
         reporte.mostrarReporte();
     }
 
+    public void removerAgente(){
+        this.agente = null;
+    }
+
+    public void notificarAgente() throws IOException {
+        Email email = new Email();
+        email.notificar(agente,this.obtenerHUTotal());
+    }
+
     //Getters & setters
     public String getRazonSocial() {
         return razonSocial;
@@ -211,10 +215,6 @@ public class Organizacion extends EntidadPersistente{
 
     public void setDatosActividad(List<DatosActividad> da){ this.datosActividad = da;}
     public List<DatosActividad> getDatosActividad(){ return this.datosActividad;}
-
-    public void setTerritorio(SectorTerritorial st){
-        this.territorio = st;
-    }
 
     public CalculadorHUTrayectos getCalculadorHUTrayectos() {
         if ( this.calculadorHUTrayectos == null) {

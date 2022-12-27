@@ -9,6 +9,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.List;
 
 public class RepoActividad extends Repositorio<Actividad> {
 
@@ -33,6 +34,13 @@ public class RepoActividad extends Repositorio<Actividad> {
         actividadQuery.where(condicionNombreActividad);
 
         return new BusquedaCondicional(null, actividadQuery);
+    }
+
+    public void borrarTodas(){
+        List<Actividad> actividades = this.buscarTodos();
+        for (Actividad actividad : actividades) {
+            this.borrar(actividad);
+        }
     }
 
 }

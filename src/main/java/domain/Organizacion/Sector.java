@@ -23,7 +23,7 @@ public class Sector extends EntidadPersistente {
     private String descripcion;
 
     @Expose
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "miembro_sector",
             joinColumns = @JoinColumn(name = "sector_id"),
@@ -47,6 +47,10 @@ public class Sector extends EntidadPersistente {
 
     public void removerMiembro(Miembro miembro){
         this.miembros.remove(miembro);
+    }
+
+    public void removerMiembros(){
+        this.miembros.clear();
     }
 
     public boolean esMiembro(Miembro miembro){ return miembros.contains(miembro); }

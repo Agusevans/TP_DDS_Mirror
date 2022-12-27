@@ -49,7 +49,6 @@ public class DataOrg {
         bruno.setApellido("Rombola");
         bruno.setNroDocumento(12345678);
         bruno.setTipoDocumento("DNI");
-        bruno.setDomicilio(new Punto(123f,123f));
         return bruno;
     }
     private static AgenteSectorial agente(){

@@ -51,18 +51,18 @@ public class LoginController {
             }
 
             else {
-                response.redirect("/login");
+                response.redirect("/");
             }
         } catch (Exception e) {
             //Funcionalidad disponible solo con persistencia en Base de Datos
-            response.redirect("/login");
+            response.redirect("/");
         }
         return response;
     }
 
     public Response logout(Request request, Response response){
         request.session().invalidate();
-        response.redirect("/login");
+        response.redirect("/");
         return response;
     }
 

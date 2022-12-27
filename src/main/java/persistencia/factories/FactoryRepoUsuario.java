@@ -1,7 +1,6 @@
 package persistencia.factories;
 
 import config.Config;
-import domain.Organizacion.Organizacion;
 import domain.Organizacion.Usuario;
 import persistencia.daos.DAO;
 import persistencia.daos.DAOHibernate;

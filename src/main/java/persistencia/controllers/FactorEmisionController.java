@@ -17,15 +17,24 @@ public class FactorEmisionController {
         this.gson = new GsonBuilder().setDateFormat("dd-mm-yyyy").create();
     }
 
-    public Response update(Request request, Response response){
+    public String update(Request request, Response response){
+
+        FactorEmision factorEmision;
+        String json;
+        response.type("application/json");
 
         if (this.repoFactorEmision.buscar(Integer.parseInt(request.params("id"))) != null){
-            FactorEmision factorEmision = gson.fromJson(request.body(),FactorEmision.class);
+            factorEmision = gson.fromJson(request.body(),FactorEmision.class);
             factorEmision.setId(Integer.parseInt(request.params("id")));
             this.repoFactorEmision.actualizar(factorEmision);
+            json = gson.toJson(factorEmision);
+        }
+        else{
+            response.status(400);
+            json = "ERROR: No existe el factor de emision";
         }
 
-        return response;
+        return json;
 
     }
 

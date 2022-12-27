@@ -24,8 +24,8 @@ class OrganizacionTest {
 
     @BeforeEach
     public void init() {
-        pablo = new Miembro("Pablo", "Gomez", "DNI", 12345678,new Punto(1f,2f));
-        jose = new Miembro("Jose", "Paz", "DNI", 87654321,new Punto(2f, 4f));
+        pablo = new Miembro("Pablo", "Gomez", "DNI", 12345678);
+        jose = new Miembro("Jose", "Paz", "DNI", 87654321);
         dev = new Sector("Dev", "Desarrollo apps");
         dev.agregarMiembro(pablo);
         dev.agregarMiembro(jose);
@@ -33,13 +33,13 @@ class OrganizacionTest {
         callcenter = new Sector("Callcenter", "Llamadas");
         callcenter.agregarMiembro(pablo);
 
-        orgEmpresa = new Organizacion("pepito s.a.", TipoOrg.Empresa,ClasificacionOrg.Multinacional, new Punto(1.0f,2.0f),null);
+        orgEmpresa = new Organizacion("pepito s.a.", TipoOrg.Empresa,ClasificacionOrg.Multinacional, new Punto(1.0f,2.0f));
         orgEmpresa.agregarSector(dev);
 
-        orgONG = new Organizacion("ONG", TipoOrg.ONG,ClasificacionOrg.Multinacional, new Punto(2f,5f),null);
+        orgONG = new Organizacion("ONG", TipoOrg.ONG,ClasificacionOrg.Multinacional, new Punto(2f,5f));
         orgONG.agregarSector(callcenter);
 
-        orgSinMiembros = new Organizacion("org sin miembros", TipoOrg.Empresa,ClasificacionOrg.Multinacional, new Punto(4f,-5f),null);
+        orgSinMiembros = new Organizacion("org sin miembros", TipoOrg.Empresa,ClasificacionOrg.Multinacional, new Punto(4f,-5f));
         sectorSinMiembros = new Sector("Sector vacio", "por asignar miembros");
         orgSinMiembros.agregarSector(sectorSinMiembros);
 

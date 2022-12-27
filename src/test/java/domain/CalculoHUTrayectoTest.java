@@ -5,6 +5,7 @@ import domain.Organizacion.Miembro;
 import domain.Organizacion.Organizacion;
 import domain.Organizacion.Sector;
 import domain.Trayecto.*;
+import domain.Trayecto.Distancia.DistanciaAPI;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -49,9 +50,9 @@ class CalculoHUTrayectoTest {
 
         //Miembros
         Punto direccionM1 = new Punto(1f,2f);
-        miembro1 = new Miembro("Juan", "Perez", "DNI", 123, direccionM1);
+        miembro1 = new Miembro("Juan", "Perez", "DNI", 123);
         Punto direccionM2 = new Punto(2f,3f);
-        miembro2 = new Miembro("Pepe", "Pipi", "DNI", 123, direccionM2);
+        miembro2 = new Miembro("Pepe", "Pipi", "DNI", 123);
 
         //Organizacion
         organizacion = new Organizacion();

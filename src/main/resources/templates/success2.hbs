@@ -109,30 +109,12 @@
 
 <!-- BODY -->
 <main class="container">
-    <div class="bg-light p-5 rounded col-12"><h1>Reporte del {{mes}}/{{anio}}</h1>
-
-    <div class="bg-light p-5 rounded col-12">
-        <h3>Organización: {{usuario.organizacion.razonSocial}}</h3><br>
-        {{#each reporte.desgloseSectores}}
-        <h6>Sector: {{sector.nombre}}</h6><br>
-            {{#each mapDesgloseMiembro}}
-                Miembro: {{@key.apellido}}, {{@key.nombre}} -- {{this}} <br>
-            {{/each}}
-            <br>
-        {{/each}}
-        <br><br>
-        {{#each reporte.desgloseActividades}}
-        <h6>Actividad: {{actividad.nombre}}</h6><br>
-            {{#each mapDesgloseTipoConsumo}}
-                Tipo Consumo: {{@key.nombre}} -- {{this}}<br>
-            {{/each}}
-            <br>
-        {{/each}}
-        <br><br>
-        <h6>Resultados finales:</h6><br>
-        HU por mediciones: {{reporte.huMediciones}}<br>
-        HU por trayectos: {{reporte.huTrayectos}}<br>
-        HU total: {{reporte.huTotal}}
+    <div class="bg-light p-5 rounded">
+        <div class="col-12"><h1>Success</h1></div>
+        <div class="col-12"><h3>El trayecto fue eliminado con exito</h3></div>
+        <form action="/index">
+            <input type="submit" value="Volver al index" />
+        </form>
     </div>
 
 </main>

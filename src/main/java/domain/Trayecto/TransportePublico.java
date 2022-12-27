@@ -21,7 +21,7 @@ public class TransportePublico extends MedioTransporte {
     private TipoPublico tipo;
 
     @Expose
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "transporte_id")
     private List<Parada> paradas;
 
@@ -36,6 +36,12 @@ public class TransportePublico extends MedioTransporte {
         this.tipo = tipo;
         this.paradas = paradas;
         this.usaCombustible = true;
+    }
+
+    public TransportePublico(int id, String nombre, List<Parada> paradas){
+        this.id = id;
+        this.nombre = nombre;
+        this.paradas = paradas;
     }
 
     @Override

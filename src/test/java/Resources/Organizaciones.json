@@ -9,17 +9,25 @@
   "sectores": [
     {
       "nombre": "Nucleares",
-      "actividad": "Hacen algo",
+      "descripcion": "Hacen algo",
       "miembros": [
         {
           "nombre": "Megamente",
           "apellido": "Villano",
           "tipoDocumento":"DNI",
-          "nroDocumento":"6873211",
-          "domicilio": {
-            "latitud":7,
-            "longitud":9
-          }
+          "nroDocumento":"6873211"
+        },
+        {
+          "nombre": "miembro2",
+          "apellido": "Villano",
+          "tipoDocumento":"DNI",
+          "nroDocumento":"6873212"
+        },
+        {
+          "nombre": "miembro3",
+          "apellido": "Villano",
+          "tipoDocumento":"DNI",
+          "nroDocumento":"6873213"
         }
       ]
     }

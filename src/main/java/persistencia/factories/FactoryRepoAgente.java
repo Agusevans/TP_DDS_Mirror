@@ -1,13 +1,11 @@
 package persistencia.factories;
 
 import config.Config;
-import domain.Actividad.DatosActividad;
 import domain.Organizacion.AgenteSectorial;
 import persistencia.daos.DAO;
 import persistencia.daos.DAOHibernate;
 import persistencia.daos.DAOMemoria;
 import persistencia.repositorio.RepoAgenteSectorial;
-import persistencia.repositorio.RepoDatosActividad;
 import persistencia.testMemoData.Data;
 
 public class FactoryRepoAgente {

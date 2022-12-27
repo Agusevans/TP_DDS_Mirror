@@ -17,6 +17,7 @@ public class MedioTransporte extends EntidadPersistente {
     @Column
     public String nombre;
 
+    @Expose
     @Column
     public boolean usaCombustible;
 
@@ -30,12 +31,8 @@ public class MedioTransporte extends EntidadPersistente {
     }
 
     public float calcularDistancia(Punto puntoInicio, Punto puntoFin) throws IOException {
-
-        //TODO: Arreglar conexion con API Distancia
-        //Distancia distancia = DistanciaAPI.getInstancia().distancia(1,"a",1,1,"a",1);
-        //return Float.parseFloat(distancia.valor);
-
-        return puntoInicio.distanciaAPunto(puntoFin);
+        Distancia distancia = DistanciaAPI.getInstancia().distancia(1, "a", 1, 1, "a", 1);
+        return Float.parseFloat(distancia.valor);
     }
 
     public String getNombre() {

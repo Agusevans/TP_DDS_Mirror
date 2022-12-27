@@ -1,21 +1,23 @@
 package domain;
 
 import domain.Organizacion.AgenteSectorial;
-import domain.Organizacion.Comunicacion.Email;
-import org.junit.Assert;
+import domain.Organizacion.Organizacion;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
 
 public class EmailTest {
 
     @Test
-    public void enviarMail(){
+    public void enviarMail() throws IOException {
 
         AgenteSectorial agenteSectorial = new AgenteSectorial();
         agenteSectorial.setEmail("javiquintana99@hotmail.com");
 
-        Email email = new Email();
-        email.notificar(agenteSectorial,12.3f);
+        Organizacion organizacion = new Organizacion();
 
-        //TODO: Probar que se envio el mail
+        agenteSectorial.agregarOrganizaciones(organizacion);
+        agenteSectorial.obtenerHCTerritorial();
+
     }
 }

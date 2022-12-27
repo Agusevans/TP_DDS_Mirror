@@ -2,6 +2,7 @@ package domain.Trayecto;
 
 import com.google.gson.annotations.Expose;
 import domain.EntidadPersistente;
+import domain.Organizacion.Organizacion;
 
 import javax.persistence.*;
 import java.io.IOException;
@@ -13,7 +14,7 @@ import java.util.List;
 public class Trayecto extends EntidadPersistente {
 
     @Expose
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "trayecto_id")
     private List<Tramo> tramos;
 
@@ -67,6 +68,18 @@ public class Trayecto extends EntidadPersistente {
         return this.puntoInicio().coincideCon(punto) || this.puntoFinal().coincideCon(punto);
     }
 
+    public boolean perteneceALaOrg(Organizacion org){
+        return this.iniciaOTerminaEn(org.getUbicacion());
+    }
+
+    public void sumarIntegrante(){
+        this.integrantes++;
+    }
+
+    public void restarIntegrante(){
+        this.integrantes--;
+    }
+
     public boolean esCompartido(){
         return this.integrantes >= 2;
     }
@@ -76,10 +89,6 @@ public class Trayecto extends EntidadPersistente {
     }
 
     public void setTramos(List<Tramo> tramos) { this.tramos = tramos; }
-
-    public void sumarIntegrante(){
-        this.integrantes++;
-    }
 
     public void agregarTramo(Tramo tramo){
         this.tramos.add(tramo);

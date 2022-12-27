@@ -38,16 +38,26 @@ public class  RepoDatosActividad extends Repositorio<DatosActividad>{
         return result;
     }
 
-    //Base para filtro
+    //Filtro paginado
     public List<DatosActividad> filter(Request request){
         CriteriaBuilder criteriaBuilder = EntityManagerHelper.getEntityManager().getCriteriaBuilder();
         CriteriaQuery<DatosActividad> criteriaQuery = criteriaBuilder.createQuery(DatosActividad.class);
         Root<DatosActividad> root = criteriaQuery.from(DatosActividad.class);
 
         List<Predicate> predicatesList = new ArrayList<>();
-        predicatesList.add(criteriaBuilder.equal(root.get("actividad_id"), Integer.parseInt(request.queryParams("actividad_id"))));
-        predicatesList.add(criteriaBuilder.equal(root.get("medicion_id"), Integer.parseInt(request.queryParams("medicion_id"))));
-        predicatesList.add(criteriaBuilder.equal(root.get("periodoDeImputacion"), Date.valueOf(request.queryParams("periodoDeImputacion"))));
+
+        if(request.queryParams("actividad_id") != null){
+            predicatesList.add(criteriaBuilder.equal(root.get("actividad").get("id"), Integer.parseInt(request.queryParams("actividad_id"))));
+        }
+
+        if(request.queryParams("tipoConsumo_id") != null){
+            predicatesList.add(criteriaBuilder.equal(root.get("medicion").get("tipoConsumo").get("id"), Integer.parseInt(request.queryParams("tipoConsumo_id"))));
+        }
+
+        if(request.queryParams("periodoDeImputacion") != null){
+            predicatesList.add(criteriaBuilder.equal(root.get("periodoDeImputacion"), LocalDate.parse(request.queryParams("periodoDeImputacion"))));
+        }
+
         Predicate[] finalPredicates = new Predicate[predicatesList.size()];
         predicatesList.toArray(finalPredicates);
         criteriaQuery.where(finalPredicates);
@@ -55,25 +65,8 @@ public class  RepoDatosActividad extends Repositorio<DatosActividad>{
 
         List<DatosActividad> result = EntityManagerHelper.getEntityManager()
                 .createQuery(criteriaQuery)
-                .getResultList();
-
-        return result;
-    }
-
-    public List<DatosActividad> filterDate(int año, int mes, int idOrg){ //TODO: Hacer bien el filtro
-        CriteriaBuilder criteriaBuilder = EntityManagerHelper.getEntityManager().getCriteriaBuilder();
-        CriteriaQuery<DatosActividad> criteriaQuery = criteriaBuilder.createQuery(DatosActividad.class);
-        Root<DatosActividad> root = criteriaQuery.from(DatosActividad.class);
-
-        List<Predicate> predicatesList = new ArrayList<>();
-        //filtro por fecha
-        predicatesList.add(criteriaBuilder.between(root.get("periodoDeImputacion"), LocalDate.of(año,mes,1), LocalDate.of(año,mes,31)));
-        Predicate[] finalPredicates = new Predicate[predicatesList.size()];
-        predicatesList.toArray(finalPredicates);
-        criteriaQuery.where(finalPredicates);
-
-        List<DatosActividad> result = EntityManagerHelper.getEntityManager()
-                .createQuery(criteriaQuery)
+                .setMaxResults(Integer.parseInt(request.queryParams("limit")))
+                .setFirstResult(Integer.parseInt(request.queryParams("offset")))
                 .getResultList();
 
         return result;

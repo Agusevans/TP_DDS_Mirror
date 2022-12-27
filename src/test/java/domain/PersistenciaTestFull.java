@@ -16,36 +16,36 @@ public class PersistenciaTestFull {
     @Test
     public void persistirClases() throws Exception {
 
-        //Miembros: 3 * 3 * 3 //TODO: Diferenciar ubicaciones
-        Miembro miembro1 = new Miembro("Juan","Perez","DNI",28956475,new Punto(4f,4f));
-        Miembro miembro2 = new Miembro("Agustin","Evans","DNI",28956476,new Punto(4f,4f));
-        Miembro miembro3 = new Miembro("Esteban","Quintana","DNI",28956477,new Punto(4f,4f));
-        Miembro miembro4 = new Miembro("Federico","Macias","DNI",28956478,new Punto(4f,4f));
-        Miembro miembro5 = new Miembro("Bruno","Rombola","DNI",28956479,new Punto(4f,4f));
-        Miembro miembro6 = new Miembro("Alan","Aisicovich","DNI",28956480,new Punto(4f,4f));
-        Miembro miembro7 = new Miembro("pepito","Quintana","DNI",28956481,new Punto(4f,4f));
-        Miembro miembro8 = new Miembro("juancito","Evans","DNI",28956482,new Punto(4f,4f));
-        Miembro miembro9 = new Miembro("ezequiel","sosa","DNI",28956483,new Punto(4f,4f));
+        //Miembros: 3 * 3 * 3
+        Miembro miembro1 = new Miembro("miembro1","apellido1","DNI",28956475);
+        Miembro miembro2 = new Miembro("miembro2","apellido2","DNI",28956476);
+        Miembro miembro3 = new Miembro("miembro3","apellido3","DNI",28956477);
+        Miembro miembro4 = new Miembro("miembro4","apellido4","DNI",28956478);
+        Miembro miembro5 = new Miembro("miembro5","apellido5","DNI",28956479);
+        Miembro miembro6 = new Miembro("miembro6","apellido6","DNI",28956480);
+        Miembro miembro7 = new Miembro("miembro7","apellido7","DNI",28956481);
+        Miembro miembro8 = new Miembro("miembro8","apellido8","DNI",28956482);
+        Miembro miembro9 = new Miembro("miembro9","apellido9","DNI",28956483);
 
-        Miembro miembro10 = new Miembro("Santiago","Perez","DNI",28956484,new Punto(4f,4f));
-        Miembro miembro11 = new Miembro("Mateo","Evans","DNI",28956485,new Punto(4f,4f));
-        Miembro miembro12 = new Miembro("Matías","Quintana","DNI",28956486,new Punto(4f,4f));
-        Miembro miembro13 = new Miembro("Nicolás","Evans","DNI",28956487,new Punto(4f,4f));
-        Miembro miembro14 = new Miembro("Benjamín","Quintana","DNI",28956488,new Punto(4f,4f));
-        Miembro miembro15 = new Miembro("Pedro","Evans","DNI",28956489,new Punto(4f,4f));
-        Miembro miembro16 = new Miembro("Tomás","Quintana","DNI",28956490,new Punto(4f,4f));
-        Miembro miembro17 = new Miembro("Thiago ","Evans","DNI",28956491,new Punto(4f,4f));
-        Miembro miembro18 = new Miembro("Santino","Quintana","DNI",28956492,new Punto(4f,4f));
+        Miembro miembro10 = new Miembro("miembro10","apellido10","DNI",28956484);
+        Miembro miembro11 = new Miembro("miembro11","apellido11","DNI",28956485);
+        Miembro miembro12 = new Miembro("miembro12","apellido12","DNI",28956486);
+        Miembro miembro13 = new Miembro("miembro13","apellido13","DNI",28956487);
+        Miembro miembro14 = new Miembro("miembro14","apellido14","DNI",28956488);
+        Miembro miembro15 = new Miembro("miembro15","apellido15","DNI",28956489);
+        Miembro miembro16 = new Miembro("miembro16","apellido16","DNI",28956490);
+        Miembro miembro17 = new Miembro("miembro17","apellido17","DNI",28956491);
+        Miembro miembro18 = new Miembro("miembro18","apellido18","DNI",28956492);
 
-        Miembro miembro19 = new Miembro("Sofía","Perez","DNI",28956493,new Punto(4f,4f));
-        Miembro miembro20 = new Miembro("María","Evans","DNI",28956494,new Punto(4f,4f));
-        Miembro miembro21 = new Miembro("Lucía","Quintana","DNI",28956495,new Punto(4f,4f));
-        Miembro miembro22 = new Miembro("Martina","Evans","DNI",28956496,new Punto(4f,4f));
-        Miembro miembro23 = new Miembro("Catalina","Quintana","DNI",28956497,new Punto(4f,4f));
-        Miembro miembro24 = new Miembro("Elena","Evans","DNI",28956498,new Punto(4f,4f));
-        Miembro miembro25 = new Miembro("Emilia","Quintana","DNI",28956499,new Punto(4f,4f));
-        Miembro miembro26 = new Miembro("Valentina","Evans","DNI",28956500,new Punto(4f,4f));
-        Miembro miembro27 = new Miembro("Paula ","Quintana","DNI",28956501,new Punto(4f,4f));
+        Miembro miembro19 = new Miembro("miembro19","apellido19","DNI",28956493);
+        Miembro miembro20 = new Miembro("miembro20","apellido20","DNI",28956494);
+        Miembro miembro21 = new Miembro("miembro21","apellido21","DNI",28956495);
+        Miembro miembro22 = new Miembro("miembro22","apellido22","DNI",28956496);
+        Miembro miembro23 = new Miembro("miembro23","apellido23","DNI",28956497);
+        Miembro miembro24 = new Miembro("miembro24","apellido24","DNI",28956498);
+        Miembro miembro25 = new Miembro("miembro25","apellido25","DNI",28956499);
+        Miembro miembro26 = new Miembro("miembro26","apellido26","DNI",28956500);
+        Miembro miembro27 = new Miembro("miembro27","apellido27","DNI",28956501);
 
         //Sectores: 3 * 3
         Sector sector1 = new Sector("Gerencia", "sector re piola de gerencia");
@@ -65,9 +65,9 @@ public class PersistenciaTestFull {
         AgenteSectorial agente = new AgenteSectorial("Agente",territorio,"javiquintana99@hotmail.com","mensual");
 
         //Organizaciones: 3
-        Organizacion organizacion1 = new Organizacion("Palmera",TipoOrg.Empresa,ClasificacionOrg.Pyme,new Punto(1f,1f),territorio);
-        Organizacion organizacion2 = new Organizacion("Arbolito",TipoOrg.Empresa,ClasificacionOrg.Multinacional,new Punto(2f,2f),territorio);
-        Organizacion organizacion3 = new Organizacion("UTN",TipoOrg.Institucion,ClasificacionOrg.Universidad,new Punto(3f,3f),territorio);
+        Organizacion organizacion1 = new Organizacion("Palmera",TipoOrg.Empresa,ClasificacionOrg.Pyme,new Punto(1f,1f));
+        Organizacion organizacion2 = new Organizacion("Arbolito",TipoOrg.Empresa,ClasificacionOrg.Multinacional,new Punto(2f,2f));
+        Organizacion organizacion3 = new Organizacion("UTN",TipoOrg.Institucion,ClasificacionOrg.Universidad,new Punto(3f,3f));
 
         organizacion1.agregarSectores(sector1,sector2,sector3);
         organizacion2.agregarSectores(sector4,sector5,sector6);
@@ -179,9 +179,14 @@ public class PersistenciaTestFull {
         miembro5.agregarTrayecto(trayecto4);
         miembro6.agregarTrayecto(trayecto4);
 
+        //Batch mediciones
+        LectorCSV lector = new LectorCSV("src\\test\\java\\Resources\\csvprueba.csv",",");
+        List<Actividad> actividades = new ArrayList<>(Arrays.asList(actTrayectos, combFija, combMovil, electricidad));
+        BatchDatosActividad batch = lector.leerBatch(actividades);
+        batch.setOrganizacion(organizacion1);
+
         //Persistencia
         EntityManagerHelper.beginTransaction();
-        EntityManagerHelper.getEntityManager().persist(territorio);
         EntityManagerHelper.getEntityManager().persist(agente);
         EntityManagerHelper.getEntityManager().persist(organizacion1);
         EntityManagerHelper.getEntityManager().persist(organizacion2);
@@ -198,23 +203,8 @@ public class PersistenciaTestFull {
         EntityManagerHelper.getEntityManager().persist(bici);
         EntityManagerHelper.getEntityManager().persist(colectivo1);
         EntityManagerHelper.getEntityManager().persist(colectivo2);
-        EntityManagerHelper.commit();
-    }
-
-    @Test
-    public void persistirMedicionesAOrg1(){
-
-        LectorCSV lector = new LectorCSV("src\\test\\java\\Resources\\csvprueba.csv",",");
-        BatchDatosActividad batch = lector.leerBatch();
-
-        String query = "from Organizacion where id = 1";
-        Organizacion org1 = EntityManagerHelper.getEntityManager().createQuery(query,Organizacion.class).getSingleResult();
-        batch.setOrganizacion(org1);
-
-        EntityManagerHelper.beginTransaction();
         EntityManagerHelper.getEntityManager().persist(batch);
         EntityManagerHelper.commit();
-
     }
 
 }

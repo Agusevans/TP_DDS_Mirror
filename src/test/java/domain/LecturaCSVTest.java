@@ -8,29 +8,16 @@ import org.junit.jupiter.api.Test;
 import persistencia.EntityManagerHelper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 class LecturaCSVTest {
     private LectorCSV lector;
+    private List<Actividad> actividades;
 
     @BeforeEach
     public void init(){
         this.lector = new LectorCSV("src\\test\\java\\Resources\\csvprueba.csv",",");
-    }
-    @Test
-    void Leer(){
-
-        this.lector.leerMediciones();
-
-        this.lector.mediciones.forEach(medicion-> {
-            System.out.println("Medicion: " + medicion.getValor());
-        });
-
-    }
-
-    @Test
-    void persistirActividadesALeer(){
-        //Para el test, luego siempre se debe contemplar que existan las actividades en la base de datos antes de cargar el batch
 
         FactorEmision factor = new FactorEmision(4F, Unidad.m3);
         TipoConsumo tconsumo = new TipoConsumo("Gas natural", Unidad.m3, factor);
@@ -50,20 +37,24 @@ class LecturaCSVTest {
         consumoList3.add(tconsumo3);
         Actividad electr = new Actividad("Electricidad adquirida y consumida", consumoList3, Alcance.Directa);
 
-        EntityManagerHelper.beginTransaction();
+        actividades = new ArrayList<>(Arrays.asList(combFija, combMovil, electr));
 
-        EntityManagerHelper.getEntityManager().persist(combFija);
-        EntityManagerHelper.getEntityManager().persist(combMovil);
-        EntityManagerHelper.getEntityManager().persist(electr);
-
-        EntityManagerHelper.commit();
-
+        try{
+            EntityManagerHelper.getEntityManager().getTransaction().begin();
+            EntityManagerHelper.getEntityManager().persist(combFija);
+            EntityManagerHelper.getEntityManager().persist(combMovil);
+            EntityManagerHelper.getEntityManager().persist(electr);
+            EntityManagerHelper.getEntityManager().getTransaction().commit();
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
     void mostarLecturas(){
 
-        BatchDatosActividad batch = this.lector.leerBatch();
+        BatchDatosActividad batch = this.lector.leerBatch(actividades);
 
         System.out.println("Mediciones leidas:");
         for(DatosActividad datos: batch.getDatosAct()){
@@ -79,7 +70,7 @@ class LecturaCSVTest {
 
     @Test
     void persistirBatch(){
-        BatchDatosActividad batch = this.lector.leerBatch();
+        BatchDatosActividad batch = this.lector.leerBatch(actividades);
         Organizacion org = new Organizacion();
         batch.setOrganizacion(org);
 
@@ -95,7 +86,7 @@ class LecturaCSVTest {
                 "Electricidad adquirida y consumida,Electricidad,2000,Mensual,2022-02-05\r\n" +
                 "Combustion movil,Gasoil,1000,Anual,2022-02-07";
 
-        BatchDatosActividad batch = lector.leerBatchDeString(csv);
+        BatchDatosActividad batch = lector.leerBatchDeString(csv, actividades);
         System.out.println("Mediciones leidas:");
         for(DatosActividad datos: batch.getDatosAct()){
             System.out.println(

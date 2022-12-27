@@ -2,6 +2,7 @@ package persistencia.repositorio;
 
 import domain.Actividad.BatchDatosActividad;
 import domain.Actividad.DatosActividad;
+import domain.Organizacion.Organizacion;
 import persistencia.EntityManagerHelper;
 import persistencia.daos.DAO;
 
@@ -44,6 +45,28 @@ public class RepoBatch extends Repositorio<BatchDatosActividad>{
         }
 
         return datosActividad;
+    }
+
+
+    public void borrarBatchsDeOrg(Organizacion org) {
+        CriteriaBuilder criteriaBuilder = EntityManagerHelper.getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<BatchDatosActividad> criteriaQuery = criteriaBuilder.createQuery(BatchDatosActividad.class);
+        Root<BatchDatosActividad> root = criteriaQuery.from(BatchDatosActividad.class);
+
+        List<Predicate> predicatesList = new ArrayList<>();
+        predicatesList.add(criteriaBuilder.equal(root.get("organizacion").get("id"), org.getId()));
+        Predicate[] finalPredicates = new Predicate[predicatesList.size()];
+        predicatesList.toArray(finalPredicates);
+        criteriaQuery.where(finalPredicates);
+
+        List<BatchDatosActividad> result = EntityManagerHelper.getEntityManager()
+                .createQuery(criteriaQuery)
+                .getResultList();
+
+        for (BatchDatosActividad batch : result) {
+            this.borrar(batch);
+        }
+
     }
 
 }

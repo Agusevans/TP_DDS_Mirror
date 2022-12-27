@@ -82,7 +82,7 @@ public class DistanciaAPI {
                                String calleDestino,
                                int alturaDestino) throws IOException {
         FachadaCalcularDistancia serviceDistancia = this.retrofit.create(FachadaCalcularDistancia.class);
-        Call<Distancia> requestDistancia = serviceDistancia.distancia(localidadOrigenId, calleOrigen, alturaOrigen, localidadDestinoId, calleDestino, alturaDestino);
+        Call<Distancia> requestDistancia = serviceDistancia.distancia(localidadOrigenId, calleOrigen, alturaOrigen, localidadDestinoId, calleDestino, alturaDestino, "Bearer By4KlRdZrTwxG5oRIBUXLuKwk2ZzwzWYbYZlGifB4Tc=");
         Response<Distancia> responseDistancia = requestDistancia.execute();
         return responseDistancia.body();
     }

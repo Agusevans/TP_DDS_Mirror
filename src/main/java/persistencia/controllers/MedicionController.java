@@ -2,6 +2,7 @@ package persistencia.controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import domain.Lectores.GsonHelper;
 import domain.Lectores.LectorCSV;
 import domain.Actividad.*;
 import domain.Organizacion.Organizacion;
@@ -35,7 +36,7 @@ public class MedicionController {
         this.repoTipoConsumo = FactoryRepositorio.get(TipoConsumo.class);
         this.repoUsuario = FactoryRepoUsuario.get();
         this.repoOrganizacion = FactoryRepositorio.get(Organizacion.class);
-        this.gson = new GsonBuilder().setDateFormat("dd-mm-yyyy").create();
+        this.gson = new GsonHelper().newGson();
     }
 
     private void asignarUsuarioSiEstaLogueado(Request request, Map<String, Object> parametros){
@@ -47,15 +48,8 @@ public class MedicionController {
         }
     }
 
-    public ModelAndView load(Request request, Response response){
-        Map<String, Object> parametros = new HashMap<>();
-        asignarUsuarioSiEstaLogueado(request, parametros);
-        return new ModelAndView(parametros, "carga_mediciones.hbs");
-    }
-
     public ModelAndView reporte(Request request, Response response){
         Map<String, Object> parametros = new HashMap<>();
-        //TODO faltan los params de mes y anio
         return new ModelAndView(parametros, "reporte.hbs");
     }
 
@@ -70,7 +64,6 @@ public class MedicionController {
     public String listMed(Request request, Response response){
         List<DatosActividad> listMed = repoDatosActividad.list(Integer.parseInt(request.queryParams("offset")), Integer.parseInt(request.queryParams("limit")));
 
-
         String jsonOrg = gson.toJson(listMed);
 
         response.type("application/json");
@@ -78,31 +71,58 @@ public class MedicionController {
     }
 
     //Batch
-    public Response batchAlta(Request request, Response response) throws Exception {
+    public String batchAlta(Request request, Response response) {
+
+        String json;
+        response.type("application/json");
 
         LectorCSV lectorCSV = new LectorCSV();
-        BatchDatosActividad batchDatosActividad = lectorCSV.leerBatchDeString(request.body());
+        List<Actividad> actividades = this.repoActividad.buscarTodos();
+        BatchDatosActividad batchDatosActividad = lectorCSV.leerBatchDeString(request.body(), actividades);
 
         Organizacion org = this.repoOrganizacion.buscar(Integer.parseInt(request.queryParams("OrgId")));
 
-        if(org != null)
+        if(org != null) {
             batchDatosActividad.setOrganizacion(org);
-        else
-            throw new Exception("Se debe indicar la organizacion a la que se quiere cargar el batch");
+            this.repoBatch.agregar(batchDatosActividad);
+            json = "Mensaje: Se cargo correctamente el batch con id: " + batchDatosActividad.getId();
+        }
+        else {
+            response.status(400);
+            json = "ERROR: No existe la organizacion";
+        }
 
-        this.repoBatch.agregar(batchDatosActividad);
-
-        return response;
+        return json;
     }
-    public Response batchBaja(Request request, Response response){
+    public String batchBaja(Request request, Response response){
         BatchDatosActividad batchDatosActividad = this.repoBatch.buscar(Integer.parseInt(request.params("id")));
 
-        if( batchDatosActividad != null)
-            this.repoBatch.borrar(batchDatosActividad);
-        else
-            throw new RuntimeException("No existe el batch con id: " + request.params("id"));
+        String json;
+        response.type("application/json");
 
-        return response;
+        if( batchDatosActividad != null){
+            json = "Mensaje: Se borro correctamente el batch con id: " + batchDatosActividad.getId();
+            this.repoBatch.borrar(batchDatosActividad);
+        }
+        else {
+            response.status(400);
+            json = "ERROR: No existe el batch";
+        }
+
+        return json;
+    }
+
+    public String leerBatch(Request request, Response response){
+        BatchDatosActividad batchDatosActividad = this.repoBatch.buscar(Integer.parseInt(request.params("id")));
+
+        response.type("application/json");
+
+        if( batchDatosActividad == null) {
+            response.status(400);
+            return  "ERROR: No existe el batch";
+        }
+
+        return gson.toJson(batchDatosActividad.getDatosAct());
     }
 
     public ModelAndView calculoHU(Request request, Response response) throws IOException {
@@ -120,7 +140,7 @@ public class MedicionController {
             organizacion.setActividadTrayectos(actividadTrayectos);
         }
         catch(Exception e){
-            throw new RuntimeException("No se encontro la actividad de trayectos");
+            response.status(500);
         }
 
         List<DatosActividad> listMed = repoBatch.filterDAs(anio, mes, organizacion.getId());
@@ -143,6 +163,10 @@ public class MedicionController {
         int mes = Integer.parseInt(request.queryParams("mes"));
 
         Organizacion organizacion = this.repoOrganizacion.buscar(Integer.parseInt(request.params("id")));
+        if (organizacion == null) {
+            response.status(400);
+            return "ERROR: No existe la organizacion";
+        }
 
         Actividad actividadTrayectos;
         try{
@@ -150,7 +174,8 @@ public class MedicionController {
             organizacion.setActividadTrayectos(actividadTrayectos);
         }
         catch(Exception e){
-            throw new RuntimeException("No se encontro la actividad de trayectos");
+            response.status(500);
+            return "ERROR: No se pudo encontrar la actividad de trayectos";
         }
 
         List<DatosActividad> listMed = repoBatch.filterDAs(anio, mes, organizacion.getId());
@@ -158,7 +183,8 @@ public class MedicionController {
 
         ReporteHU reporte = organizacion.obtenerReporteHU();
 
-        response.type("String");
+        response.type("application/json");
+
         return reporte.reporteAString();
     }
 

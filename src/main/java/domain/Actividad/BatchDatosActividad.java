@@ -3,6 +3,9 @@ package domain.Actividad;
 import com.google.gson.annotations.Expose;
 import domain.EntidadPersistente;
 import domain.Organizacion.Organizacion;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +15,8 @@ import java.util.List;
 public class BatchDatosActividad extends EntidadPersistente {
 
     @Expose
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     @JoinColumn(name = "batch_id")
     private List<DatosActividad> datosAct;
 

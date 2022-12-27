@@ -2,12 +2,9 @@ package domain;
 
 import ar.edu.frba.utn.dds.mihuella.fachada.FachadaOrg;
 import ar.edu.frba.utn.dds.mihuella.fachada.Medible;
-import domain.Actividad.Actividad;
-import domain.Actividad.Medicion;
 import domain.Organizacion.Organizacion;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 public class ImplementadorFachadaOrg implements FachadaOrg {
@@ -20,7 +17,11 @@ public class ImplementadorFachadaOrg implements FachadaOrg {
 
     @Override
     public void cargarParametros(Map<String, Float> parametrosSistema) {
-        //TODO: Ver como cargar los parametors y que parametros serian
+        //asumo (actividad/tipoConsumo, FE), pero al sacarlos del JSON ya no se usa
+    }
+
+    public Organizacion getOrganizacion() {
+        return organizacion;
     }
 
     @Override

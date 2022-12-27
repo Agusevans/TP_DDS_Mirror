@@ -16,7 +16,7 @@ public class Actividad extends EntidadPersistente {
     private String nombre;
 
     @Expose
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "actividad_id")
     private List<TipoConsumo> tiposConsumo;
 

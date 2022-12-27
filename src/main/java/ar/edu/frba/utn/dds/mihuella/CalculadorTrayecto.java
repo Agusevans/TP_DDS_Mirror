@@ -1,19 +1,31 @@
 package ar.edu.frba.utn.dds.mihuella;
 
-//TODO terminar programa de consola Trayectos
+import domain.Actividad.*;
+import domain.Lectores.LectorCSV;
+import domain.Lectores.LectorJSON_String;
+import domain.Organizacion.Organizacion;
+import domain.Trayecto.MedioTransporte;
+import net.sourceforge.argparse4j.ArgumentParsers;
+import net.sourceforge.argparse4j.inf.ArgumentParser;
+import net.sourceforge.argparse4j.inf.ArgumentParserException;
+import net.sourceforge.argparse4j.inf.Namespace;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class CalculadorTrayecto {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-
-        /*ArgumentParser parser = ArgumentParsers.newFor("Checksum").build()
+        ArgumentParser parser = ArgumentParsers.newFor("Checksum").build()
                 .defaultHelp(true)
                 .description("Calculate checksum of given files.");
         parser.addArgument("-m", "--datosOrg").required(true)
                 .help("Archivo de datos organizaciones");
         parser.addArgument("-p", "--trayectos").required(true)
                 .help("Archivo con trayectos");
-        parser.addArgument("-p", "--transportes").required(true)
+        parser.addArgument("-q", "--transportes").required(true)
                 .help("Archivo con transportes y paradas");
         Namespace ns = null;
         try {
@@ -23,23 +35,26 @@ public class CalculadorTrayecto {
             System.exit(1);
         }
 
-
         System.out.println("Archivo de datos organizaciones " + ns.get("datosOrg"));
         System.out.println("Archivo con trayectos: " + ns.get("trayectos"));
         System.out.println("Archivo con transportes y paradas: " + ns.get("transportes"));
 
+        // calculo HU por trayectos:
+        LectorJSON_String lectorJson = new LectorJSON_String();
+        LectorCSV lectorCSV = new LectorCSV(ns.get("trayectos"),",");
 
-        // calcular huella de las actividades y el total
-        LectorArchivos lectorCSV = new LectorCSV(ns.get("trayectos"), ',');
-        LectorArchivos lectorJSONOrg = new LectorJSON(ns.get("datosOrg" ...));
-        LectorArchivos lectorJSONTrasporte = new LectorJSON(ns.get("transportes" ...));
+        Organizacion org = lectorJson.leerOrganizacion(ns.get("datosOrg"));
+        List<MedioTransporte> transportes = lectorJson.leerMediosTransporte(ns.get("transportes"));
+        lectorCSV.leerYAgregarTrayectos(org.obtenerMiembros(),transportes);
 
-        ImplementadorFachadaOrg fachadaOrg = new ImplementadorFachadaOrg(new Organizacion());
+        //se deberia sacar de un JSON, pero para probar sirve
+        TipoConsumo consumo = new TipoConsumo("trayectos", Unidad.km,new FactorEmision(2f,Unidad.km));
+        List<TipoConsumo> consumos =new ArrayList<>();
+        consumos.add(consumo);
+        Actividad actTrayectos = new Actividad("trayectos", consumos, Alcance.NoControladas);
 
-        Collection<Medible> trayectos = lectorCSV.leerMediciones();
-        Float huellaCarbono = fachadaOrg.obtenerHU(trayectos);
-
-        System.out.println("Huella de carbono: " + huellaCarbono);
-    }*/
+        org.setActividadTrayectos(actTrayectos);
+        org.mostrarReporteHU();
     }
+
 }

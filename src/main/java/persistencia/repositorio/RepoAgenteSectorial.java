@@ -2,6 +2,7 @@ package persistencia.repositorio;
 
 import domain.Organizacion.AgenteSectorial;
 import domain.Organizacion.Miembro;
+import domain.Organizacion.Organizacion;
 import persistencia.BusquedaCondicional;
 import persistencia.daos.DAO;
 
@@ -33,5 +34,28 @@ public class RepoAgenteSectorial extends Repositorio<AgenteSectorial> {
         agenteQuery.where(predicado);
 
         return new BusquedaCondicional(null, agenteQuery);
+    }
+
+    public void quitarOrganizacion(Organizacion org, AgenteSectorial agente){
+        agente.quitarOrganizacion(org);
+        this.actualizar(agente);
+    }
+
+    public void actualizarAgente(AgenteSectorial agenteViejo, AgenteSectorial agenteNuevo){
+        if(agenteNuevo.getNombre() != null)
+            agenteViejo.setNombre(agenteNuevo.getNombre());
+        if(agenteNuevo.getEmail() != null)
+            agenteViejo.setEmail(agenteNuevo.getEmail());
+        if(agenteNuevo.getPeriodo() != null)
+            agenteViejo.setPeriodo(agenteNuevo.getPeriodo());
+
+        this.actualizar(agenteViejo);
+    }
+
+    public void borrarTodos(){
+        List<AgenteSectorial> agentes = this.buscarTodos();
+        for (AgenteSectorial agente : agentes) {
+            this.borrar(agente);
+        }
     }
 }

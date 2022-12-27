@@ -94,7 +94,6 @@ public class DataSectores {
         miembro1.setId(1);
         miembro1.setNombre("Juan");
         miembro1.setApellido("Perez");
-        miembro1.setDomicilio(new Punto(10f, 100f));
         //miembro1.agregarTrayecto(setTrayectos1().get(0));
         miembro1.agregarOrganizacion(null);
         miembro1.setNroDocumento(363636363);
@@ -103,7 +102,6 @@ public class DataSectores {
         miembro2.setId(2);
         miembro2.setNombre("Juana");
         miembro2.setApellido("Perezala");
-        miembro2.setDomicilio(new Punto(101f, 12f));
         //miembro2.agregarTrayecto(setTrayectos2().get(0));
         miembro2.agregarOrganizacion(null);
         miembro2.setNroDocumento(367070703);
@@ -111,7 +109,6 @@ public class DataSectores {
         miembro3.setId(1);
         miembro3.setNombre("Marta");
         miembro3.setApellido("Mientres");
-        miembro3.setDomicilio(new Punto(110f, -100f));
         miembro3.agregarTrayecto(null);
         miembro3.agregarOrganizacion(null);
         miembro3.setNroDocumento(33002022);
@@ -131,7 +128,6 @@ public class DataSectores {
         miembro1.setId(4);
         miembro1.setNombre("Juan");
         miembro1.setApellido("Perez");
-        miembro1.setDomicilio(new Punto(10f, 100f));
         // miembro1.agregarTrayecto(setTrayectos3().get(0));
         miembro1.agregarOrganizacion(null);
         miembro1.setNroDocumento(363636363);
@@ -140,7 +136,6 @@ public class DataSectores {
         miembro2.setId(5);
         miembro2.setNombre("Juana");
         miembro2.setApellido("Perezala");
-        miembro2.setDomicilio(new Punto(101f, 12f));
         //   miembro2.agregarTrayecto(setTrayectos4().get(0));
         miembro2.agregarOrganizacion(null);
         miembro2.setNroDocumento(367070703);
@@ -148,7 +143,6 @@ public class DataSectores {
         miembro3.setId(6);
         miembro3.setNombre("Marta");
         miembro3.setApellido("Mientres");
-        miembro3.setDomicilio(new Punto(110f, -100f));
         miembro3.agregarTrayecto(null);
         miembro3.agregarOrganizacion(null);
         miembro3.setNroDocumento(33002022);
@@ -168,21 +162,18 @@ public class DataSectores {
         miembro3.setId(7);
         miembro3.setNombre("Juan");
         miembro3.setApellido("Perez");
-        miembro3.setDomicilio(new Punto(10f, 100f));
         miembro3.agregarOrganizacion(null);
         miembro3.setNroDocumento(363636363);
 
         miembro3.setId(8);
         miembro3.setNombre("Juana");
         miembro3.setApellido("Perezala");
-        miembro3.setDomicilio(new Punto(101f, 12f));
         miembro3.agregarOrganizacion(null);
         miembro3.setNroDocumento(367070703);
 
         miembro3.setId(9);
         miembro3.setNombre("Marta");
         miembro3.setApellido("Mientres");
-        miembro3.setDomicilio(new Punto(110f, -100f));
         miembro3.agregarTrayecto(null);
         miembro3.agregarOrganizacion(null);
         miembro3.setNroDocumento(33002022);
@@ -198,7 +189,7 @@ public class DataSectores {
 
         ArrayList<Trayecto> trayectos1 = new ArrayList<Trayecto>();
         Trayecto trayecto = new Trayecto();
-        trayecto.agregarTramo(new Tramo(new MedioTransporte("a pie"),miembros.get(1).getDomicilio(),setParada110().get(1).getPunto()));
+        trayecto.agregarTramo(new Tramo(new MedioTransporte("a pie"),new Punto(1f,1f),setParada110().get(1).getPunto()));
         trayecto.agregarTramo(new Tramo(new TransportePublico("Colectivo","110",TipoPublico.colectivo,setParada110()),setParada110().get(1).getPunto(),setParada110().get(4).getPunto()));
         trayectos1.add(trayecto);
         return trayectos1;
@@ -229,7 +220,7 @@ public class DataSectores {
         ArrayList<Trayecto> trayectos4 = new ArrayList<Trayecto>();
 
         Trayecto trayecto = new Trayecto();
-        trayecto.agregarTramo(new Tramo(new TransporteContratado(TipoContratado.taxi),miembros.get(2).getDomicilio(),UbicacionList().get(1)));
+        trayecto.agregarTramo(new Tramo(new TransporteContratado(TipoContratado.taxi),new Punto(1f,1f),UbicacionList().get(1)));
         trayectos4.add(trayecto);
         return trayectos4;
     }
@@ -239,7 +230,7 @@ public class DataSectores {
         ArrayList<Trayecto> trayectos5 = new ArrayList<Trayecto>();
 
         Trayecto trayecto = new Trayecto();
-        trayecto.agregarTramo(new Tramo(new TransporteContratado(TipoContratado.remis),miembros.get(1).getDomicilio(),UbicacionList().get(2)));
+        trayecto.agregarTramo(new Tramo(new TransporteContratado(TipoContratado.remis),new Punto(1f,1f),UbicacionList().get(2)));
         trayectos5.add(trayecto);
         return trayectos5;
     }
@@ -249,7 +240,7 @@ public class DataSectores {
         ArrayList<Trayecto> trayectos6 = new ArrayList<Trayecto>();
 
         Trayecto trayecto = new Trayecto();
-        trayecto.agregarTramo(new Tramo(new MedioTransporte("bicicleta"),miembros.get(1).getDomicilio(),UbicacionList().get(2)));
+        trayecto.agregarTramo(new Tramo(new MedioTransporte("bicicleta"),new Punto(1f,1f),UbicacionList().get(2)));
         trayectos6.add(trayecto);
         return trayectos6;
     }
